@@ -1,9 +1,11 @@
 import 'package:begara_mobile/blocks/login/login_bloc.dart';
 import 'package:begara_mobile/blocks/login/login_event.dart';
 import 'package:begara_mobile/blocks/login/login_state.dart';
+import 'package:begara_mobile/blocks/profile/profile_bloc.dart';
 import 'package:begara_mobile/blocks/register/register_bloc.dart';
 import 'package:begara_mobile/blocks/register/register_event.dart';
 import 'package:begara_mobile/blocks/register/register_state.dart';
+import 'package:begara_mobile/profile.dart';
 import 'package:begara_mobile/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,7 +114,16 @@ class Login extends StatelessWidget{
                   BlocProvider.of<LogBloc>(context).add(
                      LogEvent(user_name.text,password.text)   
                       );
-                }, child: state is Logingin? CircularProgressIndicator() : state is LoginSuccess? Text("Logged in",style: TextStyle(color: Colors.green),): state is LoginFailed? Text("Failed",style: TextStyle(color: Colors.red),):Text("Login")),
+                }, child: state is Logingin? CircularProgressIndicator() : state is LoginSuccess?((){
+                  Navigator.of(context).push(
+  MaterialPageRoute<Profile>(
+    builder: (context) {
+   return  BlocProvider<ProfileBloc>(
+            create: (context) => ProfileBloc(),
+        child: Profile(),
+      );}));
+                })()
+                 : state is LoginFailed? Text("Failed",style: TextStyle(color: Colors.red),):Text("Login")),
                
               ],
              )

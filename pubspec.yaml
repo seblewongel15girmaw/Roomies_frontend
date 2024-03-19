@@ -38,6 +38,7 @@ dependencies:
   bloc:
   flutter_bloc:
   http:
+  shared_preferences: 
 
 dev_dependencies:
   flutter_test:

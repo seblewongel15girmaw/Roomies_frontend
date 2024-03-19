@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:begara_mobile/blocks/sharedPreference.dart';
 import 'package:http/http.dart' as http;
 import 'package:begara_mobile/blocks/login/login_event.dart';
 import 'package:begara_mobile/blocks/login/login_state.dart';
@@ -25,7 +26,14 @@ class LogBloc extends Bloc<LogEvent,LogState>{
       },
       body: jsonEncode(postData),
     );
-    if (response.statusCode==201){
+    if (response.statusCode==200){
+      final jsonResponse = json.decode(response.body);
+      final id= jsonResponse['userId'].toString();
+      final token=jsonResponse['token'];
+      SharedPreferencesService.setString("id",id);
+      SharedPreferencesService.setString("token",token);
+      
+      print("the token is : ${token}");
       emit(LoginSuccess());
     }
     else {
