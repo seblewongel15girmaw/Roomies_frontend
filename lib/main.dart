@@ -1,4 +1,11 @@
+import 'package:begara_mobile/blocks/login/login_bloc.dart';
+import 'package:begara_mobile/blocks/profile/profile_bloc.dart';
+import 'package:begara_mobile/blocks/register/register_bloc.dart';
+import 'package:begara_mobile/login.dart';
+import 'package:begara_mobile/profile.dart';
+import 'package:begara_mobile/register.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -30,8 +38,23 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+      
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home:  MultiBlocProvider(
+        providers: [
+          BlocProvider<RegBloc>(
+            create: (context) => RegBloc(),
+          ),
+         BlocProvider<ProfileBloc>(
+            create: (context) => ProfileBloc(),
+          ),
+          BlocProvider<LogBloc>(
+            create: (context) => LogBloc(),
+          ),
+        ],
+        child: Login(), // Wrap your initial widget with BlocProvider<LogBloc>
+      ),
+      
     );
   }
 }
