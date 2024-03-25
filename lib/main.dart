@@ -1,6 +1,8 @@
 import 'package:begara_mobile/blocks/login/login_bloc.dart';
 import 'package:begara_mobile/blocks/profile/profile_bloc.dart';
+import 'package:begara_mobile/blocks/register/password_visiblity_bloc.dart';
 import 'package:begara_mobile/blocks/register/register_bloc.dart';
+import 'package:begara_mobile/blocks/sharedPreference.dart';
 import 'package:begara_mobile/login.dart';
 import 'package:begara_mobile/profile.dart';
 import 'package:begara_mobile/register.dart';
@@ -16,48 +18,48 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      
-      ),
-      home:  MultiBlocProvider(
-        providers: [
-          BlocProvider<RegBloc>(
-            create: (context) => RegBloc(),
+ Widget build(BuildContext context) {
+  return FutureBuilder<bool?>(
+    future: SharedPreferencesService.containsKey("token"),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        // While waiting for the future to resolve, show a loading indicator or splash screen.
+        return CircularProgressIndicator(); // Replace with your preferred loading indicator or splash screen.
+      } else if (snapshot.hasError) {
+        // If an error occurred while fetching data, handle it here.
+        return Text('Error: ${snapshot.error}');
+      } else {
+        // Data fetched successfully, use the result to determine the initial page.
+        bool? isLoggedIn = snapshot.data;
+        return MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
           ),
-         BlocProvider<ProfileBloc>(
-            create: (context) => ProfileBloc(),
+          home: MultiBlocProvider(
+            providers: [
+              BlocProvider<RegBloc>(
+                create: (context) => RegBloc(),
+              ),
+              BlocProvider<ProfileBloc>(
+                create: (context) => ProfileBloc(),
+              ),
+              BlocProvider<LogBloc>(
+                create: (context) => LogBloc(),
+              ),
+              BlocProvider<PassBloc>(
+                create: (context) => PassBloc(),
+              )
+            ],
+            child: isLoggedIn == true ? Login() : Register(), // Render either Profile or Login based on the fetched value
           ),
-          BlocProvider<LogBloc>(
-            create: (context) => LogBloc(),
-          ),
-        ],
-        child: Login(), // Wrap your initial widget with BlocProvider<LogBloc>
-      ),
-      
-    );
-  }
-}
+        );
+      }
+    },
+  );
+}}
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});

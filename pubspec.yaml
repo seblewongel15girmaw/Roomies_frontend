@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc:
   http:
   shared_preferences: 
+  email_validator: '^2.1.16'
 
 dev_dependencies:
   flutter_test:
