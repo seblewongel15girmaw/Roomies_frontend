@@ -1,4 +1,5 @@
 import 'package:begara_mobile/blocks/login/login_bloc.dart';
+import 'package:begara_mobile/blocks/profile/profile_bloc.dart';
 import 'package:begara_mobile/blocks/register/password_visiblity_bloc.dart';
 import 'package:begara_mobile/blocks/register/password_visiblity_event.dart';
 import 'package:begara_mobile/blocks/register/password_visiblity_state.dart';
@@ -6,6 +7,7 @@ import 'package:begara_mobile/blocks/register/register_bloc.dart';
 import 'package:begara_mobile/blocks/register/register_event.dart';
 import 'package:begara_mobile/blocks/register/register_state.dart';
 import 'package:begara_mobile/login.dart';
+import 'package:begara_mobile/profile.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +29,16 @@ class Register extends StatelessWidget{
 
    return Scaffold(
     backgroundColor: Colors.black,
-    body: BlocBuilder<RegBloc,RegState> (
+    body: BlocConsumer<RegBloc,RegState> (
+      listener: (context,state){
+                    Navigator.of(context).push(
+                   MaterialPageRoute<Profile>(
+                     builder: (context) {
+                    return  BlocProvider<ProfileBloc>(
+                             create: (context) => ProfileBloc(),
+                         child: Profile(),
+                       );}));
+                   },
       builder: (context,state) {
         return SingleChildScrollView(
           child: Column(

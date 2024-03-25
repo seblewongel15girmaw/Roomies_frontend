@@ -28,7 +28,16 @@ class Login extends StatelessWidget{
 
    return Scaffold(
     backgroundColor: Colors.black,
-    body: BlocBuilder<LogBloc,LogState> (
+    body: BlocConsumer<LogBloc,LogState> (
+      listener: (context,state){
+                    Navigator.of(context).push(
+                   MaterialPageRoute<Profile>(
+                     builder: (context) {
+                    return  BlocProvider<ProfileBloc>(
+                             create: (context) => ProfileBloc(),
+                         child: Profile(),
+                       );}));
+                   },
       builder: (context,state) {
         return SingleChildScrollView(
           child: Column(
@@ -111,7 +120,7 @@ class Login extends StatelessWidget{
                           if (value==Null || value!.isEmpty){
                             return "this field can not be null";
                           }
-                         else if (value.length<5){
+                         else if (value.length<1){
                             return "password should be longer than 4 characters";
                           }
                         },
@@ -153,15 +162,9 @@ class Login extends StatelessWidget{
                       if(_formKey.currentState!.validate()){BlocProvider.of<LogBloc>(context).add(
                          LogEvent(user_name.text,password.text)   
                           );}
-                    }, child: state is Logingin? CircularProgressIndicator() : state is LoginSuccess?((){
-                      Navigator.of(context).push(
-                   MaterialPageRoute<Profile>(
-                     builder: (context) {
-                    return  BlocProvider<ProfileBloc>(
-                             create: (context) => ProfileBloc(),
-                         child: Profile(),
-                       );}));
-                    })()
+                    }, child: state is Logingin? CircularProgressIndicator() : state is LoginSuccess?Text(
+                      "Success",style: TextStyle(color: Colors.green)
+                    )
                      : state is LoginFailed? Text("Failed",style: TextStyle(color: Colors.red),):Text("Login")),
                    
                   ],
