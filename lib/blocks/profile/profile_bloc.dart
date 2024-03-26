@@ -19,11 +19,12 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
     
   const String uri="http://localhost:3000/api/users/1/profile";
   final Map <String,dynamic> postData= {
-    "age":event.age,
+  "age":event.age,
   "bio":event.bio,
-  "phoneNumber":event.phoneNumber,
+  "phone_number":event.phoneNumber,
   "address":event.address,
-  "jobStatus":event.jobStatus
+  "job_status":event.jobStatus,
+  "gender":event.gender
   };
   emit(Creating());
   try{
@@ -38,7 +39,7 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
       emit(CreateSuccess());
     }
     else {
-      
+      print("we are here folks there is definetly a problem");
       emit(CreateFailed());
     }
   }

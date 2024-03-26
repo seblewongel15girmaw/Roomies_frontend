@@ -10,7 +10,15 @@ class LogBloc extends Bloc<LogEvent,LogState>{
   LogBloc(): super(Idle()){
     on<LogEvent>(_loginClicked);
   }
-
+Map<String, dynamic> decodeJwt(String token) {
+  final parts = token.split('.');
+  if (parts.length != 3) {
+    throw Exception('Invalid token');
+  }
+  final payload = parts[1];
+  final String decoded = utf8.decode(base64Url.decode(base64Url.normalize(payload)));
+  return json.decode(decoded);
+}
   void _loginClicked(LogEvent event, Emitter emit) async{
     final String uri="http://localhost:3000/api/users/login";
   final Map <String,dynamic> postData= {
@@ -28,13 +36,19 @@ class LogBloc extends Bloc<LogEvent,LogState>{
     );
     if (response.statusCode==200){
       final jsonResponse = json.decode(response.body);
-      final id= jsonResponse['userId'].toString();
+      // final id= jsonResponse['userId'].toString();
       final token=jsonResponse['token'];
-      SharedPreferencesService.setString("id",id);
+      Map<String, dynamic> decodedToken = decodeJwt(token);
+      final id=decodedToken["userId"];
+      
+      SharedPreferencesService.setString("id",id.toString());
       SharedPreferencesService.setString("token",token);
       
       print("the token is : ${token}");
       emit(LoginSuccess());
+    }
+    else if(response.statusCode==500){
+      print("internal server error");
     }
     else {
       final jsonResponse = json.decode(response.body);

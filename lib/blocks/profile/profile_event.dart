@@ -4,5 +4,6 @@ class ProfileEvent{
   String phoneNumber;
   String address;
   String jobStatus;
-  ProfileEvent(this.address,this.bio,this.phoneNumber,this.age,this.jobStatus ); 
+  String gender;
+  ProfileEvent(this.address,this.bio,this.phoneNumber,this.age,this.jobStatus,this.gender ); 
 }
