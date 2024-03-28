@@ -1,3 +1,5 @@
+import 'package:image_picker/image_picker.dart';
+
 class ProfileEvent{
   int age;
   String bio;
@@ -5,5 +7,6 @@ class ProfileEvent{
   String address;
   String jobStatus;
   String gender;
-  ProfileEvent(this.address,this.bio,this.phoneNumber,this.age,this.jobStatus,this.gender ); 
+  XFile image;
+  ProfileEvent(this.address,this.bio,this.phoneNumber,this.age,this.jobStatus,this.gender,this.image); 
 }

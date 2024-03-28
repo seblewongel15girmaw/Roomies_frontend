@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:begara_mobile/blocks/profile/gender_bloc.dart';
 import 'package:begara_mobile/blocks/profile/gender_event.dart';
 import 'package:begara_mobile/blocks/profile/gender_state.dart';
+import 'package:begara_mobile/blocks/profile/image_bloc.dart';
+import 'package:begara_mobile/blocks/profile/image_event.dart';
+import 'package:begara_mobile/blocks/profile/image_state.dart';
 import 'package:begara_mobile/blocks/profile/profile_bloc.dart';
 import 'package:begara_mobile/blocks/profile/profile_event.dart';
 import 'package:begara_mobile/blocks/profile/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatelessWidget {
   TextEditingController address= TextEditingController();
@@ -13,6 +19,7 @@ class Profile extends StatelessWidget {
   TextEditingController age=TextEditingController();
   TextEditingController jobStatus=TextEditingController();
   TextEditingController bio=TextEditingController();
+  XFile? image;
   String gender="";
   @override
   Widget build(BuildContext context) {
@@ -29,12 +36,34 @@ class Profile extends StatelessWidget {
                   height: 100,
                 ),
                 Center(
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: <Widget>[
-                      Icon(Icons.account_circle,size:100,color: Color.fromARGB(255, 187, 148, 48),),
-                      Icon(Icons.camera_alt_outlined, size: 20, color: Color.fromARGB(255, 217, 148, 48),)
-                    ],
+                  child: BlocConsumer<ImageBloc,ImageState>(
+                    listener: (context,state){
+                      if(state is ImageSelected){
+                        image=state.image;
+                      }
+                    },
+                    builder: (context,state) {
+                      return Stack(
+                        alignment: Alignment.bottomRight,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(top: 3),
+                            child:state is ImageSelected? Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(image: FileImage(File(state.image!.path)),fit:BoxFit.fill  )
+                              ),
+                            ):Icon(Icons.account_circle,size:100,color: Color.fromARGB(255, 187, 148, 48),),
+                          ),
+                          IconButton(icon:Icon(Icons.camera_alt_outlined, size: 20, color: Color.fromARGB(255, 217, 148, 48)) ,
+                          onPressed: (){
+                            BlocProvider.of<ImageBloc>(context).add(SelectEvent());
+                          },)
+                        ],
+                      );
+                    }
                   ),
                 ),
                 SizedBox(
@@ -177,7 +206,7 @@ class Profile extends StatelessWidget {
                           ),
                           onPressed: (){
                                          BlocProvider.of<ProfileBloc>(context).add(
-                       ProfileEvent(address.text,bio.text,phoneNumber.text,int.parse(age.text),jobStatus.text,gender)   
+                       ProfileEvent(address.text,bio.text,phoneNumber.text,int.parse(age.text),jobStatus.text,gender,image!)   
                         );
                                          }, child: state is Creating? CircularProgressIndicator() : state is CreateSuccess?
             

@@ -40,6 +40,9 @@ dependencies:
   http:
   shared_preferences: 
   email_validator: '^2.1.16'
+  image_picker:
+  http_parser: ^4.0.2
+  mime:
 
 dev_dependencies:
   flutter_test:

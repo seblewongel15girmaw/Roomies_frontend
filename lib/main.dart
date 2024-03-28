@@ -1,5 +1,6 @@
 import 'package:begara_mobile/blocks/login/login_bloc.dart';
 import 'package:begara_mobile/blocks/profile/gender_bloc.dart';
+import 'package:begara_mobile/blocks/profile/image_bloc.dart';
 import 'package:begara_mobile/blocks/profile/profile_bloc.dart';
 import 'package:begara_mobile/blocks/register/password_visiblity_bloc.dart';
 import 'package:begara_mobile/blocks/register/register_bloc.dart';
@@ -55,6 +56,9 @@ class MyApp extends StatelessWidget {
               ),
               BlocProvider<RadioBloc>(
                 create: (context) => RadioBloc(),
+              ),
+              BlocProvider<ImageBloc>(
+                create: (context) => ImageBloc(),
               )
             ],
             child: isLoggedIn == true ? Profile() : Login(), // Render either Profile or Login based on the fetched value
