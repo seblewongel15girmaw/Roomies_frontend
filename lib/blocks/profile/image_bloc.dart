@@ -14,6 +14,10 @@ class ImageBloc extends Bloc<SelectEvent,ImageState> {
    final picker = ImagePicker(); 
    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
    if(pickedFile!=null){
+    if(event.type=="profile"){
    emit(ImageSelected(pickedFile));}
+   else if(event.type=="id"){
+    emit(IdSelected(pickedFile));
+   }}
   }
 }

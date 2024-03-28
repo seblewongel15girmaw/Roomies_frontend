@@ -7,6 +7,8 @@ class ProfileEvent{
   String address;
   String jobStatus;
   String gender;
+  int budget;
   XFile image;
-  ProfileEvent(this.address,this.bio,this.phoneNumber,this.age,this.jobStatus,this.gender,this.image); 
+  XFile image2;
+  ProfileEvent(this.address,this.bio,this.phoneNumber,this.age,this.jobStatus,this.gender,this.image, this.budget,this.image2); 
 }

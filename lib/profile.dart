@@ -19,7 +19,9 @@ class Profile extends StatelessWidget {
   TextEditingController age=TextEditingController();
   TextEditingController jobStatus=TextEditingController();
   TextEditingController bio=TextEditingController();
+  TextEditingController budget=TextEditingController();
   XFile? image;
+  XFile? image2;
   String gender="";
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class Profile extends StatelessWidget {
                           ),
                           IconButton(icon:Icon(Icons.camera_alt_outlined, size: 20, color: Color.fromARGB(255, 217, 148, 48)) ,
                           onPressed: (){
-                            BlocProvider.of<ImageBloc>(context).add(SelectEvent());
+                            BlocProvider.of<ImageBloc>(context).add(SelectEvent("profile"));
                           },)
                         ],
                       );
@@ -103,18 +105,30 @@ class Profile extends StatelessWidget {
                           ),
                         ),
                       ),
-                  
+                      Padding(
+                        padding: EdgeInsets.only(left: 30,right: 30),
+                        child: TextFormField(
+                          controller: budget,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.money),
+                            prefixIconColor:Color.fromARGB(255, 187, 148, 48), 
+                            labelText: "Budget",
+                          ),
+                        ),
+                      ),
+
                        Padding(
                         padding: EdgeInsets.only(left: 30,right: 30),
                         child: TextFormField(
                           controller: jobStatus,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.cases),
+                            prefixIcon: Icon(Icons.money),
                             prefixIconColor:Color.fromARGB(255, 187, 148, 48), 
                             labelText: "Job Status",
                           ),
                         ),
                       ),
+            
             
                       SizedBox(
                         height: 20,
@@ -123,7 +137,7 @@ class Profile extends StatelessWidget {
                         padding: EdgeInsets.only(left: 30, right:30),
                         child: Text("Gender", style: TextStyle(fontSize: 17,color: Colors.white),),
                       ),
-                     
+                       
                       Padding(
                         padding: EdgeInsets.only(left: 40,right: 30),
                         child: BlocBuilder<RadioBloc,RadioState> (
@@ -163,6 +177,43 @@ class Profile extends StatelessWidget {
                           }
                         ),
                       ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 40,right: 30),
+                       child: BlocConsumer<ImageBloc,ImageState>(
+                        listener: (context,state){
+                          if (state is IdSelected){
+                            image2=state.image2;
+                          }
+                        },
+                         builder: (context,state) {
+                           return ElevatedButton(
+                             style: ElevatedButton.styleFrom(
+                               fixedSize: Size(500 ,20),
+                               backgroundColor:state is IdSelected?Color.fromARGB(255, 241, 216, 152) : Color.fromARGB(255, 187, 148, 48),
+                               foregroundColor: Colors.black,
+                               shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0), // Adjust the value as needed
+                                ),
+                             )
+                             ,onPressed: (){
+                              BlocProvider.of<ImageBloc>(context).add(
+                                SelectEvent("id")
+                              );
+                             }, child: 
+                           Row(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: <Widget>[
+                               Icon(Icons.upload),
+                               Text("Upload Id")
+                             ],
+                           ));
+                         }
+                       ),
+                     ),
+                      
                       
                       SizedBox(
                         height: 20,
@@ -206,7 +257,7 @@ class Profile extends StatelessWidget {
                           ),
                           onPressed: (){
                                          BlocProvider.of<ProfileBloc>(context).add(
-                       ProfileEvent(address.text,bio.text,phoneNumber.text,int.parse(age.text),jobStatus.text,gender,image!)   
+                       ProfileEvent(address.text,bio.text,phoneNumber.text,int.parse(age.text),jobStatus.text,gender,image!,int.parse(budget.text),image2!)   
                         );
                                          }, child: state is Creating? CircularProgressIndicator() : state is CreateSuccess?
             
