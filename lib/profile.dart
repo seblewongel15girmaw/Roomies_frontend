@@ -23,6 +23,8 @@ class Profile extends StatelessWidget {
   XFile? image;
   XFile? image2;
   String gender="";
+  bool profileSelected=false;
+  bool idSelected=false;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -50,18 +52,19 @@ class Profile extends StatelessWidget {
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(top: 3),
-                            child:state is ImageSelected? Container(
+                            child:profileSelected? Container(
                               width: 100,
                               height: 100,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                image: DecorationImage(image: FileImage(File(state.image!.path)),fit:BoxFit.fill  )
+                                image: DecorationImage(image: FileImage(File(image!.path)),fit:BoxFit.fill  )
                               ),
                             ):Icon(Icons.account_circle,size:100,color: Color.fromARGB(255, 187, 148, 48),),
                           ),
                           IconButton(icon:Icon(Icons.camera_alt_outlined, size: 20, color: Color.fromARGB(255, 217, 148, 48)) ,
                           onPressed: (){
-                            BlocProvider.of<ImageBloc>(context).add(SelectEvent("profile"));
+                            profileSelected=true;
+                            BlocProvider.of<ImageBloc>(context).add(ProfileClicked());
                           },)
                         ],
                       );
@@ -122,7 +125,7 @@ class Profile extends StatelessWidget {
                         child: TextFormField(
                           controller: jobStatus,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.money),
+                            prefixIcon: Icon(Icons.cases),
                             prefixIconColor:Color.fromARGB(255, 187, 148, 48), 
                             labelText: "Job Status",
                           ),
@@ -192,15 +195,16 @@ class Profile extends StatelessWidget {
                            return ElevatedButton(
                              style: ElevatedButton.styleFrom(
                                fixedSize: Size(500 ,20),
-                               backgroundColor:state is IdSelected?Color.fromARGB(255, 241, 216, 152) : Color.fromARGB(255, 187, 148, 48),
+                               backgroundColor:idSelected?Color.fromARGB(255, 241, 216, 152) : Color.fromARGB(255, 187, 148, 48),
                                foregroundColor: Colors.black,
                                shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(0), // Adjust the value as needed
                                 ),
                              )
                              ,onPressed: (){
+                              idSelected=true;
                               BlocProvider.of<ImageBloc>(context).add(
-                                SelectEvent("id")
+                                IdClicked()
                               );
                              }, child: 
                            Row(
@@ -249,7 +253,7 @@ class Profile extends StatelessWidget {
                          child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(200, 20),
-                            backgroundColor: Color.fromARGB(255, 187, 148, 48),
+                            backgroundColor:state is CreateSuccess?Colors.green: Color.fromARGB(255, 187, 148, 48),
                             foregroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
                                borderRadius: BorderRadius.circular(0), // Adjust the value as needed
@@ -261,7 +265,7 @@ class Profile extends StatelessWidget {
                         );
                                          }, child: state is Creating? CircularProgressIndicator() : state is CreateSuccess?
             
-                   Text("Success",style: TextStyle(color: Colors.green),):state is CreateFailed? Text("Failed",style: TextStyle(color: Colors.red),):Text("Next")),
+                   Text("Success",):state is CreateFailed? Text("Failed",style: TextStyle(color: Colors.red),):Text("Next")),
                        ),
             
               ],
