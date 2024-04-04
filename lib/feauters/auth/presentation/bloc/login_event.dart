@@ -1,5 +1,5 @@
 class LogEvent {
   String userName;
   String password;
-  LogEvent(this.userName,this.password);
+  LogEvent(this.userName, this.password);
 }
