@@ -1,9 +1,9 @@
-import 'package:begara_mobile/feauters/auth/presentation/bloc/login_bloc.dart';
-import 'package:begara_mobile/feauters/auth/presentation/bloc/login_event.dart';
-import 'package:begara_mobile/feauters/auth/presentation/bloc/login_state.dart';
-import 'package:begara_mobile/feauters/auth/presentation/bloc/others_bloc.dart';
-import 'package:begara_mobile/feauters/auth/presentation/bloc/others_event.dart';
-import 'package:begara_mobile/feauters/auth/presentation/bloc/others_state.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/login/login_bloc.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/login/login_event.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/login/login_state.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/others/censor/censor_bloc.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/others/censor/censor_event.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/others/censor/censor_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -1,8 +1,7 @@
-
 import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 import 'package:begara_mobile/feauters/auth/domain/repository/userRepository.dart';
-import 'package:begara_mobile/feauters/auth/presentation/bloc/profile_event.dart';
-import 'package:begara_mobile/feauters/auth/presentation/bloc/profile_state.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_event.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
