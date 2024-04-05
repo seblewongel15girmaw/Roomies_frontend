@@ -14,10 +14,9 @@ class ProfileBloc extends Bloc<ProfileEvent,ProfileState>{
     UserEntity user= UserEntity(age: event.age, bio: event.bio, phoneNumber: event.phoneNumber,
     address: event.address, jobStatus: event.jobStatus,gender: event.gender, budget: event.budget 
     );
-    print("the user is ${user}");
     final response=await userRepo.createProfile(user,event.image,event.image2);
     emit(Creating());
-    if(response==201){
+    if(response==200){
       emit(CreateSuccess());
     }
     else {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:begara_mobile/blocks/sharedPreference.dart';
+import 'package:begara_mobile/core/util/sharedPreference.dart';
 import 'package:begara_mobile/core/util/image_upload.dart';
 import 'package:begara_mobile/feauters/auth/data/model/user.dart';
 import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';

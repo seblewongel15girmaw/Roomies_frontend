@@ -30,7 +30,7 @@ Future<int> uploadImage(XFile imageFile,XFile imageFile2, Map<String, dynamic> p
     imageUploadRequest.fields['address'] = postData['address'];
     imageUploadRequest.fields['job_status'] = postData['job_status'];
     imageUploadRequest.fields['gender'] = postData['gender'];
-    imageUploadRequest.fields['budget'] = postData['budget'];
+    imageUploadRequest.fields['budget'] = postData['budget'].toString();
     imageUploadRequest.headers['Authorization'] = 'Bearer $token';}
     catch(e){
       print("some error ${e} occured");
