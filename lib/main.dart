@@ -1,7 +1,9 @@
 import 'package:begara_mobile/config/routes.dart';
+import 'package:begara_mobile/injectionContainer.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  await init();
   runApp(const MyApp());
 }
 

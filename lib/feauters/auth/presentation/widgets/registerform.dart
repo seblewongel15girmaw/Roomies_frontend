@@ -119,7 +119,10 @@ class RegisterForm extends StatelessWidget{
                       SizedBox(
                         height: 50,
                       ),
-                      BlocBuilder<RegBloc,RegisterState>(
+                      BlocConsumer<RegBloc,RegisterState>(
+                        listener: (context, state) {
+                          Navigator.pushNamed(context, "/profile");
+                        },
                         builder: (context,state) {
                           return ElevatedButton(
                             style: ElevatedButton.styleFrom(
