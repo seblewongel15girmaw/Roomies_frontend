@@ -18,8 +18,8 @@ class CreateProfile implements UseCase<int, Params>{
 
 class Params extends Equatable{
   UserEntity user;
-  XFile profileImage;
-  XFile id;
+  XFile? profileImage;
+  XFile? id;
   Params({required this.user, required this.profileImage, required this.id});
   
   @override

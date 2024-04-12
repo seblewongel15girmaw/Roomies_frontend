@@ -14,7 +14,7 @@ class UserRepositoryImpl implements UserRepo{
   final Network network;
   UserRepositoryImpl(this.userDataSources, this.userLocalDataSources,this.network);
   @override
-  Future<Either<Errors, int>> createProfile(UserEntity user, XFile profileImage, XFile id) async {
+  Future<Either<Errors, int>> createProfile(UserEntity user, XFile? profileImage, XFile? id) async {
     try{
     network.isConnected;
     return Right(await userDataSources.createProfile(user, profileImage, id));}

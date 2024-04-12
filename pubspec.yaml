@@ -47,6 +47,7 @@ dependencies:
   dartz:
   connectivity_plus:
   get_it: ^7.6.7
+  flutter_mapbox_autocomplete:
 
 
 dev_dependencies:

@@ -5,5 +5,5 @@ import 'package:dartz/dartz.dart';
 abstract class UserRepo{
   Future<Either<Errors, int>> createUser(UserEntity user);
   Future<Either<Errors,int>> loginUser(String userName, String password, );
-  Future<Either<Errors,int>> createProfile(UserEntity user, XFile profileImage, XFile id);
+  Future<Either<Errors,int>> createProfile(UserEntity user, XFile? profileImage, XFile? id);
 }
