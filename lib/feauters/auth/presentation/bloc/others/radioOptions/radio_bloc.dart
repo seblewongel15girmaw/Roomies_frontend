@@ -9,13 +9,6 @@ class RadioBloc extends Bloc<RadioEvent,RadioState>{
   }
 
   FutureOr<void> _changeGenderClicked(RadioEvent event, Emitter emit) {
-    emit(Idle());
-    if (event.gender=="female"){
-      emit(FemaleSelected());
-    }
-    else
-    {
-      emit(MaleSelected());
-    }
+   emit(Selected());
   }
 }
