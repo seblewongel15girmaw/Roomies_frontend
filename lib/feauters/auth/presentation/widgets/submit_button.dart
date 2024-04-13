@@ -47,22 +47,26 @@ class SubmitButton extends StatelessWidget {
   }
 
   Color _getBackgroundColor(dynamic state) {
-    if (state == progress) {
+    if (state.runtimeType == progress) {
+     
       return Colors.grey;
-    } else if (state == success) {
+    } else if (state.runtimeType == success) {
+      
       return Colors.green;
-    } else if (state == fail) {
+    } else if (state.runtimeType == fail) {
+      
       return Colors.red;
     }
+    
     return Color.fromARGB(255, 187, 148, 48); // Default color
   }
 
   Widget _buildButtonContent(dynamic state) {
-    if (state == progress) {
+    if (state.runtimeType == progress) {
       return CircularProgressIndicator();
-    } else if (state == success) {
+    } else if (state.runtimeType == success) {
       return Text("Success");
-    } else if (state == fail) {
+    } else if (state.runtimeType == fail) {
       return Text("Failed");
     }
     return Text(buttonText);
