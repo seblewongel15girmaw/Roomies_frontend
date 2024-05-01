@@ -1,7 +1,8 @@
 import 'package:begara_mobile/core/util/validators.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/login/login.dart';
+import 'package:begara_mobile/feauters/auth/presentation/widgets/switch_screen_button.dart';
 import 'package:begara_mobile/feauters/auth/presentation/widgets/text_fields.dart';
-import 'package:begara_mobile/feauters/auth/presentation/widgets/submit_buttons.dart';
+import 'package:begara_mobile/feauters/auth/presentation/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,34 +18,19 @@ class LoginPage extends StatelessWidget {
           height: 20,
         ),
         Align(
-          alignment: Alignment.topLeft,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, "/register");
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(25),
-                      bottomRight: Radius.circular(25)),
-                  color: Colors.amber),
-              height: 50,
-              width: 120,
-              child: Center(
-                  child: Text(
-                "Register",
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              )),
-            ),
-          ),
-        ),
+            alignment: Alignment.topLeft,
+            child: SwitchScreen(
+              pageRoute: "/register",
+              buttonName: "Register",
+              direction: "right",
+            )),
         SizedBox(
           height: 30,
         ),
         Icon(
           Icons.account_circle,
           size: 100,
-          color: Colors.amber,
+          color:  Color.fromARGB(255, 187, 148, 48)
         ),
         Form(
           key: _formKey,
@@ -58,7 +44,7 @@ class LoginPage extends StatelessWidget {
                   prefixIcon: Icons.person,
                   validator: nameValidator,
                 ),
-                PasswordFormField(controller: password, labelText: "Password"),
+                PasswordFormField(controller: password, labelText: "Password",validator: passwordValidator,),
                 SizedBox(height: 50),
                 SubmitButton(
                     bloc: BlocProvider.of<LogBloc>(context),

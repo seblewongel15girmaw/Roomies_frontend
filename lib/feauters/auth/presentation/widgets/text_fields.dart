@@ -20,9 +20,10 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
+      validator: validator,
       controller: controller,
       decoration: InputDecoration(
+        
         prefixIcon: Icon(prefixIcon),
         prefixIconColor: prefixIconColor,
         labelText: labelText,

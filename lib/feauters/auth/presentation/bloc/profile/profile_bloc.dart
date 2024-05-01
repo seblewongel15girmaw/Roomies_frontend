@@ -1,6 +1,5 @@
 import 'package:begara_mobile/core/util/locations.dart';
 import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
-import 'package:begara_mobile/feauters/auth/domain/repository/userRepository.dart';
 import 'package:begara_mobile/feauters/auth/domain/usecases/create_profile.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_event.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_state.dart';
@@ -13,6 +12,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   void _createProfileClicked(ProfileEvent event, Emitter emit) async {
+    emit(Creating());
+    if(event.image==null){
+      emit(CreateFailed(error: "please upload a profile pic ",causingImage: "image"));
+    }else if(event.image2==null){
+      emit(CreateFailed(error: "please upload your id ",causingImage: "image2"));
+    }
+else{
     int? index= coordinates[event.address];
     int realIndex= index??-1;
     UserEntity user = UserEntity(
@@ -32,11 +38,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     Params params =
         Params(user: user, profileImage: event.image, id: event.image2);
     final response = await createProfile(params);
-    emit(Creating());
+    
     if (response.isRight()) {
       emit(CreateSuccess());
     } else {
       emit(CreateFailed());
     }
   }
+}
 }

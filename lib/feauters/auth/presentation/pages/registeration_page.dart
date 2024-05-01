@@ -1,7 +1,9 @@
+import 'package:begara_mobile/core/util/validators.dart';
+import 'package:begara_mobile/feauters/auth/presentation/widgets/switch_screen_button.dart';
 import 'package:flutter/material.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/register/register.dart';
 import 'package:begara_mobile/feauters/auth/presentation/widgets/text_fields.dart';
-import 'package:begara_mobile/feauters/auth/presentation/widgets/submit_buttons.dart';
+import 'package:begara_mobile/feauters/auth/presentation/widgets/submit_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -22,34 +24,19 @@ class RegisterPage extends StatelessWidget {
             height: 35,
           ),
           Align(
-            alignment: Alignment.topRight,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, "/login");
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        bottomLeft: Radius.circular(25)),
-                    color: Colors.amber),
-                height: 50,
-                width: 120,
-                child: Center(
-                    child: Text(
-                  "Log in",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                )),
-              ),
-            ),
-          ),
+              alignment: Alignment.topRight,
+              child: SwitchScreen(
+                pageRoute: "/login",
+                buttonName: "Log IN",
+                direction: "left",
+              )),
           SizedBox(
             height: 15,
           ),
           Icon(
             Icons.account_circle,
             size: 100,
-            color: Colors.amber,
+            color:  Color.fromARGB(255, 187, 148, 48)
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,22 +53,30 @@ class RegisterPage extends StatelessWidget {
                       CustomTextField(
                           controller: full_name,
                           labelText: "Full Name",
-                          prefixIcon: Icons.person),
+                          prefixIcon: Icons.person,
+                          validator: nameValidator,),
                       CustomTextField(
                           controller: user_name,
                           labelText: "User Name",
-                          prefixIcon: Icons.person),
+                          prefixIcon: Icons.person,
+                          validator: nameValidator,),
                       CustomTextField(
                           controller: email,
                           labelText: "Email",
-                          prefixIcon: Icons.email),
+                          prefixIcon: Icons.email,
+                          validator: emailValidator,),
                       PasswordFormField(
                         controller: password,
                         labelText: "Password",
+                        validator: passwordValidator,
                       ),
                       PasswordFormField(
                         controller: repassword,
                         labelText: "RE-enter Password",
+                        validator: (value){
+                          dynamic result =repasswordValidator(value, password.text);
+                          return result;
+                        },
                       ),
                       SizedBox(
                         height: 50,
@@ -99,7 +94,7 @@ class RegisterPage extends StatelessWidget {
                           },
                           buttonText: "Register",
                           listener: (context, state) {
-                            Navigator.pushNamed(context, "/profile");
+                            Navigator.pushNamed(context, "/login");
                           },
                           success: RegisterSuccess,
                           fail: RegisterFailed,
