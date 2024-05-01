@@ -17,24 +17,24 @@ class ProfilePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(context) {
-  double screenWidth = MediaQuery.of(context).size.width;
-  XFile? image;
-  XFile? image2;
-  bool profileSelected = false;
-  bool idSelected = false;
-  TextEditingController phoneNumber = TextEditingController();
-  TextEditingController age = TextEditingController();
-  TextEditingController jobStatus = TextEditingController();
-  TextEditingController bio = TextEditingController();
-  TextEditingController budget = TextEditingController();
-  String? religion;
-  String? address;
-  String gender = "";
-  String pet = "";
-  String religiousSimilarity = "";
-  String privacy = "";
-  String socialize = "";
-  String smoking = "";
+    double screenWidth = MediaQuery.of(context).size.width;
+    XFile? image;
+    XFile? image2;
+    bool profileSelected = false;
+    bool idSelected = false;
+    TextEditingController phoneNumber = TextEditingController();
+    TextEditingController age = TextEditingController();
+    TextEditingController jobStatus = TextEditingController();
+    TextEditingController bio = TextEditingController();
+    TextEditingController budget = TextEditingController();
+    String? religion;
+    String? address;
+    String gender = "";
+    String pet = "";
+    String religiousSimilarity = "";
+    String privacy = "";
+    String socialize = "";
+    String smoking = "";
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -86,31 +86,7 @@ class ProfilePage extends StatelessWidget {
                   );
                 }),
               ),
-
               ErrorMessage(image: "image"),
-              // BlocBuilder<ProfileBloc,ProfileState>(
-                
-              //   builder: (context, state) {
-              //     if (state is CreateFailed){
-              //       return Text(state.error!,style: TextStyle(color: Colors.red));
-              //     }
-              //     else{
-              //       return SizedBox();
-              //     }
-              //   },
-              //   buildWhen: (context,state){
-              //     if(state is CreateFailed){
-              //       if (state.causingImage=="image"){
-              //         return true;
-              //       }else{
-              //         return false;
-              //       }
-              //     }else{
-              //       return false;
-              //     }
-              //   },
-              //   ),
-
               SizedBox(
                 height: 20,
               ),
@@ -119,7 +95,7 @@ class ProfilePage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(left: 30, right: 30),
                   child: Form(
-                    key:_formKey,
+                    key: _formKey,
                     child: Column(children: <Widget>[
                       CustomDropdownButton(
                         items: locations,
@@ -137,15 +113,17 @@ class ProfilePage extends StatelessWidget {
                         validator: phoneNumberValidator,
                       ),
                       CustomTextField(
-                          controller: age,
-                          labelText: "Age",
-                          prefixIcon: Icons.calendar_month,
-                          validator: ageValidator,),
+                        controller: age,
+                        labelText: "Age",
+                        prefixIcon: Icons.calendar_month,
+                        validator: ageValidator,
+                      ),
                       CustomTextField(
-                          controller: budget,
-                          labelText: "Budget",
-                          prefixIcon: Icons.money,
-                          validator: budgetValidator,),
+                        controller: budget,
+                        labelText: "Budget",
+                        prefixIcon: Icons.money,
+                        validator: budgetValidator,
+                      ),
                       CustomTextField(
                           controller: jobStatus,
                           labelText: "Job Status",
@@ -242,28 +220,6 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       ErrorMessage(image: "image2"),
-                    //   BlocBuilder<ProfileBloc,ProfileState>(
-                                    
-                    //                 builder: (context, state) {
-                    // if (state is CreateFailed){
-                    //   return Text(state.error!,style: TextStyle(color: Colors.red));
-                    // }
-                    // else{
-                    //   return SizedBox();
-                    // }
-                    //                 },
-                    //                 buildWhen: (context,state){
-                    // if(state is CreateFailed){
-                    //   if (state.causingImage=="image2"){
-                    //     return true;
-                    //   }else{
-                    //     return false;
-                    //   }
-                    // }else{
-                    //   return false;
-                    // }
-                    //                 },
-                    //                 ),
                       SizedBox(
                         height: 20,
                       ),
@@ -306,24 +262,26 @@ class ProfilePage extends StatelessWidget {
                           child: SubmitButton(
                               bloc: BlocProvider.of<ProfileBloc>(context),
                               onPressed: () {
-                                if(_formKey.currentState!.validate()){
-                                BlocProvider.of<ProfileBloc>(context).add(
-                                    ProfileEvent(
-                                        address: address,
-                                        bio: bio.text,
-                                        phoneNumber: phoneNumber.text,
-                                        age: int.parse(age.text),
-                                        jobStatus: jobStatus.text,
-                                        religion: religion,
-                                        gender: gender,
-                                        image: image,
-                                        image2: image2,
-                                        budget: int.parse(budget.text),
-                                        smoking: smoking,
-                                        pet: pet,
-                                        privacy: privacy,
-                                        religiousSimilarity: religiousSimilarity,
-                                        socialize: socialize));}
+                                if (_formKey.currentState!.validate()) {
+                                  BlocProvider.of<ProfileBloc>(context).add(
+                                      ProfileEvent(
+                                          address: address,
+                                          bio: bio.text,
+                                          phoneNumber: phoneNumber.text,
+                                          age: int.parse(age.text),
+                                          jobStatus: jobStatus.text,
+                                          religion: religion,
+                                          gender: gender,
+                                          image: image,
+                                          image2: image2,
+                                          budget: int.parse(budget.text),
+                                          smoking: smoking,
+                                          pet: pet,
+                                          privacy: privacy,
+                                          religiousSimilarity:
+                                              religiousSimilarity,
+                                          socialize: socialize));
+                                }
                               },
                               buttonText: "NEXT",
                               listener: (context, state) {},

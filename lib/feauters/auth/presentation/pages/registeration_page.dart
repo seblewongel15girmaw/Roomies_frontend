@@ -94,7 +94,7 @@ class RegisterPage extends StatelessWidget {
                           },
                           buttonText: "Register",
                           listener: (context, state) {
-                            Navigator.pushNamed(context, "/profile");
+                            Navigator.pushNamed(context, "/login");
                           },
                           success: RegisterSuccess,
                           fail: RegisterFailed,
