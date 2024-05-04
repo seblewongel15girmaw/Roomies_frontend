@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import '../../../../core/error/exceptions.dart';
 
 abstract class UserDataSources {
-  Future<int> createUser(UserEntity user);
+  Future<int> createUser(String userName, String fullName, String password, String email);
   Future<String> loginUser(String userName, String password);
   Future<int> createProfile(UserEntity user, XFile? profileImage, XFile? id);
 }
@@ -36,13 +36,20 @@ class userDataSourcesImpl implements UserDataSources {
   }
 
   @override
-  Future<int> createUser(UserEntity user) async {
+  Future<int> createUser(String userName, String fullName, String password, String email) async {
     final response = await client.post(
       Uri.parse(baseUri + "register"),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(user.toJson()),
+      body: jsonEncode(
+        {
+          "full_name":fullName,
+          "username":userName,
+          "password":password,
+          "email":email
+        }
+      ),
     );
     if (response.statusCode == 201) {
       return response.statusCode;

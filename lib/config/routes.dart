@@ -8,12 +8,15 @@ import 'package:begara_mobile/feauters/auth/presentation/bloc/register/register_
 import 'package:begara_mobile/feauters/auth/presentation/pages/login_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/create_profile_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/registeration_page.dart';
+import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart';
+import 'package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart';
 import 'package:begara_mobile/injectionContainer.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Routes{
+  
   
   Route<dynamic> generateRoute(RouteSettings settings){
     final args= settings.arguments;
@@ -42,6 +45,11 @@ class Routes{
         BlocProvider<RadioBloc>(create: (context) => RadioBloc()) ,
         BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>())],
         child: ProfilePage(),
+        ),);
+      case '/roommate':
+      return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<RoommateBloc>(create: (context) => sl<RoommateBloc>()) ,],
+        child: DisplayMatchesPage() ,
         ),);
       default:
       return MaterialPageRoute(

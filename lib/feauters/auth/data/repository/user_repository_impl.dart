@@ -24,10 +24,10 @@ class UserRepositoryImpl implements UserRepo{
   }
 
   @override
-  Future<Either<Errors, int>> createUser(UserEntity user) async {
+  Future<Either<Errors, int>> createUser(String fullName, String userName, String password, String email )async {
     try{
     network.isConnected;
-    return Right(await userDataSources.createUser(user));}
+    return Right(await userDataSources.createUser(userName,fullName,password,email));}
     on ServerExceptions{
       return Left(ServerErrors());
     } 
