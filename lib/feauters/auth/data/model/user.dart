@@ -4,6 +4,7 @@ import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 
 class UserModel extends UserEntity {
   const UserModel({
+    required int id,
     required String fullName,
     required String userName,
     required String email,
@@ -24,6 +25,7 @@ class UserModel extends UserEntity {
     required String smoking,
     required String socialize
   }) : super(
+            id:id,
             fullName: fullName,
             userName: userName,
             email: email,
@@ -44,23 +46,26 @@ class UserModel extends UserEntity {
             smoking: smoking,
             socialize: socialize);
   factory UserModel.fromJson(Map<String, dynamic> map) {
+    print(map);
+    
     return UserModel(
+        id:map["id"]??0,
         fullName: map["full_name"] ?? "",
         userName: map['username'] ?? "",
         email: map['email'] ?? "",
         password: map['password'] ?? "",
-        age: map["age"] ?? "",
+        age: map["age"] ?? 10,
         bio: map["bio"] ?? "",
         phoneNumber: map["phone_number"] ?? "",
-        address: json.decode(map['address']) ?? {"":""},
+        address: json.decode(map['address']) ?? <String,dynamic>{"HI":"HI"},
         jobStatus: map['job_status'] ?? "",
         gender: map['gender'] ?? "",
-        budget: map['budget'] ?? "",
+        budget: map['budget'] ?? 100,
         image: map['image'] ?? "",
         image2: map["personal_id"] ?? "",
         religion: map["religion"]??"",
-        religiousSimilarity: map["religiousSimilarity"]??"",
-        pet: map['pet']??'',
+        religiousSimilarity: map["religious_compatibility"]??"",
+        pet: map['pets']??'',
         privacy: map['privacy']??'',
         smoking: map['smoking']??'',
         socialize: map['socialize']??'');

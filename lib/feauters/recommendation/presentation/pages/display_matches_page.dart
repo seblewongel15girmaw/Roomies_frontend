@@ -41,9 +41,8 @@ class DisplayMatchesPage extends StatelessWidget {
           ),
           BlocBuilder<RoommateBloc, RoommateState>(
             builder: (context, state) {
-              if(state is Idle){
-                BlocProvider.of<RoommateBloc>(context)
-                                        .add(RoommateEvent());
+              if (state is Idle) {
+                BlocProvider.of<RoommateBloc>(context).add(RoommateEvent());
               }
               return Container(
                   child: state is LoadSuccess
@@ -51,7 +50,18 @@ class DisplayMatchesPage extends StatelessWidget {
                       : state is LoadFailed
                           ? Text("error has been caused")
                           : state is Loading
-                              ? CircularProgressIndicator()
+                              ? Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Sit tight while we weave our matchmaking magic just for you!",
+                                      style: TextStyle(color: Colors.grey ),),
+                                      SizedBox(height: 15,),
+                                      CircularProgressIndicator(
+                                        color:Color.fromARGB(255, 255, 255, 147) ,
+                                      )]),
+                              )
                               : ElevatedButton(
                                   onPressed: () {
                                     BlocProvider.of<RoommateBloc>(context)

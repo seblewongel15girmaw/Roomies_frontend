@@ -13,7 +13,9 @@ import 'package:begara_mobile/feauters/recommendation/data/data_source/roommate_
 import 'package:begara_mobile/feauters/recommendation/data/repository/roommate_repository_impl.dart';
 import 'package:begara_mobile/feauters/recommendation/domain/repository/roommate_repository.dart';
 import 'package:begara_mobile/feauters/recommendation/domain/usecases/get_all_roommate.dart';
+import 'package:begara_mobile/feauters/recommendation/domain/usecases/get_roommate.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart';
+import 'package:begara_mobile/feauters/recommendation/presentation/bloc/users_profile/users_profile_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,10 +28,12 @@ Future <void> init() async{
   sl.registerFactory(() => RegBloc(sl()));
   sl.registerFactory(() => ProfileBloc(sl()));
   sl.registerFactory(() => RoommateBloc(sl()));
+  sl.registerFactory(() => UserProfileBloc(sl()));
   sl.registerLazySingleton(() => LoginUser(sl()));
   sl.registerLazySingleton(() => RegisterUser(sl()));
   sl.registerLazySingleton(() => CreateProfile(sl()));
   sl.registerLazySingleton(() => GetAllRoommates(sl()));
+  sl.registerLazySingleton(() => GetRoommate(sl()));
   sl.registerLazySingleton<UserRepo>(() => UserRepositoryImpl(sl(), sl(), sl()) );
   sl.registerLazySingleton<UserDataSources>(() => userDataSourcesImpl(sl()));
   sl.registerLazySingleton<UserLocalDataSources>(() => UserLocalDataSourcesImpl(sl()));

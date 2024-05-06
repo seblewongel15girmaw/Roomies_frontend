@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class UserEntity extends Equatable {
+  final int id;
   final String fullName;
   final String userName;
   final String email;
@@ -22,7 +23,8 @@ class UserEntity extends Equatable {
   final String smoking;
 
   const UserEntity(
-      {required this.fullName,
+      { required this.id,
+        required this.fullName,
       required this.userName,
       required this.email,
       required this.password,
@@ -46,6 +48,7 @@ class UserEntity extends Equatable {
   // TODO: implement props
   List<Object?> get props {
     return [
+      id,
       age,
       bio,
       phoneNumber,
@@ -66,6 +69,7 @@ class UserEntity extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
+      "id":id,
       "full_name": fullName,
       "username": userName,
       "email": email,

@@ -2,11 +2,14 @@ import 'dart:convert';
 
 import 'package:begara_mobile/core/error/exceptions.dart';
 import 'package:begara_mobile/core/util/sharedPreference.dart';
+import 'package:begara_mobile/feauters/auth/data/model/user.dart';
 import 'package:begara_mobile/feauters/auth/data/utils/functions.dart';
+import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 import 'package:begara_mobile/feauters/recommendation/data/models/roommate.dart';
 import 'package:http/http.dart' as http;
 abstract class RoommateDataSource{
   Future<List<RoommateModel>> getAllRoommates(int id);
+  Future<UserModel> getRoomate(int id);
 }
 
 class RoommateDataSourceImpl implements RoommateDataSource{
@@ -26,7 +29,7 @@ class RoommateDataSourceImpl implements RoommateDataSource{
     );
     if (response.statusCode==200){
     List<dynamic> roommates = json.decode(response.body)['preferenceList'];
-    print("this is the json file you all: $roommates");
+    print("this is the list $roommates");
     final potentialRoommates=roommates.map((json) => RoommateModel.fromJson(json)).toList();
     print('the potential roommates are $potentialRoommates');
     return potentialRoommates;}
@@ -34,6 +37,22 @@ class RoommateDataSourceImpl implements RoommateDataSource{
       throw ServerExceptions();
     }
     
+  }
+  
+  @override
+  Future<UserModel> getRoomate(int id) async{
+    final response= await client.get(
+      Uri.parse("http://localhost:3000/api/users/$id")
+    );
+    if(response.statusCode==200){
+      final userData=json.decode(response.body)["user"];
+      
+      final user= UserModel.fromJson(userData);
+      return user;
+    }
+    else{
+      throw ServerExceptions();
+    }
   }
 
 }

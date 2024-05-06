@@ -9,7 +9,9 @@ import 'package:begara_mobile/feauters/auth/presentation/pages/login_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/create_profile_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/registeration_page.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart';
+import 'package:begara_mobile/feauters/recommendation/presentation/bloc/users_profile/users_profile_bloc.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart';
+import 'package:begara_mobile/feauters/recommendation/presentation/pages/user_profile_page.dart';
 import 'package:begara_mobile/injectionContainer.dart';
 
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class Routes{
   
   
   Route<dynamic> generateRoute(RouteSettings settings){
-    final args= settings.arguments;
+    
     switch(settings.name){
       case '/login':
       return MaterialPageRoute(
@@ -50,6 +52,11 @@ class Routes{
       return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
         BlocProvider<RoommateBloc>(create: (context) => sl<RoommateBloc>()) ,],
         child: DisplayMatchesPage() ,
+        ),);
+       case '/matchprofile':
+      return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<UserProfileBloc>(create: (context) => sl<UserProfileBloc>()) ,],
+        child: UserProfilePage(user: settings.arguments,) ,
         ),);
       default:
       return MaterialPageRoute(
