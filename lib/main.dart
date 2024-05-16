@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute:snapshot.data==true?"/roommate":"/login" ,
+        initialRoute:snapshot.data==true?"/contacts":"/login" ,
         onGenerateRoute: appRoutes.generateRoute,      
       );
         }

@@ -9,7 +9,8 @@ import '../utils/functions.dart';
 
 class MatchList extends StatelessWidget {
   final roommates;
-  MatchList(this.roommates);
+  final userId;
+  MatchList(this.roommates,this.userId);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class MatchList extends StatelessWidget {
             padding: EdgeInsets.only(left: 17,right: 17),
             child: GestureDetector(
               onTap: (){
-                Navigator.pushNamed(context, '/matchprofile',arguments: roommates[index].user);
+                Navigator.pushNamed(context, '/matchprofile',arguments:{"roommates":roommates[index].user, "userId":userId});
               },
               child: Card(
                 color:  Color.fromARGB(255, 255, 255, 221),

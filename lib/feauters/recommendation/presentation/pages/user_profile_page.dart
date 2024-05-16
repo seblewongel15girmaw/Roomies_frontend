@@ -6,7 +6,8 @@ import '../utils/functions.dart';
 
 class UserProfilePage extends StatelessWidget {
   final user;
-  UserProfilePage({required this.user});
+  final userId;
+  UserProfilePage({required this.user,required this.userId});
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -72,7 +73,9 @@ class UserProfilePage extends StatelessWidget {
                     bottom: -10,
                     right: 10,
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/chat",arguments: {"user":user, "userId":userId} );
+                        },
                         icon: Icon(
                           Icons.message_sharp,
                           color: Colors.amber,

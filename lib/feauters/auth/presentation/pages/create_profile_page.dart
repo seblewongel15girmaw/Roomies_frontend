@@ -284,7 +284,11 @@ class ProfilePage extends StatelessWidget {
                                 }
                               },
                               buttonText: "NEXT",
-                              listener: (context, state) {},
+                              listener: (context, state) {
+                                 if (state is CreateSuccess) {
+                          Navigator.pushNamed(context, '/guarantor',);
+                      }
+                              },
                               success: CreateSuccess,
                               fail: CreateFailed,
                               progress: Creating)),

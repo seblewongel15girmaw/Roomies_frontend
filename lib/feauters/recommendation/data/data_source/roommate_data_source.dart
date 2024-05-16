@@ -29,7 +29,7 @@ class RoommateDataSourceImpl implements RoommateDataSource{
     );
     if (response.statusCode==200){
     List<dynamic> roommates = json.decode(response.body)['preferenceList'];
-    print("this is the list $roommates");
+    
     final potentialRoommates=roommates.map((json) => RoommateModel.fromJson(json)).toList();
     print('the potential roommates are $potentialRoommates');
     return potentialRoommates;}

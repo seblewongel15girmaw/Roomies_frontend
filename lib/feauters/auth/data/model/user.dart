@@ -46,7 +46,7 @@ class UserModel extends UserEntity {
             smoking: smoking,
             socialize: socialize);
   factory UserModel.fromJson(Map<String, dynamic> map) {
-    print(map);
+    
     
     return UserModel(
         id:map["id"]??0,
@@ -57,7 +57,7 @@ class UserModel extends UserEntity {
         age: map["age"] ?? 10,
         bio: map["bio"] ?? "",
         phoneNumber: map["phone_number"] ?? "",
-        address: json.decode(map['address']) ?? <String,dynamic>{"HI":"HI"},
+        address:json.decode(map['address'])?? <String,dynamic>{"HI":"HI"},
         jobStatus: map['job_status'] ?? "",
         gender: map['gender'] ?? "",
         budget: map['budget'] ?? 100,

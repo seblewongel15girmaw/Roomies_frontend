@@ -46,7 +46,7 @@ class DisplayMatchesPage extends StatelessWidget {
               }
               return Container(
                   child: state is LoadSuccess
-                      ? Expanded(child: MatchList(state.roommmates))
+                      ? Expanded(child: MatchList(state.roommmates,state.userId))
                       : state is LoadFailed
                           ? Text("error has been caused")
                           : state is Loading
