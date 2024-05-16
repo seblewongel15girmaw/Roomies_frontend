@@ -48,6 +48,7 @@ dependencies:
   connectivity_plus:
   get_it: ^7.6.7
   flutter_mapbox_autocomplete:
+  socket_io_client:
 
 
 dev_dependencies:

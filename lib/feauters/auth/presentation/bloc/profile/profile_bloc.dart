@@ -22,6 +22,13 @@ else{
     int? index= coordinates[event.address];
     int realIndex= index??-1;
     UserEntity user = UserEntity(
+      id: 0,
+        fullName: "",
+        userName: "",
+        password: "",
+        email: "",
+        image2: "",
+        image: "",
         age: event.age,
         bio: event.bio,
         phoneNumber: event.phoneNumber,

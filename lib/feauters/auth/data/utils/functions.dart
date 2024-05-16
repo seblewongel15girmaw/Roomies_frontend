@@ -1,9 +1,45 @@
 import 'dart:convert';
 
+
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
+
+import '../../../../core/util/sharedPreference.dart';
+
+Future<http.MultipartRequest> uploadSingleImage(
+  XFile idImage,
+  String fullName,
+  String phoneNumber,
+  String gender,
+  Map address,
+  token,
+  apiUrl,
+) async{
+  final url= Uri.parse(apiUrl);
+  final mimeType= lookupMimeType(idImage.path)!.split('/');
+  final imageUploadRequest=http.MultipartRequest('POST',url);
+  final file= await http.MultipartFile.fromPath(
+    "guarantor_id",
+    idImage.path,
+    contentType: MediaType(mimeType[0], mimeType[1]),
+  );
+  imageUploadRequest.files.add(file);
+  try{
+    imageUploadRequest.fields['full_name'] = fullName;
+    imageUploadRequest.fields['phone_number'] = phoneNumber;
+    imageUploadRequest.fields['gender'] = gender;
+    imageUploadRequest.fields['address'] = jsonEncode(address);
+    imageUploadRequest.headers['Authorization'] = 'Bearer $token';
+  }
+  catch(error){
+    print("some error occured $error");
+  }
+  return imageUploadRequest;
+
+
+}
 
 Future<http.MultipartRequest> uploadImage(XFile? imageFile, XFile? imageFile2,
     Map<String, dynamic> postData, apiUrl, token) async {
@@ -47,7 +83,7 @@ Future<http.MultipartRequest> uploadImage(XFile? imageFile, XFile? imageFile2,
   } catch (e) {
     print("some error ${e} occured");
   }
-  print("the image upload request is : ${imageUploadRequest}");
+  
   return imageUploadRequest;
 }
 
@@ -60,4 +96,10 @@ Map<String, dynamic> decodeJwt(String token) {
   final String decoded =
       utf8.decode(base64Url.decode(base64Url.normalize(payload)));
   return json.decode(decoded);
+}
+
+Future<dynamic> getUserId() async{
+    final token = await SharedPreferencesService.getString("tokens");
+    final userId = decodeJwt(token!)["userId"];
+    return userId;
 }

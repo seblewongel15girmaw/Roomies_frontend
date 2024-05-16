@@ -265,15 +265,15 @@ class ProfilePage extends StatelessWidget {
                                 if (_formKey.currentState!.validate()) {
                                   BlocProvider.of<ProfileBloc>(context).add(
                                       ProfileEvent(
-                                          address: address,
+                                          address: address!,
                                           bio: bio.text,
                                           phoneNumber: phoneNumber.text,
                                           age: int.parse(age.text),
                                           jobStatus: jobStatus.text,
-                                          religion: religion,
+                                          religion: religion!,
                                           gender: gender,
-                                          image: image,
-                                          image2: image2,
+                                          image: image!,
+                                          image2: image2!,
                                           budget: int.parse(budget.text),
                                           smoking: smoking,
                                           pet: pet,
@@ -284,7 +284,11 @@ class ProfilePage extends StatelessWidget {
                                 }
                               },
                               buttonText: "NEXT",
-                              listener: (context, state) {},
+                              listener: (context, state) {
+                                 if (state is CreateSuccess) {
+                          Navigator.pushNamed(context, '/guarantor',);
+                      }
+                              },
                               success: CreateSuccess,
                               fail: CreateFailed,
                               progress: Creating)),

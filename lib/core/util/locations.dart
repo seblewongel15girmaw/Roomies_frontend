@@ -23,3 +23,17 @@ Map<String,int> coordinates={
 "Akaki Kaliti Subcity":8, 
 "Kolfe Keranio":9,
 };
+
+Map<String,String>places= {
+'{latitude: 9.0356° N, longitude: 38.7580° E}':"Arada Subcity", 
+'{latitude: 9.0103° N, longitude: 38.7661° E}':"Kirkos Subcity",
+'{latitude: 9.0186° N, longitude: 38.7270° E}':"Lideta Subcity", 
+'{latitude: 9.0479° N, longitude: 38.7212° E}':"AddisKetema Subcity", 
+'{latitude: 9.0183° N, longitude: 38.8029° E}':"Bole Subcity", 
+'{latitude: 9.0593° N, longitude: 38.7356° E}':"Gulele Subcity", 
+'{latitude: 8.9807° N, longitude: 38.7493° E}':"Nifasilk Lafto Subcity", 
+'{latitude: 9.0225° N, longitude: 38.8000° E}':"Yeka Subcity", 
+'{latitude: 9.0225° N, longitude: 38.7580° E}':"Akaki Kaliti Subcity", 
+'{latitude: 9.0048° N, longitude: 38.6930° E}':"Kolfe Keranio",
+
+};
