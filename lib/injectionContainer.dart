@@ -41,6 +41,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import 'feauters/house/data/datasource/user/house_remote_datasource.dart';
+import 'feauters/house/data/repository/user/house_repository_impl.dart';
+import 'feauters/house/domain/repository/user/house_repository.dart';
+import 'feauters/house/domain/usecase/user/get_house_list.dart';
+import 'feauters/house/presentation/bloc/user/house/house_bloc.dart';
+
 final sl=GetIt.instance;
 Future <void> init() async{
   final sharedPreferences= await SharedPreferences.getInstance();
@@ -59,6 +65,7 @@ Future <void> init() async{
   sl.registerFactory(() => ContactsBloc(sl()));
   sl.registerFactory(() => LiveBloc(sl()));
   sl.registerFactory<InstantiateBloc>(() => InstantiateBloc(sl()));
+  sl.registerFactory(() => HouseBloc(sl()));
   sl.registerLazySingleton(() => LoginUser(sl()));
   sl.registerLazySingleton(() => RegisterUser(sl()));
   sl.registerLazySingleton(() => CreateProfile(sl()));
@@ -67,14 +74,17 @@ Future <void> init() async{
   sl.registerLazySingleton(() => CreateGuarantor(sl()));
   sl.registerLazySingleton(() => GetChats(sl()));
   sl.registerLazySingleton(() => GetContacts(sl()));
+  sl.registerLazySingleton(() => GetHouseList(sl()));
   sl.registerLazySingleton(() => SaveChats(sl()));
   sl.registerLazySingleton(() => ConnectUseCase(sl()));
   sl.registerLazySingleton(() => SendMessageUseCase(sl()));
   sl.registerLazySingleton<UserRepo>(() => UserRepositoryImpl(sl(), sl(), sl()) );
   sl.registerLazySingleton<UserDataSources>(() => userDataSourcesImpl(sl()));
   sl.registerLazySingleton<UserLocalDataSources>(() => UserLocalDataSourcesImpl(sl()));
+  sl.registerLazySingleton<HouseRepository>(() => HouseRepositoryImpl(houseRemoteDatasource: sl()));
   sl.registerLazySingleton<RoommateRepository>(()=> RoommateRepositoryImpl(sl(), sl()));
   sl.registerLazySingleton<RoommateDataSource>(() => RoommateDataSourceImpl(sl()));
+  sl.registerLazySingleton<HouseRemoteDatasource>(() => HouseRemoteDatasourceImpl(client: sl()));
   sl.registerLazySingleton<GuarantorRepo>(()=> GuarantorRepoImpl(sl(), sl()));
   sl.registerLazySingleton<GuarantorDataSource>(() => GuarantorDataSourceImpl(sl()));
   sl.registerLazySingleton<ChatRepo>(()=> ChatRepoImpl(sl(), sl()));
@@ -86,7 +96,6 @@ Future <void> init() async{
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Connectivity());
-  
-  
+
 
 }

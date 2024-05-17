@@ -17,6 +17,11 @@ import 'package:begara_mobile/feauters/chat/presentation/blocs/new_chat/new_chat
 import 'package:begara_mobile/feauters/chat/presentation/pages/alternate_chat_page.dart';
 import 'package:begara_mobile/feauters/chat/presentation/pages/chat_page.dart';
 import 'package:begara_mobile/feauters/chat/presentation/pages/contacts_page.dart';
+import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
+import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_bloc.dart';
+import 'package:begara_mobile/feauters/house/presentation/page/broker/broker_profile.dart';
+import 'package:begara_mobile/feauters/house/presentation/page/user/home_page.dart';
+import 'package:begara_mobile/feauters/house/presentation/page/user/house_detail.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/bloc/users_profile/users_profile_bloc.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart';
@@ -27,8 +32,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Routes{
-  
-  
+
   Route<dynamic> generateRoute(RouteSettings settings){
     
     switch(settings.name){
@@ -105,8 +109,7 @@ class Routes{
         child: AlternateChatPage(user: args["user"],userId: args["userId"],),
         ),
       );
-      
-      
+
       case '/contacts':
       return MaterialPageRoute(
         builder: (_)=>MultiBlocProvider(providers: [
@@ -115,6 +118,39 @@ class Routes{
         child: ContactsPage(),
         ),
       );
+
+       case '/homePage':
+      return MaterialPageRoute(
+        builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
+       ],
+        child: HomePage(),
+        ),
+      );
+
+       case '/houseDetail':
+         var args= settings.arguments as HouseModel;
+      return MaterialPageRoute(
+        builder: (_)=>MultiBlocProvider(providers: [
+          BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
+       ],
+        child: HouseDetail(houseModel: args,),
+        ),
+      );
+
+      case '/brokerDetail':
+      return MaterialPageRoute(
+        builder: (_)=>
+            MultiBlocProvider(providers: [
+        // BlocProvider<ContactsBloc>(create: (context)=>sl<ContactsBloc>()),
+       ],
+        child: BrokerProfile(),
+        ),
+      );
+
+
+
+
       default:
       return MaterialPageRoute(
         builder: (_)=>MultiBlocProvider(providers: [

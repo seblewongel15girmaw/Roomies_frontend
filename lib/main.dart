@@ -7,7 +7,6 @@ void main() async{
   await init();
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -32,8 +31,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute:snapshot.data==true?"/contacts":"/login" ,
-        onGenerateRoute: appRoutes.generateRoute,      
+        initialRoute:snapshot.data==true?"/homePage":"/login" ,
+        onGenerateRoute: appRoutes.generateRoute,
       );
         }
       },

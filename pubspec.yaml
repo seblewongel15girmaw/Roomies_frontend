@@ -47,8 +47,14 @@ dependencies:
   dartz:
   connectivity_plus:
   get_it: ^7.6.7
-  flutter_mapbox_autocomplete:
+#  flutter_mapbox_autocomplete:
   socket_io_client:
+  another_carousel_pro: ^1.0.2
+  go_router: ^14.0.2
+  url_launcher: ^6.2.6
+  carousel_slider: ^4.2.1
+  curved_labeled_navigation_bar: ^2.0.2
+  google_fonts: ^6.2.1
 
 
 dev_dependencies:
@@ -74,8 +80,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+     - asset/reminder.webp
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
