@@ -74,12 +74,14 @@ class RegisterGuarantorPage extends StatelessWidget {
                         height: 20,
                       ),
                       CustomTextField(
+                        inputKey: const Key("guarantor_name"),
                         controller: fullName,
                         labelText: "Full Name",
                         prefixIcon: Icons.person,
                         validator: nameValidator,
                       ),
                       CustomTextField(
+                        inputKey: const Key("guarantor_phone"),
                         controller: phoneNumber,
                         labelText: "Phone Number",
                         prefixIcon: Icons.phone,
@@ -125,6 +127,7 @@ class RegisterGuarantorPage extends StatelessWidget {
                         height: 45,
                       ),
                       SubmitButton(
+                          buttonKey: const Key("guarantor_btn"),
                           bloc: BlocProvider.of<GuarantorBloc>(context),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {

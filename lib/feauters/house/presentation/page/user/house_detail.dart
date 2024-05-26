@@ -21,24 +21,27 @@ class HouseDetail extends StatelessWidget{
          height: height,
          child: Stack(
            children: [
-             AnotherCarousel(
-             boxFit: BoxFit.cover,
-             autoplay: false,
-             animationCurve: Curves.fastOutSlowIn,
-             animationDuration: Duration(milliseconds: 800),
-             dotSize: 4.0,
-             dotIncreasedColor: Color(0xFF7E7E7E),
-             dotBgColor: Colors.transparent,
-             dotPosition: DotPosition.bottomCenter,
-             dotVerticalPadding: 10.0,
-             showIndicator: true,
-             indicatorBgPadding: 7.0,
-             images: houseModel.Images.map((image){
-               return Image(
-                 image:FileImage(File(image.imageUrl)),
-                 fit: BoxFit.cover,);},
-             ).toList()
-         ),
+             Container(
+               height: height/1.63,
+               child: AnotherCarousel(
+               boxFit: BoxFit.cover,
+               autoplay: false,
+               animationCurve: Curves.fastOutSlowIn,
+               animationDuration: Duration(milliseconds: 800),
+               dotSize: 4.0,
+               dotIncreasedColor: Color(0xFF7E7E7E),
+               dotBgColor: Colors.transparent,
+               dotPosition: DotPosition.bottomCenter,
+               dotVerticalPadding: 10.0,
+               showIndicator: true,
+               indicatorBgPadding: 7.0,
+               images: houseModel.Images.map((image){
+                 return Image(
+                   image:FileImage(File(image.imageUrl)),
+                   fit: BoxFit.cover,);},
+               ).toList()
+                        ),
+             ),
             Positioned(
               top: 10,
                 left: 10,
@@ -49,63 +52,56 @@ class HouseDetail extends StatelessWidget{
                left: 0,
                child: Container(
                  width:width,
-                 height: height/2,
+                 height: height/2.6,
                  decoration: BoxDecoration(
-                   gradient: LinearGradient(
-                     begin: Alignment.topCenter,
-                     end: Alignment.bottomCenter,
-                     colors: [
-                       Color.fromRGBO(0, 0, 0,0.2),
-                       Color.fromRGBO(0, 0, 0,0.8),
-                       Color.fromRGBO(0, 0, 0,0.9),
-                       Color.fromRGBO(0, 0, 0,1),
-                     ]
-                   )
+                   border: Border.all(color: Colors.yellow),
+
                  ),
                  child: Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
                      SizedBox(height: 20,),
                      Padding(
-                       padding: const EdgeInsets.only(left: 40),
+                       padding: const EdgeInsets.symmetric(horizontal: 40),
                        child: Row(
                          children: [
-                          Icon(Icons.room, color: Colors.white60,),
+                          Image.asset("asset/map.png", width: 25,),
                            SizedBox(width: 17,),
-                           Text(houseModel.location, style: TextStyle(color: Colors.white),),
+                           Text(houseModel.location, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, )),
                          ],
                        ),
                      ),
                      SizedBox(height: 8,),
                      Padding(
-                       padding: const EdgeInsets.only(left: 40),
+                       padding: const EdgeInsets.symmetric(horizontal: 40),
                        child: Row(
                          children: [
-                           Icon(Icons.square_foot, color: Colors.white,),
+                           Image.asset("asset/information.png", width: 25,),
                            SizedBox(width: 17,),
-                           Text(houseModel.description, style: TextStyle(color: Colors.white)),
+                           Expanded(
+                               child: Text(houseModel.description,style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, ), )),
                          ],
                        ),
                      ),
                      SizedBox(height: 8,),
                      Padding(
-                       padding: const EdgeInsets.only(left: 36),
+                       padding: const EdgeInsets.symmetric(horizontal: 40),
                        child: Row(
                          children: [
-                           Icon(Icons.monetization_on, color: Colors.green,),
+                           Image.asset("asset/money-bag.png", width: 25,),
                            SizedBox(width: 17,),
-                           Text(houseModel.price.toString(), style: TextStyle(color: Colors.white)),
+                           Text('${houseModel.price.toString()} ETB' , style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, ),),
                          ],
                        ),
                      ),
                      SizedBox(height: 8,),
                      Padding(
-                       padding: const EdgeInsets.only(left: 40),
+                       padding: const EdgeInsets.symmetric(horizontal: 40),
                        child: Row(
                          children: [
-                           Icon(Icons.roofing_outlined, color: Colors.red,),
+                           Image.asset("asset/living-room.png", width: 25),
                            SizedBox(width: 17,),
-                           Text(houseModel.numberOfRoom.toString(), style: TextStyle(color: Colors.white)),
+                           Text('${houseModel.numberOfRoom.toString()} rooms ', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, ),),
                          ],
                        ),
                      ),

@@ -4,10 +4,12 @@ class SwitchScreen extends StatelessWidget {
   final String pageRoute;
   final String buttonName;
   final String direction;
+  final Key inputKey;
   const SwitchScreen(
       {super.key,
       required this.pageRoute,
       required this.buttonName,
+        required this.inputKey,
       required this.direction});
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,7 @@ class SwitchScreen extends StatelessWidget {
         Navigator.pushNamed(context, pageRoute);
       },
       child: Container(
+        key: inputKey,
         decoration: BoxDecoration(
             borderRadius: direction == "right"
                 ? BorderRadius.only(

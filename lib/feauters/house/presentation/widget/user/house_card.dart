@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
 
@@ -16,17 +17,37 @@ class HouseCard extends StatelessWidget{
      decoration: BoxDecoration(
        color: Colors.white,
       borderRadius:BorderRadius.all(Radius.circular(10)),
+       boxShadow: [
+         BoxShadow(
+         color: Colors.grey.shade500,
+         spreadRadius: 1,
+         blurRadius: 12,
+         offset: Offset(3, 3),
+       ),
+         BoxShadow(
+         color: Colors.white,
+         spreadRadius: 1,
+         blurRadius: 12,
+         offset: Offset(-3, -3),
+       )]
      ),
-     width: width*0.8,
-     margin: EdgeInsets.symmetric(vertical: 15, horizontal: 8),
+     width: width,
+     margin: EdgeInsets.symmetric(vertical: 17, horizontal: 6),
      child: Column(
        crossAxisAlignment: CrossAxisAlignment.start,
        children: [
          ClipRRect(
            borderRadius: BorderRadius.all(Radius.circular(10)),
-           child: SizedBox(
-             width: width*0.8,
-             height: 230,
+           child: Container(
+             decoration: BoxDecoration(
+               border: Border.all(color: Colors.yellow),
+               boxShadow: [BoxShadow(
+                 color: Colors.grey.shade50.withOpacity(0.1),
+
+               )],
+             ),
+             width: width,
+             height: 220,
              child: AnotherCarousel(
                  boxFit: BoxFit.cover,
                  autoplay: false,
@@ -40,24 +61,45 @@ class HouseCard extends StatelessWidget{
                  showIndicator: true,
                  indicatorBgPadding: 7.0,
                images: housemodel.Images.map((image){
-                 print(image.imageUrl);
-                    return Image(
-                       image:FileImage(File(image.imageUrl)),
-                       fit: BoxFit.cover,);},
+                    return FittedBox(
+                        fit: BoxFit.fill,
+                       child: Image(
+                          image:FileImage(File(image.imageUrl)),
+                        )
+                    );
+                      },
                  ).toList()
-
              ),
            ),
          ),
          SizedBox(height: 20,),
          Padding(
-           padding: const EdgeInsets.only(left: 20),
-           child: Text(housemodel.location, style: TextStyle(fontSize: 13),),
+           padding: const EdgeInsets.symmetric(horizontal: 40),
+           child: Row(
+             children: [
+               Image.asset("asset/map.png", width: 20,),
+               SizedBox(width: 17,),
+               Text(housemodel.location, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, )),
+             ],
+           ),
          ),
+         SizedBox(height: 5,),
          Padding(
-           padding: const EdgeInsets.only(left: 20),
-           child: Text("${housemodel.numberOfRoom} rooms",style: TextStyle(fontSize: 13) ),
+           padding: const EdgeInsets.symmetric(horizontal: 40),
+           child: Row(
+             children: [
+               Image.asset("asset/living-room.png", width: 20),
+               SizedBox(width: 17,),
+               Text('${housemodel.numberOfRoom.toString()} rooms ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, ),),
+             ],
+           ),
          ),
+         Align(
+           alignment: Alignment.topRight,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 20),
+               child: Icon(Icons.star_border_outlined),
+             )),
          SizedBox(height: 15,)
        ],
      ),

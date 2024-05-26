@@ -54,6 +54,7 @@ class Routes{
         ],
         child: RegisterPage(),
         ),);
+
       case '/profile':
       return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
         BlocProvider<DropDownBloc>(create: (context) => DropDownBloc()) ,
@@ -62,6 +63,7 @@ class Routes{
         BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>())],
         child: ProfilePage(),
         ),);
+
       case '/guarantor':
       return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
         BlocProvider<DropDownBloc>(create: (context) => DropDownBloc()) ,
@@ -71,6 +73,7 @@ class Routes{
         BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>())],
         child: RegisterGuarantorPage(),
         ),);
+
       case '/roommate':
       return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
         BlocProvider<RoommateBloc>(create: (context) => sl<RoommateBloc>()) ,],
@@ -125,7 +128,7 @@ class Routes{
         BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
        ],
         child: HomePage(),
-        ),
+        )
       );
 
        case '/houseDetail':
@@ -147,8 +150,6 @@ class Routes{
         child: BrokerProfile(),
         ),
       );
-
-
 
 
       default:

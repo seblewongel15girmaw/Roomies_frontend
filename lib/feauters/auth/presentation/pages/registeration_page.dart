@@ -26,6 +26,7 @@ class RegisterPage extends StatelessWidget {
           Align(
               alignment: Alignment.topRight,
               child: SwitchScreen(
+                inputKey: Key("to_login_btn"),
                 pageRoute: "/login",
                 buttonName: "Log IN",
                 direction: "left",
@@ -51,26 +52,31 @@ class RegisterPage extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       CustomTextField(
+                          inputKey: const Key("reg_fullname"),
                           controller: full_name,
                           labelText: "Full Name",
                           prefixIcon: Icons.person,
                           validator: nameValidator,),
                       CustomTextField(
+                        inputKey: const Key("reg_username"),
                           controller: user_name,
                           labelText: "User Name",
                           prefixIcon: Icons.person,
                           validator: nameValidator,),
                       CustomTextField(
+                        inputKey: const Key("reg_email"),
                           controller: email,
                           labelText: "Email",
                           prefixIcon: Icons.email,
                           validator: emailValidator,),
                       PasswordFormField(
+                        inputKey: const Key("reg_password"),
                         controller: password,
                         labelText: "Password",
                         validator: passwordValidator,
                       ),
                       PasswordFormField(
+                        inputKey: const Key("reg_password2"),
                         controller: repassword,
                         labelText: "RE-enter Password",
                         validator: (value){
@@ -82,6 +88,7 @@ class RegisterPage extends StatelessWidget {
                         height: 50,
                       ),
                       SubmitButton(
+                          buttonKey: const Key("register_btn"),
                           bloc: BlocProvider.of<RegBloc>(context),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {

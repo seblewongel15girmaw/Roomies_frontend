@@ -55,8 +55,10 @@ class DisplayMatchesPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
-                                      Text("Sit tight while we weave our matchmaking magic just for you!",
-                                      style: TextStyle(color: Colors.grey ),),
+                                      Center(
+                                        child: Text("Sit tight while we weave our matchmaking magic just for you!",
+                                        style: TextStyle(color: Colors.grey ),),
+                                      ),
                                       SizedBox(height: 15,),
                                       CircularProgressIndicator(
                                         color:Color.fromARGB(255, 255, 255, 147) ,

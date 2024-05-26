@@ -8,6 +8,7 @@ class SubmitButton extends StatelessWidget {
   final Function(BuildContext, dynamic) listener;
   final dynamic success;
   final dynamic fail;
+  final Key buttonKey;
   final dynamic progress;
   const SubmitButton({
     Key? key,
@@ -17,6 +18,7 @@ class SubmitButton extends StatelessWidget {
     required this.listener,
     required this.success,
     required this.fail,
+    required this.buttonKey,
     required this.progress,
   }) : super(key: key);
 
@@ -27,6 +29,7 @@ class SubmitButton extends StatelessWidget {
       listener: (context, state) => listener(context, state),
       builder: (context, state) {
         return ElevatedButton(
+          key: buttonKey,
           style: ElevatedButton.styleFrom(
             fixedSize: Size(200, 20),
             backgroundColor: _getBackgroundColor(state),
