@@ -16,7 +16,12 @@ class LocationBloc extends Bloc<LocationEvent,LocationState>{
       Params params= Params(event.query);
 
     final locations= await getLocations(params);
-    locations.fold((l) => emit(LoadFailed()), (location) => emit(LoadLocations(locations: location)))
+    locations.fold((l) => emit(LoadFailed()), (location) {
+      if(location.isEmpty){
+        emit(NoMatch());
+      }
+      else{
+      emit(LoadLocations(locations: location));}})
     ;}
     else{
       emit(Idle());

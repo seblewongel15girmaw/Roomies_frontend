@@ -13,4 +13,6 @@ class LoadLocations extends LocationState{
   
 }
 
+class NoMatch extends LocationState{}
+
 class LoadFailed extends LocationState{}
