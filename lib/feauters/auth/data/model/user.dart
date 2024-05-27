@@ -58,7 +58,7 @@ class UserModel extends UserEntity {
         age: map["age"] ?? 10,
         bio: map["bio"] ?? "",
         phoneNumber: map["phone_number"] ?? "",
-        address:LocationModel.fromJson(map["address"]),
+        address:LocationModel.fromJson(jsonDecode(map["address"])),
         jobStatus: map['job_status'] ?? "",
         gender: map['gender'] ?? "",
         budget: map['budget'] ?? 100,

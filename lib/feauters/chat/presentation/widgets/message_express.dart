@@ -47,6 +47,7 @@ class MessageExpress extends StatelessWidget {
             ),
           ),
           IconButton(
+            key: Key("send_message"),
             onPressed: () {
               if (messageController.text.trim() != "") {
                 messages.add(Chat(
