@@ -8,6 +8,7 @@ class CustomDropdownButton extends StatelessWidget {
   String? hintText;
   String? temp;
   IconData? leadIcon;
+  String? initalSelection;
   final Function(String?)? onChanged;
   CustomDropdownButton(
       {Key? key, 
@@ -16,6 +17,7 @@ class CustomDropdownButton extends StatelessWidget {
       required this.value,
       required this.hintText,
       required this.onChanged,
+      required this.initalSelection,
       this.leadIcon})
       : super(key: key);
 
@@ -40,6 +42,7 @@ class CustomDropdownButton extends StatelessWidget {
                 width: 0,
               ),
         DropdownMenu<String>(
+          initialSelection: initalSelection ,
           menuStyle: MenuStyle(backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(255, 245, 220, 158)),),
           menuHeight: 250,
             leadingIcon: Icon(leadIcon,color: const Color.fromARGB(255, 187, 148, 48),),

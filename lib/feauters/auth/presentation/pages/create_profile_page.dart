@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:begara_mobile/core/util/validators.dart';
+import 'package:begara_mobile/feauters/auth/domain/Entities/location.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/image/image.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile.dart';
 import 'package:begara_mobile/feauters/auth/presentation/strings.dart';
@@ -12,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:begara_mobile/core/util/locations.dart';
+
+import '../widgets/location_bar.dart';
 
 class ProfilePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -28,7 +31,7 @@ class ProfilePage extends StatelessWidget {
     TextEditingController bio = TextEditingController();
     TextEditingController budget = TextEditingController();
     String? religion;
-    String? address;
+    Location? address;
     String gender = "";
     String pet = "";
     String religiousSimilarity = "";
@@ -97,15 +100,20 @@ class ProfilePage extends StatelessWidget {
                   child: Form(
                     key: _formKey,
                     child: Column(children: <Widget>[
-                      CustomDropdownButton(
-                        items: locations,
-                        value: address,
-                        hintText: "Address",
-                        onChanged: (String? newValue) {
-                          address = newValue;
-                        },
-                        leadIcon: Icons.location_on,
-                      ),
+                      // CustomDropdownButton(
+                      //   initalSelection: null,
+                      //   items: locations,
+                      //   value: address,
+                      //   hintText: "Address",
+                      //   onChanged: (String? newValue) {
+                      //     address = newValue;
+                      //   },
+                      //   leadIcon: Icons.location_on,
+                      // ),
+                      LocationBar(getLocation: (location) {
+                            print(location);
+                            address=location;
+                          },width: screenWidth,),
                       CustomTextField(
                         controller: phoneNumber,
                         labelText: "Phone Number",
@@ -132,6 +140,7 @@ class ProfilePage extends StatelessWidget {
                         height: 20,
                       ),
                       CustomDropdownButton(
+                        initalSelection: null,
                         items: ProfilePageStrings.religionItems,
                         value: religion,
                         hintText: "Choose Religion",
@@ -143,6 +152,7 @@ class ProfilePage extends StatelessWidget {
                         height: 10,
                       ),
                       CustomDropdownButton(
+                        initalSelection: null,
                         leadIcon: Icons.note_alt_sharp,
                         hintText: "Choose your gender",
                         header: "Gender",
@@ -153,6 +163,7 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       CustomDropdownButton(
+                        initalSelection: null,
                         leadIcon: Icons.note_alt_sharp,
                         hintText: "",
                         header:
@@ -164,6 +175,7 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       CustomDropdownButton(
+                        initalSelection: null,
                         leadIcon: Icons.note_alt_sharp,
                         header:
                             "Do you smoke or are you okay with living with someone who does?",
@@ -175,6 +187,7 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       CustomDropdownButton(
+                        initalSelection: null,
                         leadIcon: Icons.note_alt_sharp,
                         header: "Are you pet-friendly?",
                         items: ProfilePageStrings.petItems,
@@ -185,6 +198,7 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       CustomDropdownButton(
+                        initalSelection: null,
                         leadIcon: Icons.note_alt_sharp,
                         header:
                             "Can you tolerate roommates who arrive late for various reasons?",
@@ -196,6 +210,7 @@ class ProfilePage extends StatelessWidget {
                         },
                       ),
                       CustomDropdownButton(
+                        initalSelection: null,
                         leadIcon: Icons.note_alt_sharp,
                         header: "How often do you socialize at home?",
                         items: ProfilePageStrings.socializeItems,
@@ -263,6 +278,7 @@ class ProfilePage extends StatelessWidget {
                               bloc: BlocProvider.of<ProfileBloc>(context),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
+                                  print(address);
                                   BlocProvider.of<ProfileBloc>(context).add(
                                       ProfileEvent(
                                           address: address!,

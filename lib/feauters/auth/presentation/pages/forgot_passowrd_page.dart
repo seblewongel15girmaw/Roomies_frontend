@@ -1,0 +1,90 @@
+import 'package:begara_mobile/core/util/validators.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/recover_password/recover_password.dart';
+import 'package:begara_mobile/feauters/auth/presentation/widgets/success_message.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class ForgotPasswordPage extends StatelessWidget {
+  final TextEditingController emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocBuilder<RecoverPasswordBloc, RecoverPasswordState>(
+          builder: (context, state) {
+        if (state is SuccessfulyRecovered) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.help,
+                size: 120,
+                color: Color.fromRGBO(244, 196, 48, 0.9),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "Forgot password?",
+                style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "Please enter the email you registered with",
+                style: TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+              Form(
+                key: _formKey,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20),
+                  child: TextFormField(
+                    validator: emailValidator,
+                    controller: emailController,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: state is Idle
+                        ? Colors.amber.shade50
+                        : state is RecoveringPassword
+                            ? Colors.grey
+                            : Colors.red,
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      BlocProvider.of<RecoverPasswordBloc>(context)
+                          .add(RecoveryEmail(email: emailController.text));
+                    }
+                  },
+                  child: Container(
+                    width: 200,
+                    height: 40,
+                    child: state is Idle
+                        ? Center(child: Text("submit"))
+                        : state is RecoverFailed
+                            ? Center(child: Text("Submit"))
+                            : CircularProgressIndicator(),
+                  ))
+            ],
+          );
+        } else {
+          return SuccessMessage(
+            message:
+                "Your password has been recovered. Please login using your new password",
+            navigateMessage: "Return back to login page",
+          );
+        }
+      }),
+    );
+  }
+}

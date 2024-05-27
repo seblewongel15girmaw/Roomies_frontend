@@ -1,12 +1,13 @@
 import 'package:begara_mobile/core/error/exceptions.dart';
 import 'package:begara_mobile/core/util/sharedPreference.dart';
+import 'package:begara_mobile/feauters/auth/domain/Entities/location.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 
 import '../utils/functions.dart';
 
 abstract class GuarantorDataSource{
-  Future<int> createGuarantor(String fullName, String phoneNumber, String gender, String image, XFile idImage, Map address );
+  Future<int> createGuarantor(String fullName, String phoneNumber, String gender, String image, XFile idImage, Location address );
 }
 
 class GuarantorDataSourceImpl implements GuarantorDataSource{
@@ -14,7 +15,7 @@ class GuarantorDataSourceImpl implements GuarantorDataSource{
   final http.Client client;
   GuarantorDataSourceImpl(this.client);
   @override
-  Future<int> createGuarantor(String fullName, String phoneNumber, String gender, String image, XFile idImage, Map address) async{
+  Future<int> createGuarantor(String fullName, String phoneNumber, String gender, String image, XFile idImage, Location address) async{
    final token = await SharedPreferencesService.getString("tokens");
    final userId = decodeJwt(token!)["userId"];
    final request = await uploadSingleImage(idImage, fullName, phoneNumber, gender, address, token, baseUri+"$userId");

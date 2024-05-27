@@ -1,10 +1,11 @@
+import 'package:begara_mobile/feauters/auth/domain/Entities/location.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileEvent {
   int age;
   String bio;
   String phoneNumber;
-  String address;
+  Location address;
   String jobStatus;
   String gender;
   String religion;

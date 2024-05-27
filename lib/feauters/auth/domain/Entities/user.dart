@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'location.dart';
+
 class UserEntity extends Equatable {
   final int id;
   final String fullName;
@@ -10,7 +12,7 @@ class UserEntity extends Equatable {
   final String religion;
   final String bio;
   final String phoneNumber;
-  final Map address;
+  final Location address;
   final String jobStatus;
   final String gender;
   final int budget;
@@ -77,7 +79,7 @@ class UserEntity extends Equatable {
       "age": age,
       "bio": bio,
       "phone_number": phoneNumber,
-      "address": address,
+      "address": address.toJson(),
       "job_status": jobStatus,
       "gender": gender,
       "budget": budget,

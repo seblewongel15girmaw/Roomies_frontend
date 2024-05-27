@@ -7,13 +7,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 
 import '../../../../core/util/sharedPreference.dart';
+import '../../domain/Entities/location.dart';
 
 Future<http.MultipartRequest> uploadSingleImage(
   XFile idImage,
   String fullName,
   String phoneNumber,
   String gender,
-  Map address,
+  Location address,
   token,
   apiUrl,
 ) async{
@@ -30,7 +31,7 @@ Future<http.MultipartRequest> uploadSingleImage(
     imageUploadRequest.fields['full_name'] = fullName;
     imageUploadRequest.fields['phone_number'] = phoneNumber;
     imageUploadRequest.fields['gender'] = gender;
-    imageUploadRequest.fields['address'] = jsonEncode(address);
+    imageUploadRequest.fields['address'] = jsonEncode(address.toJson());
     imageUploadRequest.headers['Authorization'] = 'Bearer $token';
   }
   catch(error){

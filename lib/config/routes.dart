@@ -31,6 +31,16 @@ import 'package:begara_mobile/injectionContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../feauters/auth/presentation/bloc/change_password/change_password.dart';
+import '../feauters/auth/presentation/bloc/location/locations.dart';
+import '../feauters/auth/presentation/bloc/recover_password/recover_password.dart';
+import '../feauters/auth/presentation/pages/change_password_page.dart';
+import '../feauters/auth/presentation/pages/edit_profile_page.dart';
+import '../feauters/auth/presentation/pages/forgot_passowrd_page.dart';
+import '../feauters/feedback/presentation/blocs/chip/chip.dart';
+import '../feauters/feedback/presentation/blocs/feedback/feedback_bloc.dart';
+import '../feauters/feedback/presentation/pages/feedback_page.dart';
+
 class Routes{
 
   Route<dynamic> generateRoute(RouteSettings settings){
@@ -59,8 +69,20 @@ class Routes{
         BlocProvider<DropDownBloc>(create: (context) => DropDownBloc()) ,
         BlocProvider<ImageBloc>(create: (context) => ImageBloc()) ,
         BlocProvider<RadioBloc>(create: (context) => RadioBloc()) ,
+        BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
         BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>())],
         child: ProfilePage(),
+        ),);
+      case '/edit-profile':
+      return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<DropDownBloc>(create: (context) => DropDownBloc()) ,
+        BlocProvider<ImageBloc>(create: (context) => ImageBloc()) ,
+        BlocProvider<RadioBloc>(create: (context) => RadioBloc()) ,
+        BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>()),
+        BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
+        BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
+        ],
+        child: EditProfilePage(),
         ),);
       case '/guarantor':
       return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
@@ -68,6 +90,7 @@ class Routes{
         BlocProvider<ImageBloc>(create: (context) => ImageBloc()) ,
         BlocProvider<RadioBloc>(create: (context) => RadioBloc()) ,
         BlocProvider<GuarantorBloc>(create: (context) =>sl<GuarantorBloc>()),
+        BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
         BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>())],
         child: RegisterGuarantorPage(),
         ),);
@@ -148,8 +171,35 @@ class Routes{
         ),
       );
 
+      case '/forget-password':
+      return MaterialPageRoute(
+        builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<RecoverPasswordBloc>(create: (context)=>sl<RecoverPasswordBloc>()),
+       ],
+        child: ForgotPasswordPage(),
+        ),
+      );
 
-
+      case '/change-password':
+      return MaterialPageRoute(
+        builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<PassBloc>(create: (context)=>PassBloc()),
+        BlocProvider<ChangePasswordBloc>(create: (context)=>sl<ChangePasswordBloc>()),
+       ],
+        child: ChangePasswordPage(),
+        ),
+      );
+      case '/give-feedback':
+      return MaterialPageRoute(
+        builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<PassBloc>(create: (context)=>PassBloc()),
+        BlocProvider<ChipBloc>(create: (context)=>ChipBloc()),
+        BlocProvider<ChangePasswordBloc>(create: (context)=>sl<ChangePasswordBloc>()),
+        BlocProvider<FeedBackBloc>(create: (context)=>sl<FeedBackBloc>()),
+       ],
+        child: FeedbackPage(),
+        ),
+      );
 
       default:
       return MaterialPageRoute(

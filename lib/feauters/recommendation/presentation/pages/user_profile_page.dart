@@ -74,7 +74,7 @@ class UserProfilePage extends StatelessWidget {
                     right: 10,
                     child: IconButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, "/chat",arguments: {"user":user, "userId":userId} );
+                          Navigator.pushNamed(context, "/chats",arguments: {"user":user, "userId":userId} );
                         },
                         icon: Icon(
                           Icons.message_sharp,

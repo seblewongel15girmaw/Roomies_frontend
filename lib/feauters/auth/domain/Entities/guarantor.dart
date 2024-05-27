@@ -1,10 +1,11 @@
+import 'package:begara_mobile/feauters/auth/domain/Entities/location.dart';
 import 'package:equatable/equatable.dart';
 
 class Guarantor extends Equatable{
 
   final String fullName;
   final String phoneNumber;
-  final Map address;
+  final Location address;
   final String gender;
   final String image;
   Guarantor({required this.fullName, required this.phoneNumber, required this.address, required this.gender, required this.image});
@@ -17,7 +18,7 @@ class Guarantor extends Equatable{
     return {
       "full_name": fullName,
       "phone_number": phoneNumber,
-      "address": address,
+      "address": address.toJson(),
       "gender": gender,
       "image": image,
     };

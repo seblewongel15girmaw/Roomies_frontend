@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
                     buttonText: "Login",
                     listener: (context, state) {
                       if (state is LogSuccess) {
-                        Navigator.pushNamed(context, '/homePage',);
+                        Navigator.pushNamed(context, '/profile',);
                       }
                     },
                     success: LogSuccess,

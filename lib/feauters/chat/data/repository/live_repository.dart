@@ -9,17 +9,23 @@ class LiveRepositoryImpl implements LiveRepository {
   LiveRepositoryImpl(this.dataProvider);
 
   @override
-  void connect(int userId, void Function(Chat chat) onMessageReceived) {
-    dataProvider.connect(userId, onMessageReceived);
+  Future<void> connect(int userId, void Function(Chat chat) onMessageReceived) async{
+    await dataProvider.connect(userId, );
   }
 
   @override
-  void sendMessage(int userId, int receiverId, String message) {
-    dataProvider.sendMessage(userId, receiverId, message);
+  void sendMessage(int userId, int receiverId, String message,dynamic time) {
+    dataProvider.sendMessage(userId, receiverId, message,time);
   }
 
   @override
   void disconnect() {
     dataProvider.disconnect();
+  }
+  
+  @override
+  // TODO: implement messages
+  Stream<Chat> get messages {
+    return dataProvider.messages;
   }
 }

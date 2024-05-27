@@ -32,7 +32,7 @@ else{
         age: event.age,
         bio: event.bio,
         phoneNumber: event.phoneNumber,
-        address: locations[realIndex][event.address],
+        address: event.address,
         jobStatus: event.jobStatus,
         religion: event.religion,
         gender: event.gender,

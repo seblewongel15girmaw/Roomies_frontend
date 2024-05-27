@@ -6,6 +6,8 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../Entities/location.dart';
+
 class CreateGuarantor implements UseCase<int,Params>{
   GuarantorRepo guarantorRepo;
   CreateGuarantor(this.guarantorRepo);
@@ -23,7 +25,7 @@ class Params extends Equatable {
   String gender;
   String image;
   XFile idImage;
-  Map address;
+  Location address;
   Params({required this.fullName, required this.phoneNumber, required this.gender,  required this.image, required this.address, required this.idImage});
   
   @override

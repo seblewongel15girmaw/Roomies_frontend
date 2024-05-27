@@ -41,8 +41,10 @@ class RoommateDataSourceImpl implements RoommateDataSource{
   
   @override
   Future<UserModel> getRoomate(int id) async{
+    final token = await SharedPreferencesService.getString("tokens");
+    final userId = decodeJwt(token!)["userId"];
     final response= await client.get(
-      Uri.parse("http://localhost:3000/api/users/$id")
+      Uri.parse("http://localhost:3000/api/users/$userId")
     );
     if(response.statusCode==200){
       final userData=json.decode(response.body)["user"];

@@ -6,8 +6,12 @@ class ConnectUseCase {
 
   ConnectUseCase(this.repository);
 
-  void call(int userId, void Function(Chat chat) onMessageReceived) {
-    repository.connect(userId, onMessageReceived);
+  Future<void> call(int userId, void Function(Chat chat) onMessageReceived) async{
+    await repository.connect(userId, onMessageReceived);
+  }
+
+  Stream<Chat> get messages{
+    return repository.messages;
   }
 }
 
@@ -16,8 +20,8 @@ class SendMessageUseCase {
 
   SendMessageUseCase(this.repository);
 
-  void call(int userId, int receiverId, String message) {
-    repository.sendMessage(userId, receiverId, message);
+  void call(int userId, int receiverId, String message, dynamic time) {
+    repository.sendMessage(userId, receiverId, message,time);
   }
 }
 

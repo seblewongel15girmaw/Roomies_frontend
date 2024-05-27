@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
-
+import 'package:intl/intl.dart';
 
 void scrollToBottom(dynamic controller) {
   if (controller.hasClients) {
@@ -10,7 +10,7 @@ void scrollToBottom(dynamic controller) {
       SchedulerBinding.instance!.addPostFrameCallback((_) {
         controller.animateTo(
           controller.position.maxScrollExtent,
-          duration: Duration(milliseconds: 500),
+          duration: Duration(milliseconds: 200),
           curve: Curves.easeInOut,
         );
       });
@@ -19,24 +19,22 @@ void scrollToBottom(dynamic controller) {
   
 }
 
-void syncChatHistoryWithLiveChat(
-    dynamic chatHisotrycontroller, dynamic liveChatController) {
-  if (chatHisotrycontroller.hasClients && liveChatController.hasClients) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      SchedulerBinding.instance!.addPostFrameCallback((_) {
-        if (chatHisotrycontroller.offset != liveChatController.offset) {
-          if (chatHisotrycontroller.offset > liveChatController.offset) {
-            liveChatController.jumpTo(chatHisotrycontroller.offset);
-          } else {
-            chatHisotrycontroller.jumpTo(liveChatController.offset);
-          }
-        }
-      });
-    });
+
+String formatTime(String dateString, String placement) {
+  DateTime givenTime = DateTime.parse(dateString);
+  DateTime now = DateTime.now();
+  Duration difference = now.difference(givenTime);
+  if(placement=="inchat"){
+    return DateFormat('hh:mm a').format(givenTime);
   }
-}
+  else{
 
-
-String formatTime(){
-  return "";
+  if (difference.inHours < 24) {
+    // If within 24 hours, return time in AM/PM format
+    return DateFormat('hh:mm a').format(givenTime);
+  } else {
+    // If beyond 24 hours, return date with month
+    return DateFormat('MMM dd').format(givenTime);
+  }
+  }
 }

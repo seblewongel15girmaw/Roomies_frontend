@@ -1,7 +1,9 @@
 import 'package:begara_mobile/core/util/validators.dart';
+import 'package:begara_mobile/feauters/auth/domain/Entities/location.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/guarantor/guarantor.dart';
 import 'package:begara_mobile/feauters/auth/presentation/strings.dart';
 import 'package:begara_mobile/feauters/auth/presentation/widgets/error_message.dart';
+import 'package:begara_mobile/feauters/auth/presentation/widgets/location_bar.dart';
 import 'package:begara_mobile/feauters/auth/presentation/widgets/text_fields.dart';
 import 'package:begara_mobile/feauters/auth/presentation/widgets/upload_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,7 +25,7 @@ class RegisterGuarantorPage extends StatelessWidget {
     TextEditingController phoneNumber = TextEditingController();
     String gender = "";
     XFile? image2;
-    String? address;
+    Location? address;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -86,17 +88,22 @@ class RegisterGuarantorPage extends StatelessWidget {
                         validator: phoneNumberValidator,
                       ),
                       SizedBox(height: 20,),
-                      CustomDropdownButton(
-                        items: locations,
-                        value: address,
-                        hintText: "Address",
-                        onChanged: (String? newValue) {
-                          address = newValue;
-                        },
-                        leadIcon: Icons.location_on,
-                      ),
+                      LocationBar(getLocation: (location) {
+                        address=location;
+                      }, width: screenSize.width),
+                      // CustomDropdownButton(
+                      //   initalSelection: null,
+                      //   items: locations,
+                      //   value: address,
+                      //   hintText: "Address",
+                      //   onChanged: (String? newValue) {
+                      //     address = newValue;
+                      //   },
+                      //   leadIcon: Icons.location_on,
+                      // ),
                      
                       CustomDropdownButton(
+                        initalSelection: null,
                         leadIcon: Icons.note_alt_sharp,
                         hintText: "Choose gender",
                         header: "Gender",

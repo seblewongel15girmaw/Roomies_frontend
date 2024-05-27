@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:begara_mobile/feauters/chat/presentation/utils/functions.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/utils/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,7 +93,7 @@ class ContactsPage extends StatelessWidget {
                                           style: TextStyle(fontSize: 12),
                                         ),
                                         Text(
-                                          state.contacts[index].time.toString(),
+                                          formatTime(state.contacts[index].time,"contacts"),
                                           style: TextStyle(fontSize: 12),
                                         ),
                                         ]

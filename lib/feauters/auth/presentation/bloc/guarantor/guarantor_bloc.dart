@@ -26,7 +26,7 @@ class GuarantorBloc extends Bloc<GuarantorEvent, GuarantorState> {
           phoneNumber: event.phoneNumber,
           gender: event.gender,
           image: event.profileImage.path,
-          address: locations[realIndex][event.address],
+          address: event.address,
           idImage: event.profileImage);
       final response = await createGuarantor(param);
       if (response.isRight()) {

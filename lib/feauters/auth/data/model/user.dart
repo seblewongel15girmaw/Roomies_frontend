@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:begara_mobile/feauters/auth/data/model/location.dart';
 import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 
 class UserModel extends UserEntity {
@@ -12,7 +13,7 @@ class UserModel extends UserEntity {
     required int age,
     required String bio,
     required String phoneNumber,
-    required Map address,
+    required LocationModel address,
     required String jobStatus,
     required String gender,
     required int budget,
@@ -57,7 +58,7 @@ class UserModel extends UserEntity {
         age: map["age"] ?? 10,
         bio: map["bio"] ?? "",
         phoneNumber: map["phone_number"] ?? "",
-        address:json.decode(map['address'])?? <String,dynamic>{"HI":"HI"},
+        address:LocationModel.fromJson(map["address"]),
         jobStatus: map['job_status'] ?? "",
         gender: map['gender'] ?? "",
         budget: map['budget'] ?? 100,
