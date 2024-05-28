@@ -240,7 +240,7 @@ init();
       await tester.pumpAndSettle();
       expect(find.byType(ForgotPasswordPage),findsOneWidget);
       //Enter recovery email and press recover
-      await tester.enterText(find.byType(TextFormField),"yitbegirmaye@gmail.com");
+      await tester.enterText(find.byType(TextFormField),"abebe@gmail.com");
       await tester.tap(find.byType(ElevatedButton));
       await tester.pumpAndSettle();
       expect(find.text("Your password has been recovered. Please login using your new password"),findsOneWidget);
@@ -262,7 +262,6 @@ init();
               initialRoute: "/roommate",
             ),
           ));
-      
       // Load the Recommended users
       await tester.pumpAndSettle();
       expect(find.byType(DisplayMatchesPage), findsOneWidget);
@@ -278,9 +277,7 @@ init();
       await tester.enterText(find.byType(TextField), "for__@testpurpose@__");
       await tester.tap(find.byKey(Key("send_message")));
       await tester.pumpAndSettle();
-      await Future.delayed(Duration(seconds: 5));
       expect(find.text("for__@testpurpose@__"),findsOneWidget);
-
     });
 
     
