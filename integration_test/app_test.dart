@@ -1,9 +1,13 @@
 import "package:begara_mobile/config/routes.dart";
 import "package:begara_mobile/core/util/sharedPreference.dart";
+import "package:begara_mobile/feauters/auth/presentation/bloc/login/login.dart";
+import "package:begara_mobile/feauters/auth/presentation/bloc/others/censor/censor.dart";
 import "package:begara_mobile/feauters/auth/presentation/bloc/others/image/image_bloc.dart";
 import "package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_bloc.dart";
 import "package:begara_mobile/feauters/auth/presentation/bloc/register/register_bloc.dart";
 import "package:begara_mobile/feauters/auth/presentation/pages/create_profile_page.dart";
+import "package:begara_mobile/feauters/auth/presentation/pages/forgot_passowrd_page.dart";
+import "package:begara_mobile/feauters/auth/presentation/pages/login_page.dart";
 import "package:begara_mobile/feauters/auth/presentation/pages/register_guarantor_page.dart";
 import "package:begara_mobile/feauters/auth/presentation/pages/registeration_page.dart";
 import "package:begara_mobile/feauters/chat/presentation/blocs/contacts/contacts.dart";
@@ -209,6 +213,39 @@ init();
       expect(find.byType(RegisterGuarantorPage), findsOneWidget);
     });
 
+    testWidgets("recover Password",(WidgetTester tester) async{
+      final Routes appRoutes = Routes();
+      await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<LogBloc>(
+                create: (context) => sl<LogBloc>(),
+              ),
+             BlocProvider<PassBloc>(
+                create: (context) => PassBloc(),
+              ),
+            ],
+            child: MaterialApp(
+              onGenerateRoute: appRoutes.generateRoute,
+              home: LoginPage(),
+              initialRoute: "/login",
+            ),
+          ));
+      
+      // Load the login page
+      await tester.pumpAndSettle();
+      expect(find.byType(LoginPage), findsOneWidget);
+      // Navigate to forgot password page
+      await tester.tap(find.byKey(Key("forget")));
+      await tester.pumpAndSettle();
+      expect(find.byType(ForgotPasswordPage),findsOneWidget);
+      //Enter recovery email and press recover
+      await tester.enterText(find.byType(TextFormField),"yitbegirmaye@gmail.com");
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pumpAndSettle();
+      expect(find.text("Your password has been recovered. Please login using your new password"),findsOneWidget);
+    });
+
     testWidgets("get possible matches and send message", (WidgetTester tester) async{
       final Routes appRoutes = Routes();
       await tester.pumpWidget(
@@ -222,7 +259,7 @@ init();
             child: MaterialApp(
               onGenerateRoute: appRoutes.generateRoute,
               home: DisplayMatchesPage(),
-              initialRoute: "/roommate", // Set ProfilePage as the home widget
+              initialRoute: "/roommate",
             ),
           ));
       

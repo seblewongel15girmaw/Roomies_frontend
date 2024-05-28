@@ -45,7 +45,17 @@ class LoginPage extends StatelessWidget {
                   validator: nameValidator,
                 ),
                 PasswordFormField(controller: password, labelText: "Password",validator: passwordValidator,),
-                SizedBox(height: 50),
+                SizedBox(height:40),
+                GestureDetector(
+                  key: Key("forget"),
+                  onTap: (){
+                    Navigator.pushNamed(context, "/forget-password");
+                  },
+                  child: Center(
+                    child: Text("Forgot Password?", style: TextStyle(color: Colors.amber),),
+                  ),
+                ),
+                SizedBox(height: 10),
                 SubmitButton(
                     bloc: BlocProvider.of<LogBloc>(context),
                     onPressed: () {

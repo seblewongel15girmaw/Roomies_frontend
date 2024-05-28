@@ -10,9 +10,23 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Forgot Password"),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          backgroundColor:Color.fromRGBO(244, 196, 48,0.9) , // Make the app bar transparent
+          elevation: 0,
+        ),
       body: BlocBuilder<RecoverPasswordBloc, RecoverPasswordState>(
           builder: (context, state) {
-        if (state is SuccessfulyRecovered) {
+        if (state is !SuccessfulyRecovered) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,6 +68,7 @@ class ForgotPasswordPage extends StatelessWidget {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
+
                     backgroundColor: state is Idle
                         ? Colors.amber.shade50
                         : state is RecoveringPassword
