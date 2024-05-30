@@ -1,5 +1,6 @@
 import "package:begara_mobile/config/routes.dart";
 import "package:begara_mobile/core/util/sharedPreference.dart";
+import "package:begara_mobile/feauters/auth/presentation/bloc/change_password/change_password.dart";
 import "package:begara_mobile/feauters/auth/presentation/bloc/login/login.dart";
 import "package:begara_mobile/feauters/auth/presentation/bloc/others/censor/censor.dart";
 import "package:begara_mobile/feauters/auth/presentation/bloc/others/image/image_bloc.dart";
@@ -14,10 +15,14 @@ import "package:begara_mobile/feauters/chat/presentation/blocs/contacts/contacts
 import "package:begara_mobile/feauters/chat/presentation/pages/alternate_chat_page.dart";
 import "package:begara_mobile/feauters/chat/presentation/pages/chat_page.dart";
 import "package:begara_mobile/feauters/chat/presentation/pages/contacts_page.dart";
+import "package:begara_mobile/feauters/feedback/presentation/blocs/chip/chip.dart";
+import "package:begara_mobile/feauters/feedback/presentation/blocs/feedback/feedback_bloc.dart";
+import "package:begara_mobile/feauters/feedback/presentation/pages/feedback_page.dart";
 import "package:begara_mobile/feauters/house/presentation/page/user/home_page.dart";
 import "package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart";
 import "package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart";
 import "package:begara_mobile/feauters/recommendation/presentation/pages/user_profile_page.dart";
+import "package:dartz/dartz.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_test/flutter_test.dart";
@@ -211,6 +216,46 @@ init();
 
       // Verify navigation to GuarantorPage
       expect(find.byType(RegisterGuarantorPage), findsOneWidget);
+    });
+
+    testWidgets("Give feedback",(WidgetTester tester) async{
+      final Routes appRoutes = Routes();
+      await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<FeedBackBloc>(
+                create: (context) => sl<FeedBackBloc>(),
+              ),
+           
+             BlocProvider<ChipBloc>(
+                create: (context) => ChipBloc(),
+              ),     
+            ],
+            child: MaterialApp(
+              onGenerateRoute: appRoutes.generateRoute,
+              home: FeedbackPage(),
+              initialRoute: "/give-feedback",
+            ),
+          ));
+      
+      // Load the login page
+      await tester.pumpAndSettle();
+      expect(find.byType(FeedbackPage), findsOneWidget);
+      //give a rating of 2.5
+      await tester.tap(find.byKey(Key("rating_icon")).at(2));
+      await tester.pumpAndSettle();
+      // select speed and update from the given chips
+      await tester.tap(find.byKey(Key("Speed")));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(Key("Update",)));
+      await tester.pumpAndSettle();
+      // give comment 
+      await tester.enterText(find.byType(TextField), "You should consider starting multi language support");
+      //submit feedback
+      await tester.tap(find.byKey(Key("send_feedback")));
+      await tester.pumpAndSettle();
+      expect(find.text("We greatly appreciate your feedback. Thank you for sharing it with us."), findsOneWidget);
+      
     });
 
     testWidgets("recover Password",(WidgetTester tester) async{

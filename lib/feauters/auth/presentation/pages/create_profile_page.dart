@@ -12,8 +12,6 @@ import 'package:begara_mobile/feauters/auth/presentation/widgets/upload_button.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:begara_mobile/core/util/locations.dart';
-
 import '../widgets/location_bar.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -113,7 +111,8 @@ class ProfilePage extends StatelessWidget {
                       LocationBar(getLocation: (location) {
                             print(location);
                             address=location;
-                          },width: screenWidth,),
+                          },width: screenWidth,
+                          choosenLocation: null,),
                       CustomTextField(
                         controller: phoneNumber,
                         labelText: "Phone Number",

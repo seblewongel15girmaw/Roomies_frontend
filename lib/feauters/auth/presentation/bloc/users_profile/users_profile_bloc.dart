@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserProfileBloc extends Bloc<UserProfileEvent,UserProfileState>{
   final GetRoommate getRoommate;
-  UserProfileBloc(this.getRoommate):super(Idle()){
+  UserProfileBloc(this.getRoommate):super(ProfileIdle()){
     on<UserProfileEvent>(
       _loadUserProfile
     );

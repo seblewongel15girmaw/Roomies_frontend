@@ -3,7 +3,7 @@ import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 abstract class UserProfileState{
 }
 
-class Idle extends UserProfileState{}
+class ProfileIdle extends UserProfileState{}
 
 class LoadingUserProfile extends UserProfileState{
 }

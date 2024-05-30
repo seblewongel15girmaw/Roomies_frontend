@@ -35,6 +35,7 @@ class RatingBarCard extends StatelessWidget{
                         allowHalfRating: true,
                         itemBuilder: (context, _) {
                           return Icon(
+                            key: Key("rating_icon"),
                             Icons.star,
                             color: Colors.amber,
                           );

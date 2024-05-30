@@ -23,7 +23,6 @@ import 'package:begara_mobile/feauters/house/presentation/page/broker/broker_pro
 import 'package:begara_mobile/feauters/house/presentation/page/user/home_page.dart';
 import 'package:begara_mobile/feauters/house/presentation/page/user/house_detail.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart';
-import 'package:begara_mobile/feauters/recommendation/presentation/bloc/users_profile/users_profile_bloc.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/pages/user_profile_page.dart';
 import 'package:begara_mobile/injectionContainer.dart';
@@ -34,6 +33,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../feauters/auth/presentation/bloc/change_password/change_password.dart';
 import '../feauters/auth/presentation/bloc/location/locations.dart';
 import '../feauters/auth/presentation/bloc/recover_password/recover_password.dart';
+import '../feauters/auth/presentation/bloc/users_profile/users_profile_bloc.dart';
 import '../feauters/auth/presentation/pages/change_password_page.dart';
 import '../feauters/auth/presentation/pages/edit_profile_page.dart';
 import '../feauters/auth/presentation/pages/forgot_passowrd_page.dart';
@@ -75,12 +75,12 @@ class Routes{
         ),);
       case '/edit-profile':
       return MaterialPageRoute(builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
         BlocProvider<DropDownBloc>(create: (context) => DropDownBloc()) ,
         BlocProvider<ImageBloc>(create: (context) => ImageBloc()) ,
         BlocProvider<RadioBloc>(create: (context) => RadioBloc()) ,
         BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>()),
         BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
-        BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
         ],
         child: EditProfilePage(),
         ),);
@@ -145,6 +145,7 @@ class Routes{
        case '/homePage':
       return MaterialPageRoute(
         builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
         BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
        ],
         child: HomePage(),

@@ -90,7 +90,8 @@ class RegisterGuarantorPage extends StatelessWidget {
                       SizedBox(height: 20,),
                       LocationBar(getLocation: (location) {
                         address=location;
-                      }, width: screenSize.width),
+                      }, width: screenSize.width,
+                      choosenLocation: null,),
                       // CustomDropdownButton(
                       //   initalSelection: null,
                       //   items: locations,

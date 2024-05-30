@@ -92,6 +92,7 @@ class FeedbackPage extends StatelessWidget {
                 height: 15,
               ),
               GestureDetector(
+                key: Key("send_feedback"),
                 onTap: () {
                   BlocProvider.of<FeedBackBloc>(context).add(SendFeedBackEvent(
                       feedbackMessage: feedbackMessageController.text,

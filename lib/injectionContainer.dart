@@ -34,7 +34,7 @@ import 'package:begara_mobile/feauters/recommendation/domain/repository/roommate
 import 'package:begara_mobile/feauters/recommendation/domain/usecases/get_all_roommate.dart';
 import 'package:begara_mobile/feauters/recommendation/domain/usecases/get_roommate.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart';
-import 'package:begara_mobile/feauters/recommendation/presentation/bloc/users_profile/users_profile_bloc.dart';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,6 +47,7 @@ import 'feauters/auth/domain/usecases/recover_password.dart';
 import 'feauters/auth/presentation/bloc/change_password/change_password.dart';
 import 'feauters/auth/presentation/bloc/location/locations.dart';
 import 'feauters/auth/presentation/bloc/recover_password/recover_password.dart';
+import 'feauters/auth/presentation/bloc/users_profile/users_profile_bloc.dart';
 import 'feauters/feedback/data/data_source/feedback_data_source.dart';
 import 'feauters/feedback/data/repository/feedback_repository_impl.dart';
 import 'feauters/feedback/domain/repository/feedback_repository.dart';

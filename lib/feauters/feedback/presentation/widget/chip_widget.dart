@@ -46,6 +46,7 @@ class Chips extends StatelessWidget{
                         children:
                             List<Widget>.generate(labels.length, (int index) {
                           return FilterChip(
+                            key: Key(labels[index]),
                             label: Text(labels[index]),
                             selected: selected[index],
                             onSelected: (bool isSelected) {

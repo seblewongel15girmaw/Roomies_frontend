@@ -14,12 +14,13 @@ import 'package:begara_mobile/feauters/auth/presentation/widgets/upload_button.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:begara_mobile/core/util/locations.dart';
+
 
 class EditProfilePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
+    BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(id: 0));
     double screenWidth = MediaQuery.of(context).size.width;
     XFile? image;
     XFile? image2;
@@ -39,10 +40,11 @@ class EditProfilePage extends StatelessWidget {
     String privacy = "";
     String socialize = "";
     String smoking = "";
-    BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(id: 0));
+
     return Scaffold(
       body: BlocBuilder<UserProfileBloc,UserProfileState>(
         builder: (context,state) {
+          
           if(state is UserProfileSuccess){
             final user= state.user;
             print(user);
@@ -130,7 +132,9 @@ class EditProfilePage extends StatelessWidget {
                           LocationBar(getLocation: (location) {
                             print(location);
                             address=location;
-                          },width: screenWidth,),
+                          },width: screenWidth,
+                          choosenLocation: address!.displayName,
+                          ),
                           // CustomDropdownButton(
                           //   initalSelection: address.displayName ==""?null:address,
                           //   items: locations,

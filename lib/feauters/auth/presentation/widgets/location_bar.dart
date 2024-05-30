@@ -11,10 +11,12 @@ class LocationBar extends StatelessWidget {
   final width;
   TextEditingController _controller = TextEditingController();
   final void Function(Location location) getLocation;
-  LocationBar({required this.getLocation, required this.width});
+  final choosenLocation;
+  LocationBar({required this.getLocation, required this.width,required this.choosenLocation});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationBloc, LocationState>(builder: (context, state) {
+      _controller.text=choosenLocation??"";
       return Column(
         children: [
           Container(
