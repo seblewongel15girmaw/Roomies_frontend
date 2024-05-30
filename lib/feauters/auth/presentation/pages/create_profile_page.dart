@@ -75,6 +75,7 @@ class ProfilePage extends StatelessWidget {
                               ),
                       ),
                       IconButton(
+                        key:Key("profile_image_upload"),
                         icon: Icon(Icons.camera_alt_outlined,
                             size: 20, color: Color.fromARGB(255, 217, 148, 48)),
                         onPressed: () {
@@ -113,25 +114,30 @@ class ProfilePage extends StatelessWidget {
                             address=location;
                           },width: screenWidth,
                           choosenLocation: null,),
+
                       CustomTextField(
+                        inputKey: const Key("profile_phone"),
                         controller: phoneNumber,
                         labelText: "Phone Number",
                         prefixIcon: Icons.phone,
                         validator: phoneNumberValidator,
                       ),
                       CustomTextField(
+                        inputKey: const Key("profile_age"),
                         controller: age,
                         labelText: "Age",
                         prefixIcon: Icons.calendar_month,
                         validator: ageValidator,
                       ),
                       CustomTextField(
+                        inputKey: const Key("profile_budget"),
                         controller: budget,
                         labelText: "Budget",
                         prefixIcon: Icons.money,
                         validator: budgetValidator,
                       ),
                       CustomTextField(
+                        inputKey: const Key("profile_job"),
                           controller: jobStatus,
                           labelText: "Job Status",
                           prefixIcon: Icons.cases),
@@ -140,6 +146,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CustomDropdownButton(
                         initalSelection: null,
+                        key: Key("profile_religion"),
                         items: ProfilePageStrings.religionItems,
                         value: religion,
                         hintText: "Choose Religion",
@@ -152,6 +159,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CustomDropdownButton(
                         initalSelection: null,
+                        key: Key("gender_dropdown"),
                         leadIcon: Icons.note_alt_sharp,
                         hintText: "Choose your gender",
                         header: "Gender",
@@ -163,6 +171,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CustomDropdownButton(
                         initalSelection: null,
+                        key: Key("profile_religious_similarity"),
                         leadIcon: Icons.note_alt_sharp,
                         hintText: "",
                         header:
@@ -175,6 +184,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CustomDropdownButton(
                         initalSelection: null,
+                        key: Key("smoking"),
                         leadIcon: Icons.note_alt_sharp,
                         header:
                             "Do you smoke or are you okay with living with someone who does?",
@@ -187,6 +197,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CustomDropdownButton(
                         initalSelection: null,
+                        key: Key("pet"),
                         leadIcon: Icons.note_alt_sharp,
                         header: "Are you pet-friendly?",
                         items: ProfilePageStrings.petItems,
@@ -198,6 +209,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CustomDropdownButton(
                         initalSelection: null,
+                        key: Key("punctuality"),
                         leadIcon: Icons.note_alt_sharp,
                         header:
                             "Can you tolerate roommates who arrive late for various reasons?",
@@ -210,6 +222,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       CustomDropdownButton(
                         initalSelection: null,
+                        key: Key("socialize"),
                         leadIcon: Icons.note_alt_sharp,
                         header: "How often do you socialize at home?",
                         items: ProfilePageStrings.socializeItems,
@@ -223,6 +236,7 @@ class ProfilePage extends StatelessWidget {
                         height: 20,
                       ),
                       UploadImageButton(
+                        key: Key("profile_id_upload"),
                         idImage: image2,
                         onPressed: () {
                           BlocProvider.of<ImageBloc>(context).add(IdClicked());
@@ -251,6 +265,7 @@ class ProfilePage extends StatelessWidget {
                         height: 10,
                       ),
                       TextField(
+                        key: Key("bio"),
                         maxLines: 4,
                         controller: bio,
                         decoration: InputDecoration(
@@ -274,6 +289,7 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Center(
                           child: SubmitButton(
+                            buttonKey: const Key("profile_btn"),
                               bloc: BlocProvider.of<ProfileBloc>(context),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {

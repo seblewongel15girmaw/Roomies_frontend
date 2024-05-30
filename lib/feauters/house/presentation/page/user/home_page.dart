@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:begara_mobile/feauters/auth/presentation/bloc/location/locations.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/create_profile_page.dart';
 import 'package:begara_mobile/feauters/chat/domain/entity/contacts.dart';
@@ -181,7 +182,7 @@ class _HomePageState extends State<HomePage>{
     "",
     "All Chats",
     "Compatible Roommates",
-    "Profile"
+    "My Profile"
   ];
 
   @override

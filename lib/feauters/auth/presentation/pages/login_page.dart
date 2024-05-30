@@ -13,6 +13,7 @@ class LoginPage extends StatelessWidget {
     TextEditingController userName = TextEditingController();
     TextEditingController password = TextEditingController();
     return Scaffold(
+      key: Key("login_page"),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         SizedBox(
           height: 20,
@@ -20,6 +21,7 @@ class LoginPage extends StatelessWidget {
         Align(
             alignment: Alignment.topLeft,
             child: SwitchScreen(
+              inputKey: Key("to_register_btn"),
               pageRoute: "/register",
               buttonName: "Register",
               direction: "right",
@@ -39,12 +41,15 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 CustomTextField(
+                  inputKey: const Key("login_username"),
                   controller: userName,
                   labelText: "User Name",
                   prefixIcon: Icons.person,
                   validator: nameValidator,
                 ),
-                PasswordFormField(controller: password, labelText: "Password",validator: passwordValidator,),
+                PasswordFormField(
+                  controller: password, labelText: "Password",validator: passwordValidator,
+                  inputKey: Key("login_password"),),
                 SizedBox(height:40),
                 GestureDetector(
                   key: Key("forget"),
@@ -56,7 +61,12 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
+                PasswordFormField(controller: password, labelText: "Password",
+                  validator: passwordValidator,
+                inputKey: const Key("login_password"),),
+                SizedBox(height: 50),
                 SubmitButton(
+                  buttonKey: const Key("login_btn"),
                     bloc: BlocProvider.of<LogBloc>(context),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

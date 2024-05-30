@@ -22,7 +22,7 @@ import "package:begara_mobile/feauters/house/presentation/page/user/home_page.da
 import "package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart";
 import "package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart";
 import "package:begara_mobile/feauters/recommendation/presentation/pages/user_profile_page.dart";
-import "package:dartz/dartz.dart";
+
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_test/flutter_test.dart";
@@ -325,7 +325,6 @@ init();
       expect(find.text("for__@testpurpose@__"),findsOneWidget);
     });
 
-    
   }
   );
 

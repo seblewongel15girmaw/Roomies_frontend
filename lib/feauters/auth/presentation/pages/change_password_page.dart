@@ -40,12 +40,14 @@ class ChangePasswordPage extends StatelessWidget {
                         PasswordFormField(
                           controller: passwordController,
                           labelText: "Enter old password",
-                          validator: passwordValidator,
+                          validator: passwordValidator, 
+                          inputKey: Key("old_pass"),
                         ),
                         PasswordFormField(
                           controller: newPasswordController,
                           labelText: "Enter new password",
-                          validator: passwordValidator,
+                          validator: passwordValidator, 
+                          inputKey: Key("new_pass"),
                         ),
                         PasswordFormField(
                           controller: repasswordController,
@@ -54,7 +56,7 @@ class ChangePasswordPage extends StatelessWidget {
                             dynamic result = repasswordValidator(
                                 value, newPasswordController.text);
                             return result;
-                          },
+                          }, inputKey: Key("confirm_pass"),
                         ),
                       ],
                     ),

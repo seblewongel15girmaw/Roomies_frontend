@@ -119,5 +119,4 @@ Future <void> init() async{
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => Connectivity());
 
-
 }
