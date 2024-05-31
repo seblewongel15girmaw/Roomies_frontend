@@ -9,7 +9,10 @@ import 'package:begara_mobile/feauters/auth/domain/repository/userRepository.dar
 import 'package:begara_mobile/feauters/auth/domain/usecases/create_guarantor.dart';
 import 'package:begara_mobile/feauters/auth/domain/usecases/create_profile.dart';
 import 'package:begara_mobile/feauters/auth/domain/usecases/login_user.dart';
+import 'package:begara_mobile/feauters/auth/domain/usecases/logout_user.dart';
 import 'package:begara_mobile/feauters/auth/domain/usecases/register_user.dart';
+import 'package:begara_mobile/feauters/auth/domain/usecases/unsubscribe_user.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/deactivate/deactivate_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/guarantor/guarantor_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_bloc.dart';
@@ -46,6 +49,7 @@ import 'feauters/auth/domain/usecases/get_locations.dart';
 import 'feauters/auth/domain/usecases/recover_password.dart';
 import 'feauters/auth/presentation/bloc/change_password/change_password.dart';
 import 'feauters/auth/presentation/bloc/location/locations.dart';
+import 'feauters/auth/presentation/bloc/logout/logout.dart';
 import 'feauters/auth/presentation/bloc/recover_password/recover_password.dart';
 import 'feauters/auth/presentation/bloc/users_profile/users_profile_bloc.dart';
 import 'feauters/feedback/data/data_source/feedback_data_source.dart';
@@ -82,6 +86,8 @@ Future <void> init() async{
   sl.registerFactory(() => FeedBackBloc(sl()));
   sl.registerFactory(() => LocationBloc(sl()));
   sl.registerFactory(() => HouseBloc(sl()));
+  sl.registerFactory(() => LogoutBloc(sl()));
+  sl.registerFactory(()=>DeactivateBloc(sl()));
   sl.registerLazySingleton(() => LoginUser(sl()));
   sl.registerLazySingleton(() => RegisterUser(sl()));
   sl.registerLazySingleton(() => CreateProfile(sl()));
@@ -98,6 +104,8 @@ Future <void> init() async{
   sl.registerLazySingleton(() => ChangePassword(sl()));
   sl.registerLazySingleton(() => GiveFeedback(sl()));
   sl.registerLazySingleton(() => GetLocations(sl()));
+  sl.registerLazySingleton(()=>LogOutUser(sl()));
+  sl.registerLazySingleton(()=>UnsubscribeUser(sl()));
   sl.registerLazySingleton<UserRepo>(() => UserRepositoryImpl(sl(), sl(), sl()) );
   sl.registerLazySingleton<UserDataSources>(() => userDataSourcesImpl(sl()));
   sl.registerLazySingleton<UserLocalDataSources>(() => UserLocalDataSourcesImpl(sl()));

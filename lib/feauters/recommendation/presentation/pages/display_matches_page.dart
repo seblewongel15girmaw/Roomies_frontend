@@ -13,17 +13,17 @@ class DisplayMatchesPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: 30,
+            height: 15,
           ),
-          Center(
-            child: Text(
-              "Compatable Roommates",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
+          // Center(
+          //   child: Text(
+          //     "Compatable Roommates",
+          //     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 20,
+          // ),
           Container(
             width: double.infinity,
             child: Center(

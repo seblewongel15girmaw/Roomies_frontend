@@ -1,11 +1,14 @@
+import 'package:begara_mobile/feauters/auth/presentation/bloc/deactivate/deactivate.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/guarantor/guarantor_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/login/login_bloc.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/logout/logout.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/censor/censor_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/dropDown/dropdown.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/image/image_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/radioOptions/radio_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:begara_mobile/feauters/auth/presentation/pages/deactivate_account_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/login_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/create_profile_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/register_guarantor_page.dart';
@@ -147,6 +150,7 @@ class Routes{
         builder: (_)=>MultiBlocProvider(providers: [
         BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
         BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
+        BlocProvider<LogoutBloc>(create: (context)=>sl<LogoutBloc>()),
        ],
         child: HomePage(),
         ),
@@ -199,6 +203,16 @@ class Routes{
         BlocProvider<FeedBackBloc>(create: (context)=>sl<FeedBackBloc>()),
        ],
         child: FeedbackPage(),
+        ),
+      );
+
+      case '/deactivate':
+      return MaterialPageRoute(
+        builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<PassBloc>(create: (context)=>PassBloc()),
+        BlocProvider<DeactivateBloc>(create: (context)=>sl<DeactivateBloc>()),
+       ],
+        child: DeactivateAccountPage(),
         ),
       );
 

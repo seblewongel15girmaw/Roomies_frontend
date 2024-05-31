@@ -12,24 +12,24 @@ class ContactsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "All Chats",
-          style: TextStyle(
-              color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        backgroundColor: Color.fromARGB(255, 187, 148, 48), // Make the app bar transparent
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   title: Text(
+      //     "All Chats",
+      //     style: TextStyle(
+      //         color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+      //   ),
+      //   leading: IconButton(
+      //     icon: Icon(
+      //       Icons.arrow_back,
+      //       color: Colors.white,
+      //     ),
+      //     onPressed: () {
+      //       Navigator.pop(context);
+      //     },
+      //   ),
+      //   backgroundColor: Color.fromARGB(255, 187, 148, 48), // Make the app bar transparent
+      //   elevation: 0,
+      // ),
       body: BlocBuilder<ContactsBloc, ContactsState>(builder: (context, state) {
         if (state is Idle) {
           BlocProvider.of<ContactsBloc>(context).add(ContactsEvent());
