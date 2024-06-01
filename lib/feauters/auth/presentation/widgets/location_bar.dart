@@ -16,7 +16,7 @@ class LocationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationBloc, LocationState>(builder: (context, state) {
-      _controller.text=choosenLocation??"";
+      
       return Column(
         children: [
           Container(
@@ -26,7 +26,7 @@ class LocationBar extends StatelessWidget {
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.location_on_outlined),
                 prefixIconColor: Colors.amber,
-                hintText: 'Address...',
+                hintText: choosenLocation==null?'Address...':choosenLocation,
                 border: OutlineInputBorder(),
               ),
               onChanged: (query) {

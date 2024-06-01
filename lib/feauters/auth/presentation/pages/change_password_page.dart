@@ -15,6 +15,20 @@ class ChangePasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar:AppBar(
+        title: Text("Change Password"),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          backgroundColor:Color.fromRGBO(244, 196, 48,0.9) , // Make the app bar transparent
+          elevation: 0,
+        ),
       body: BlocBuilder<ChangePasswordBloc, ChangePasswordState>(
           builder: (context, state) {
         if (state is !ChangePasswordSuccess) {

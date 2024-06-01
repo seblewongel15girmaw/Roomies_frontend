@@ -20,6 +20,7 @@ import 'package:begara_mobile/feauters/house/presentation/widget/user/house_card
 import 'package:begara_mobile/injectionContainer.dart';
 
 import '../../../../../config/routes.dart';
+import '../../../../auth/presentation/bloc/logout/logout.dart';
 import '../../../../auth/presentation/bloc/others/dropDown/dropdown_bloc.dart';
 import '../../../../auth/presentation/bloc/others/image/image_bloc.dart';
 import '../../../../auth/presentation/bloc/others/radioOptions/radio_bloc.dart';
@@ -217,7 +218,7 @@ class _HomePageState extends State<HomePage>{
           drawer: Drawer(
             backgroundColor: Colors.black,
             child: ListView(
-              children: const [
+              children:  [
                 SizedBox(height: 35),
                 CircleAvatar(radius: 35,),
                 SizedBox(height: 13,),
@@ -249,24 +250,66 @@ class _HomePageState extends State<HomePage>{
                   title: Text("Help", style: TextStyle(fontSize: 13)),
                 ),
                 ListTile(
+                  onTap: (){
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, "/change-password");
+                    // scaffoldKey.currentState!.openEndDrawer();
+                  },
+                  iconColor: Colors.white,
+                  textColor: Colors.white,
+                  leading: Icon(Icons.key),
+                  title: Text("Change Credentials", style: TextStyle(fontSize: 13)),
+                ),
+                ListTile(
                   iconColor: Colors.white,
                   textColor: Colors.white,
                   leading: Icon(Icons.info),
                   title: Text("About Us", style: TextStyle(fontSize: 13)),
                 ),
                 ListTile(
+                  onTap: (){
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, "/give-feedback");
+                    // scaffoldKey.currentState!.openEndDrawer();
+                  },
+                  iconColor: Colors.white,
+                  textColor: Colors.white,
+                  leading: Icon(Icons.feedback_sharp),
+                  title: Text("Feedback and rate", style: TextStyle(fontSize: 13)),
+                ),
+                ListTile(
+                  onTap: (){
+                    BlocProvider.of<LogoutBloc>(context).add(LogoutEvent());
+                  },
                   iconColor: Colors.white,
                   textColor: Colors.white,
                   leading: Icon(Icons.logout),
                   title: Text("Sign Out", style: TextStyle(fontSize: 13)),
                 ),
+                ListTile(
+                  onTap: (){
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, "/deactivate");
+                  },
+                  iconColor: Colors.white,
+                  textColor: Colors.white,
+                  leading: Icon(Icons.remove_circle),
+                  title: Text("Deactivate Account", style: TextStyle(fontSize: 13)),
+                ),
               ],
             ),
           ),
-          body: IndexedStack(
-            index: index,
-            children: pagesList,
-    ),
+          body:BlocListener<LogoutBloc,LogOutState>(
+
+            listener: (context,state) {
+              if(state is LoggedOut){
+                Navigator.pushNamed(context, "/login");
+              }
+            },
+            child:  IndexedStack(
+                index: index,
+                children: pagesList,)
+          )
     );
   }
 }

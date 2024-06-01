@@ -12,10 +12,13 @@ abstract class UserDataSources {
   Future<int> createUser(
     String userName, String fullName, String password, String email);
   Future<String> loginUser(String userName, String password);
+  Future<int> logoutUser();
   Future<int> createProfile(UserEntity user, XFile? profileImage, XFile? id);
   Future<int> recoverPassword(String email);
   Future<int> changePassword(String oldPassword, String newPassword);
   Future<List<LocationModel>> getLocations(String query);
+  Future<int> unsubscribeUser(String password);
+
 }
 
 class userDataSourcesImpl implements UserDataSources {
@@ -125,6 +128,37 @@ class userDataSourcesImpl implements UserDataSources {
       List data = json.decode(response.body);
       return data.map((item) => LocationModel.fromJson(item)).toList();
     } else {
+      throw ServerExceptions();
+    }
+  }
+  
+  @override
+  Future<int> logoutUser() async{
+    dynamic result = await SharedPreferencesService.remove("token");
+    if(result==true){
+      return 1;
+    }
+    else{
+      throw ServerExceptions();
+    }
+  }
+  
+  @override
+  Future<int> unsubscribeUser(String password) async {
+    final token = await SharedPreferencesService.getString("tokens");
+    final userId = decodeJwt(token!)["userId"];
+    final response= await client.post(Uri.parse(baseUri+"/recommended_status_change/$userId"),
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token'
+    },
+    body:jsonEncode({"password":password})
+    );
+    if(response.statusCode==200){
+      return response.statusCode;
+    }
+    else{
+      print(response);
       throw ServerExceptions();
     }
   }

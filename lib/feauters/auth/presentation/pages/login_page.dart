@@ -60,10 +60,10 @@ class LoginPage extends StatelessWidget {
                     child: Text("Forgot Password?", style: TextStyle(color: Colors.amber),),
                   ),
                 ),
-                SizedBox(height: 10),
-                PasswordFormField(controller: password, labelText: "Password",
-                  validator: passwordValidator,
-                inputKey: const Key("login_password"),),
+                // SizedBox(height: 10),
+                // PasswordFormField(controller: password, labelText: "Password",
+                //   validator: passwordValidator,
+                // inputKey: const Key("login_password"),),
                 SizedBox(height: 50),
                 SubmitButton(
                   buttonKey: const Key("login_btn"),
@@ -77,7 +77,7 @@ class LoginPage extends StatelessWidget {
                     buttonText: "Login",
                     listener: (context, state) {
                       if (state is LogSuccess) {
-                        Navigator.pushNamed(context, '/profile',);
+                        Navigator.pushNamed(context, '/homePage',);
                       }
                     },
                     success: LogSuccess,

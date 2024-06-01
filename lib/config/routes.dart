@@ -31,10 +31,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../feauters/auth/presentation/bloc/change_password/change_password.dart';
+import '../feauters/auth/presentation/bloc/deactivate/deactivate.dart';
 import '../feauters/auth/presentation/bloc/location/locations.dart';
+import '../feauters/auth/presentation/bloc/logout/logout.dart';
 import '../feauters/auth/presentation/bloc/recover_password/recover_password.dart';
 import '../feauters/auth/presentation/bloc/users_profile/users_profile_bloc.dart';
 import '../feauters/auth/presentation/pages/change_password_page.dart';
+import '../feauters/auth/presentation/pages/deactivate_account_page.dart';
 import '../feauters/auth/presentation/pages/edit_profile_page.dart';
 import '../feauters/auth/presentation/pages/forgot_passowrd_page.dart';
 import '../feauters/feedback/presentation/blocs/chip/chip.dart';
@@ -150,6 +153,7 @@ class Routes{
         builder: (_)=>MultiBlocProvider(providers: [
         BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
         BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
+        BlocProvider<LogoutBloc>(create: (context)=>sl<LogoutBloc>()),
        ],
         child: HomePage(),
         )
@@ -202,6 +206,15 @@ class Routes{
         BlocProvider<FeedBackBloc>(create: (context)=>sl<FeedBackBloc>()),
        ],
         child: FeedbackPage(),
+        ),
+      );
+      case '/deactivate':
+      return MaterialPageRoute(
+        builder: (_)=>MultiBlocProvider(providers: [
+        BlocProvider<PassBloc>(create: (context)=>PassBloc()),
+        BlocProvider<DeactivateBloc>(create: (context)=>sl<DeactivateBloc>()),
+       ],
+        child: DeactivateAccountPage(),
         ),
       );
 

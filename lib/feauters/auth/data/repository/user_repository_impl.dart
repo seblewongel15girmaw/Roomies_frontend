@@ -80,4 +80,26 @@ class UserRepositoryImpl implements UserRepo{
     }
   }
   
+  @override
+  Future<Either<Errors, int>> logoutUser() async{
+    try{
+      network.isConnected;
+      return Right(await userDataSources.logoutUser());
+    }
+    on ServerExceptions{
+      return Left(ServerErrors());
+    }
+  }
+  
+  @override
+  Future<Either<Errors, int>> unsubscribeUser(String password) async{
+    try{
+      network.isConnected;
+      return Right(await userDataSources.unsubscribeUser(password));
+    }
+    on ServerExceptions{
+      return Left(ServerErrors());
+    }
+  }
+  
 }
