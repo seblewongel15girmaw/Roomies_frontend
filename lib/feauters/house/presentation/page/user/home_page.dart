@@ -1,33 +1,25 @@
-import 'dart:developer';
+import 'dart:io';
 
-import 'package:begara_mobile/feauters/auth/presentation/bloc/location/locations.dart';
-import 'package:begara_mobile/feauters/auth/presentation/pages/create_profile_page.dart';
-import 'package:begara_mobile/feauters/chat/domain/entity/contacts.dart';
+import 'package:begara_mobile/feauters/auth/presentation/pages/myprofile_page.dart';
 import 'package:begara_mobile/feauters/chat/presentation/pages/contacts_page.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar.dart';
 import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/users_profile/user_profile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_bloc.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_event.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_state.dart';
 import 'package:begara_mobile/feauters/house/presentation/widget/user/house_card.dart';
-
 import 'package:begara_mobile/injectionContainer.dart';
 
-import '../../../../../config/routes.dart';
 import '../../../../auth/presentation/bloc/logout/logout.dart';
-import '../../../../auth/presentation/bloc/others/dropDown/dropdown_bloc.dart';
-import '../../../../auth/presentation/bloc/others/image/image_bloc.dart';
-import '../../../../auth/presentation/bloc/others/radioOptions/radio_bloc.dart';
-import '../../../../auth/presentation/bloc/profile/profile_bloc.dart';
+import '../../../../auth/presentation/bloc/others/censor/censor_bloc.dart';
+import '../../../../auth/presentation/bloc/users_profile/users_profile_bloc.dart';
 import '../../../../chat/presentation/blocs/contacts/contacts_bloc.dart';
 import '../../../../recommendation/presentation/bloc/roommate/roommate_bloc.dart';
-
 
 
 class HomeScreen extends StatefulWidget{
@@ -47,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     @override
     Widget build(BuildContext context){
-
+      BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
       double width=MediaQuery.of(context).size.width;
       var index;
 
@@ -74,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: width*0.9,
                         child: Column(
                           children: [
+
                             Container(
                               decoration: BoxDecoration(
                                   color: Color.fromRGBO(255, 253,208,1),
@@ -168,12 +161,9 @@ class _HomePageState extends State<HomePage>{
       child: DisplayMatchesPage() ,
     ),
     MultiBlocProvider(providers: [
-      BlocProvider<DropDownBloc>(create: (context) => DropDownBloc()) ,
-      BlocProvider<ImageBloc>(create: (context) => ImageBloc()) ,
-      BlocProvider<RadioBloc>(create: (context) => RadioBloc()) ,
-      BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>()),
-      BlocProvider<LocationBloc>(create: (context)=>sl<LocationBloc>(),)],
-      child: ProfilePage(),
+      BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
+    ],
+      child: MyProfile(),
     )
   ];
 
@@ -188,13 +178,13 @@ class _HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context){
-
+    BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
     return Scaffold(
-
           backgroundColor: Colors.white,
           bottomNavigationBar: CurvedNavigationBar(
-            backgroundColor: Colors.white,
-            color: Colors.black87,
+            height: 64,
+            backgroundColor:  Color.fromRGBO(255,255,255,0.3),
+            color: Color.fromRGBO(0, 0, 0, 0.4),
             animationDuration: Duration(milliseconds: 500),
             buttonBackgroundColor: Color.fromRGBO(244, 196, 48,0.9),
             onTap: (idx){
@@ -220,7 +210,22 @@ class _HomePageState extends State<HomePage>{
             child: ListView(
               children:  [
                 SizedBox(height: 35),
-                CircleAvatar(radius: 35,),
+                BlocBuilder<UserProfileBloc, UserProfileState>(
+                  builder: (context, state) {
+                    if (state is UserProfileSuccess) {
+                      final user = state.user;
+                      return CircleAvatar(
+                        radius: 50,
+                        backgroundImage: FileImage(File(user.image)),
+                      );
+                    } else {
+                      return CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage("https://www.vkmetalwoodcraft.com/images/team.png"),
+                      );
+                    }
+                  },
+                ),
                 SizedBox(height: 13,),
                 Divider(),
                 SizedBox(height: 25,),
@@ -286,30 +291,38 @@ class _HomePageState extends State<HomePage>{
                   leading: Icon(Icons.logout),
                   title: Text("Sign Out", style: TextStyle(fontSize: 13)),
                 ),
-                ListTile(
-                  onTap: (){
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, "/deactivate");
-                  },
-                  iconColor: Colors.white,
-                  textColor: Colors.white,
-                  leading: Icon(Icons.remove_circle),
-                  title: Text("Deactivate Account", style: TextStyle(fontSize: 13)),
-                ),
-              ],
-            ),
-          ),
-          body:BlocListener<LogoutBloc,LogOutState>(
 
-            listener: (context,state) {
-              if(state is LoggedOut){
-                Navigator.pushNamed(context, "/login");
-              }
-            },
-            child:  IndexedStack(
-                index: index,
-                children: pagesList,)
-          )
+                  ListTile(
+                onTap: (){
+                  Navigator.pop(context);
+                  final state = context.read<UserProfileBloc>().state;
+                        if(state is UserProfileSuccess){
+                          Navigator.pushNamed(context, "/deactivate", arguments: state.user);
+                        }
+                        else{
+                          Navigator.pushNamed(context, "/deactivate", arguments: []);
+                        }
+                },
+                iconColor: Colors.white,
+                textColor: Colors.white,
+                leading: Icon(Icons.remove_circle),
+                title: Text("Deactivate Account", style: TextStyle(fontSize: 13)),
+              )
+              ])),
+          body:MultiBlocListener(
+            listeners: [
+            BlocListener<LogoutBloc,LogOutState>(
+              listener: (context,state) {
+          if(state is LoggedOut){
+          Navigator.pushNamed(context, "/login");
+          }
+          }),
+
+            ],
+          child:  IndexedStack(
+          index: index,
+          children: pagesList,)
+    )
     );
   }
 }

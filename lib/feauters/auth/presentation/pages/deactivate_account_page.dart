@@ -1,9 +1,12 @@
 import 'package:begara_mobile/core/util/validators.dart';
+import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/deactivate/deactivate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeactivateAccountPage extends StatelessWidget{
+  UserEntity userEntity;
+  DeactivateAccountPage({required this.userEntity});
   final formkey= GlobalKey<FormState>();
   final TextEditingController passwordController= TextEditingController();
   @override
@@ -11,8 +14,7 @@ class DeactivateAccountPage extends StatelessWidget{
     return BlocListener<DeactivateBloc,DeactivateState>(
       listener: (context, state) {
         if(state is DeactivateSuccess){
-          print("I am here");
-          Navigator.pushNamed(context, "/homePage");    
+          Navigator.pushNamed(context, "/homePage");
         }
       },
         child:  Scaffold(

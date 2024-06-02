@@ -24,7 +24,7 @@ class UserModel extends UserEntity {
     required String privacy,
     required String religiousSimilarity,
     required String smoking,
-    required String socialize
+    required String socialize,
   }) : super(
             id:id,
             fullName: fullName,

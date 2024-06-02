@@ -20,7 +20,7 @@ class EditProfilePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(id: 0));
+    BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
     double screenWidth = MediaQuery.of(context).size.width;
     XFile? image;
     XFile? image2;

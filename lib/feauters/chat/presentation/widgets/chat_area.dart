@@ -68,9 +68,9 @@ class ChatArea extends StatelessWidget {
                                   horizontal: 12.0, vertical: 8.0),
                               decoration: BoxDecoration(
                                 color: chats[index].senderId == userId
-                                    ? Colors.amber
-                                    : Colors.grey,
-                                borderRadius: BorderRadius.circular(16.0),
+                                    ? Color.fromRGBO(255, 253,208,1)
+                                    : Colors.grey[200],
+                                borderRadius: BorderRadius.only(topRight:Radius.circular(10), topLeft:Radius.circular(4), bottomLeft: Radius.circular(10), bottomRight: Radius.circular(4)),
                               ),
                               child: Row(
                                 mainAxisAlignment:MainAxisAlignment.spaceBetween,

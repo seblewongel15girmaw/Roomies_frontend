@@ -14,4 +14,6 @@ class UserProfileSuccess extends UserProfileState{
 
 }
 
-class UserProfileFailed extends UserProfileState{}
+class UserProfileFailed extends UserProfileState{
+
+}

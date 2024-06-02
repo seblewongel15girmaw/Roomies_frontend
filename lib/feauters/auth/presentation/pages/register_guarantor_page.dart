@@ -152,7 +152,7 @@ class RegisterGuarantorPage extends StatelessWidget {
                           buttonText: "Complete",
                           listener: (context, state) {
                             if (state is CreateSuccess) {
-                              Navigator.pushNamed(context, "/roommate");
+                              Navigator.pushNamed(context, "/homePage");
                             }
                           },
                           success: CreateSuccess,

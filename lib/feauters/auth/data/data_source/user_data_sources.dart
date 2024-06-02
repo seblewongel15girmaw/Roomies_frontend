@@ -18,7 +18,6 @@ abstract class UserDataSources {
   Future<int> changePassword(String oldPassword, String newPassword);
   Future<List<LocationModel>> getLocations(String query);
   Future<int> unsubscribeUser(String password);
-
 }
 
 class userDataSourcesImpl implements UserDataSources {

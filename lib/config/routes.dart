@@ -1,3 +1,4 @@
+import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/guarantor/guarantor_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/censor/censor_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile_bl
 import 'package:begara_mobile/feauters/auth/presentation/bloc/register/register_bloc.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/login_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/create_profile_page.dart';
+import 'package:begara_mobile/feauters/auth/presentation/pages/myprofile_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/register_guarantor_page.dart';
 import 'package:begara_mobile/feauters/auth/presentation/pages/registeration_page.dart';
 import 'package:begara_mobile/feauters/chat/presentation/blocs/chat_history/chat_history_bloc.dart';
@@ -26,10 +28,9 @@ import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate
 import 'package:begara_mobile/feauters/recommendation/presentation/pages/display_matches_page.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/pages/user_profile_page.dart';
 import 'package:begara_mobile/injectionContainer.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:begara_mobile/feauters/auth/presentation/bloc/users_profile/user_profile.dart';
 import '../feauters/auth/presentation/bloc/change_password/change_password.dart';
 import '../feauters/auth/presentation/bloc/deactivate/deactivate.dart';
 import '../feauters/auth/presentation/bloc/location/locations.dart';
@@ -154,6 +155,7 @@ class Routes{
         BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
         BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
         BlocProvider<LogoutBloc>(create: (context)=>sl<LogoutBloc>()),
+          BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
        ],
         child: HomePage(),
         )
@@ -197,6 +199,7 @@ class Routes{
         child: ChangePasswordPage(),
         ),
       );
+
       case '/give-feedback':
       return MaterialPageRoute(
         builder: (_)=>MultiBlocProvider(providers: [
@@ -209,14 +212,26 @@ class Routes{
         ),
       );
       case '/deactivate':
+        var args= settings.arguments as UserEntity;
       return MaterialPageRoute(
         builder: (_)=>MultiBlocProvider(providers: [
         BlocProvider<PassBloc>(create: (context)=>PassBloc()),
         BlocProvider<DeactivateBloc>(create: (context)=>sl<DeactivateBloc>()),
+          BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
        ],
-        child: DeactivateAccountPage(),
+        child: DeactivateAccountPage(userEntity: args),
         ),
       );
+
+      case "/myProfile":
+        return MaterialPageRoute(builder: (_)=>MultiBlocProvider(
+            providers: [
+              BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
+              // BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>()),
+              // BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
+              // BlocProvider<ImageBloc>(create: (context) => ImageBloc()) ,
+            ],
+            child: MyProfile()));
 
       default:
       return MaterialPageRoute(

@@ -5,6 +5,9 @@ import 'package:begara_mobile/feauters/auth/presentation/bloc/users_profile/user
 import 'package:begara_mobile/feauters/auth/presentation/bloc/users_profile/users_profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/util/sharedPreference.dart';
+import '../../../data/utils/functions.dart';
+
 class UserProfileBloc extends Bloc<UserProfileEvent,UserProfileState>{
   final GetRoommate getRoommate;
   UserProfileBloc(this.getRoommate):super(ProfileIdle()){
@@ -16,7 +19,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent,UserProfileState>{
 
   FutureOr<void> _loadUserProfile(UserProfileEvent event, Emitter emit) async{
     emit (LoadingUserProfile());
-    Params param= Params(id:event.id);
+    final token = await SharedPreferencesService.getString("tokens");
+    final userId = decodeJwt(token!)["userId"];
+    Params param= Params(id:userId);
     final result= await getRoommate(param);
     result.fold((l){
       emit(UserProfileFailed());

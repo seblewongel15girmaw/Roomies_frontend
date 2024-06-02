@@ -87,7 +87,7 @@ class ChatPage extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            color: Color.fromARGB(255, 187, 148, 48),
+            color: Color.fromRGBO(255, 253,208,1),
             width: screenSize.width,
             height: screenSize.height * 0.15,
             child: Center(
@@ -95,8 +95,8 @@ class ChatPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 62,
-                    width: 62,
+                    height: 52,
+                    width: 52,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       border: Border.all(color: Colors.white, width: 1),
@@ -124,7 +124,7 @@ class ChatPage extends StatelessWidget {
           ),
           Container(
             height: screenSize.height * 0.09,
-            color: Color.fromARGB(255, 187, 148, 48),
+            color:Colors.amber[100],
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceAround,

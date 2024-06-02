@@ -16,7 +16,7 @@ class LocationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationBloc, LocationState>(builder: (context, state) {
-      
+
       return Column(
         children: [
           Container(
@@ -70,7 +70,6 @@ class LocationBar extends StatelessWidget {
                     onTap: () {
                       _controller.text = state.locations[index].displayName;
                       getLocation(state.locations[index]);
-                      print(state.locations[index].displayName);
                       BlocProvider.of<LocationBloc>(context).add(ClearSearch());
                     },
                     tileColor: Colors.white,
