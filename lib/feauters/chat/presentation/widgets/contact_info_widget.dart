@@ -6,19 +6,21 @@ import 'package:flutter/material.dart';
 import '../../../recommendation/presentation/utils/functions.dart';
 
 class ContactInformation extends StatelessWidget{
-  final Size screenSize;
+  final BoxConstraints screenSize;
   final dynamic user;
   ContactInformation({required this.screenSize, required this.user});
   @override
   Widget build(BuildContext context) {
     return Container(
             color: Color.fromARGB(255, 187, 148, 48),
-            width: screenSize.width,
-            height: screenSize.height * 0.15,
+            width: screenSize.maxWidth,
+            height: screenSize.maxHeight * 0.15,
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(height: screenSize.maxHeight * 0.08,width: screenSize.maxWidth*0.15,),
                   Container(
                     height: 62,
                     width: 62,
@@ -26,12 +28,13 @@ class ContactInformation extends StatelessWidget{
                       borderRadius: BorderRadius.circular(40),
                       border: Border.all(color: Colors.white, width: 1),
                       image: DecorationImage(
-                        image: FileImage(File(user.image)),
+                        image: NetworkImage("http://192.168.1.5:8000/${user.image.split("\\").last}"),
+                        // FileImage(File(user.image)),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                  SizedBox(height: 1),
+                  SizedBox(width: 10),
                   Text(
                     capitalize(user.userName),
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),

@@ -41,7 +41,7 @@ else{
         privacy: event.privacy,
         religiousSimilarity: event.religiousSimilarity,
         socialize: event.socialize,
-        smoking: event.smoking);
+        smoking: event.smoking, profileStatus: 1, activateStatus: 1);
     Params params =
         Params(user: user, profileImage: event.image, id: event.image2);
     final response = await createProfile(params);

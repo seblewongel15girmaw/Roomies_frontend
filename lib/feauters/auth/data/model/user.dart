@@ -25,6 +25,8 @@ class UserModel extends UserEntity {
     required String religiousSimilarity,
     required String smoking,
     required String socialize,
+    required int profileStatus,
+    required int activateStatus
   }) : super(
             id:id,
             fullName: fullName,
@@ -45,7 +47,9 @@ class UserModel extends UserEntity {
             privacy: privacy,
             religiousSimilarity: religiousSimilarity,
             smoking: smoking,
-            socialize: socialize);
+            socialize: socialize,
+            activateStatus: activateStatus,
+            profileStatus: profileStatus);
   factory UserModel.fromJson(Map<String, dynamic> map) {
     
     
@@ -58,7 +62,7 @@ class UserModel extends UserEntity {
         age: map["age"] ?? 10,
         bio: map["bio"] ?? "",
         phoneNumber: map["phone_number"] ?? "",
-        address:LocationModel.fromJson(jsonDecode(map["address"])),
+        address:map["address"]!=null?LocationModel.fromJson(jsonDecode(map["address"])):LocationModel(displayName: "displayName", lat: 0, long: 0),
         jobStatus: map['job_status'] ?? "",
         gender: map['gender'] ?? "",
         budget: map['budget'] ?? 100,
@@ -69,6 +73,9 @@ class UserModel extends UserEntity {
         pet: map['pets']??'',
         privacy: map['privacy']??'',
         smoking: map['smoking']??'',
-        socialize: map['socialize']??'');
+        socialize: map['socialize']??'',
+        profileStatus: map['profile_status']??0,
+        activateStatus: map['activate_status']??0,
+        );
   }
 }

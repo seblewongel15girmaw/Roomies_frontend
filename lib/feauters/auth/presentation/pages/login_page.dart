@@ -7,11 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController userName = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    TextEditingController userName = TextEditingController();
-    TextEditingController password = TextEditingController();
+    
     return Scaffold(
       key: Key("login_page"),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -34,57 +35,59 @@ class LoginPage extends StatelessWidget {
           size: 100,
           color:  Color.fromARGB(255, 187, 148, 48)
         ),
-        Form(
-          key: _formKey,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              children: <Widget>[
-                CustomTextField(
-                  inputKey: const Key("login_username"),
-                  controller: userName,
-                  labelText: "User Name",
-                  prefixIcon: Icons.person,
-                  validator: nameValidator,
-                ),
-                PasswordFormField(
-                  controller: password, labelText: "Password",validator: passwordValidator,
-                  inputKey: Key("login_password"),),
-                SizedBox(height:40),
-                GestureDetector(
-                  key: Key("forget"),
-                  onTap: (){
-                    Navigator.pushNamed(context, "/forget-password");
-                  },
-                  child: Center(
-                    child: Text("Forgot Password?", style: TextStyle(color: Colors.amber),),
+        SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                children: <Widget>[
+                  CustomTextField(
+                    inputKey: const Key("login_username"),
+                    controller: userName,
+                    labelText: "User Name",
+                    prefixIcon: Icons.person,
+                    validator: nameValidator,
                   ),
-                ),
-                // SizedBox(height: 10),
-                // PasswordFormField(controller: password, labelText: "Password",
-                //   validator: passwordValidator,
-                // inputKey: const Key("login_password"),),
-
-                SizedBox(height: 50),
-                SubmitButton(
-                  buttonKey: const Key("login_btn"),
-                    bloc: BlocProvider.of<LogBloc>(context),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        BlocProvider.of<LogBloc>(context)
-                            .add(LogEvent(userName.text, password.text));
-                      }
+                  PasswordFormField(
+                    controller: password, labelText: "Password",validator: passwordValidator,
+                    inputKey: Key("login_password"),),
+                  SizedBox(height:40),
+                  GestureDetector(
+                    key: Key("forget"),
+                    onTap: (){
+                      Navigator.pushNamed(context, "/forget-password");
                     },
-                    buttonText: "Login",
-                    listener: (context, state) {
-                      if (state is LogSuccess) {
-                        Navigator.pushNamed(context, '/homePage',);
-                      }
-                    },
-                    success: LogSuccess,
-                    fail: LogFailure,
-                    progress: Logining)
-              ],
+                    child: Center(
+                      child: Text("Forgot Password?", style: TextStyle(color: Colors.amber),),
+                    ),
+                  ),
+                  // SizedBox(height: 10),
+                  // PasswordFormField(controller: password, labelText: "Password",
+                  //   validator: passwordValidator,
+                  // inputKey: const Key("login_password"),),
+            
+                  SizedBox(height: 50),
+                  SubmitButton(
+                    buttonKey: const Key("login_btn"),
+                      bloc: BlocProvider.of<LogBloc>(context),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          BlocProvider.of<LogBloc>(context)
+                              .add(LogEvent(userName.text, password.text));
+                        }
+                      },
+                      buttonText: "Login",
+                      listener: (context, state) {
+                        if (state is LogSuccess) {
+                          Navigator.pushNamed(context, '/homePage',);
+                        }
+                      },
+                      success: LogSuccess,
+                      fail: LogFailure,
+                      progress: Logining)
+                ],
+              ),
             ),
           ),
         )

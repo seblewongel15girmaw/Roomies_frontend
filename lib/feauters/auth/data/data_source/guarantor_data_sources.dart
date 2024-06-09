@@ -11,7 +11,7 @@ abstract class GuarantorDataSource{
 }
 
 class GuarantorDataSourceImpl implements GuarantorDataSource{
-  final baseUri = "http://localhost:3000/api/guarantors/register/";
+  final baseUri =  "http://192.168.1.5:3000/api/guarantors/register/";
   final http.Client client;
   GuarantorDataSourceImpl(this.client);
   @override

@@ -38,7 +38,9 @@ class MatchList extends StatelessWidget {
                           border: Border.all(
                               color: Colors.black, width: 1), // Border properties
                           image: DecorationImage(
-                            image: FileImage(File(roommates[index].user.image)),
+                            image:
+                            NetworkImage("http://192.168.1.5:8000/${roommates[index].user.image.split("\\").last}"), 
+                            // FileImage(File(roommates[index].user.image)),
                             fit: BoxFit
                                 .cover, // Stretch and fit the image within the container
                           ),

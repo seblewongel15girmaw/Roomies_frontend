@@ -66,7 +66,7 @@ import 'feauters/house/presentation/bloc/user/house/house_bloc.dart';
 final sl=GetIt.instance;
 Future <void> init() async{
   final sharedPreferences= await SharedPreferences.getInstance();
-  final socket = IO.io('http://localhost:3000', <String, dynamic>{
+  final socket = IO.io('http://192.168.1.5:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

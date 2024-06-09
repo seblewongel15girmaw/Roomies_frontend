@@ -10,7 +10,7 @@ abstract class HouseRemoteDatasource{
 
 class HouseRemoteDatasourceImpl extends HouseRemoteDatasource{
   var client= http.Client();
-  static const BASEURL ="http://127.0.0.1:3000/api/";
+  static const BASEURL ="http://192.168.1.5:3000/api/";
   HouseRemoteDatasourceImpl({required this.client});
 
   @override

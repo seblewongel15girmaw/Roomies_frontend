@@ -38,7 +38,7 @@ class UserProfilePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       opacity: 0.6,
-                      image: FileImage(File(user.image)),
+                      image: NetworkImage("http://192.168.1.5:8000/${user.image.split("\\").last}"),
                       fit: BoxFit
                           .cover, // Stretch and fit the image within the container
                     ),

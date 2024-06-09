@@ -18,11 +18,7 @@ import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  @override
-  Widget build(BuildContext context) {
-    BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
-    double screenWidth = MediaQuery.of(context).size.width;
-    XFile? image;
+  XFile? image;
     XFile? image2;
     Location? location;
     bool profileSelected = false;
@@ -41,6 +37,11 @@ class EditProfilePage extends StatelessWidget {
     String socialize = "";
     String smoking = "";
 
+  @override
+  Widget build(BuildContext context) {
+    BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
+    double screenWidth = MediaQuery.of(context).size.width;
+    
     return Scaffold(
       body: BlocBuilder<UserProfileBloc,UserProfileState>(
         builder: (context,state) {

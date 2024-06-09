@@ -13,7 +13,7 @@ class ChatDisplay extends StatelessWidget {
   final List<dynamic> messages;
   final ScrollController liveChatScrollController;
   final dynamic userId;
-  final Size screenSize;
+  final BoxConstraints screenSize;
   ChatDisplay(
       {required this.notifier,
       required this.messages,
@@ -24,7 +24,7 @@ class ChatDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenSize.height * 0.76,
+      height: screenSize.maxHeight * 0.76,
       child: Column(
         children:[ 
           BlocListener<ChatHistoryBloc, ChatHistoryState>(
@@ -64,7 +64,7 @@ class ChatDisplay extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              width: screenSize.width * 0.42,
+                              width: screenSize.maxWidth * 0.42,
                               padding: EdgeInsets.symmetric(
                                   horizontal: 12.0, vertical: 8.0),
                               decoration: BoxDecoration(

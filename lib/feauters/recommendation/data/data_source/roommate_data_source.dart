@@ -13,7 +13,7 @@ abstract class RoommateDataSource{
 }
 
 class RoommateDataSourceImpl implements RoommateDataSource{
-  final baseUri="http://localhost:3000/api/roommate/";
+  final baseUri= "http://192.168.1.5:3000/api/roommate/";
   final http.Client client;
   RoommateDataSourceImpl(this.client);
   @override
@@ -44,7 +44,7 @@ class RoommateDataSourceImpl implements RoommateDataSource{
     final token = await SharedPreferencesService.getString("tokens");
     final userId = decodeJwt(token!)["userId"];
     final response= await client.get(
-      Uri.parse("http://localhost:3000/api/users/$userId")
+      Uri.parse( "http://192.168.1.5:3000/api/users/$userId")
     );
     if(response.statusCode==200){
       final userData=json.decode(response.body)["user"];

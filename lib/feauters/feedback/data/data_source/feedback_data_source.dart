@@ -12,7 +12,7 @@ abstract class FeedbackDataSource {
 }
 
 class FeedbackDataSourceImpl implements FeedbackDataSource {
-  final baseUri = "http://localhost:3000/api/feedback/";
+  final baseUri =  "http://192.168.1.5:3000/api/feedback/";
   final http.Client client;
   FeedbackDataSourceImpl(this.client);
   @override

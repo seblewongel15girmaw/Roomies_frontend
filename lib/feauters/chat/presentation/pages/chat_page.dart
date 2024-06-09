@@ -52,7 +52,7 @@ class ChatPage extends StatelessWidget {
     print("I am being built");
 
     // Initialize the socket and listen for messages
-    final socket = IO.io('http://localhost:3000', <String, dynamic>{
+    final socket = IO.io(' http://192.168.1.5:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

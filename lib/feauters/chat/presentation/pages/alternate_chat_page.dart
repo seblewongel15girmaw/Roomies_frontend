@@ -12,17 +12,17 @@ import 'package:flutter/material.dart';
 class AlternateChatPage extends StatelessWidget {
   final user;
   final userId;
-
+  final ScrollController liveChatScrollController = ScrollController();
+  final TextEditingController messageController = TextEditingController();
+  final List<dynamic> messages = [];  
+  final ValueNotifier<int> _notifier = ValueNotifier<int>(0);
   AlternateChatPage({required this.user, required this.userId});
-
+  
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-    final ScrollController liveChatScrollController = ScrollController();
-    final List<dynamic> messages = [];
-    final TextEditingController messageController = TextEditingController();
-    final ValueNotifier<int> _notifier = ValueNotifier<int>(0);
-
+    
+    
+    
     // Load chat history
     BlocProvider.of<ChatHistoryBloc>(context).add(ChatHistoryEvent(
       currentUserId: userId,
@@ -35,44 +35,61 @@ class AlternateChatPage extends StatelessWidget {
     // Instantiate socket connection
     BlocProvider.of<InstantiateBloc>(context).add(Init(userId: userId));
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
+    return LayoutBuilder(
+      builder: (context,constraints) {
+        return Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Column(
-        children: [
-          ContactInformation(
-            screenSize: screenSize,
-            user: user,
+          body: Column(
+            children: [
+              ContactInformation(
+                screenSize: constraints,
+                user: user,
+              ),
+          
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: constraints.maxHeight*0.85,
+                    child: Column(
+                      children: [
+                        ChatDisplay(
+                            user: user,
+                            notifier: _notifier,
+                            messages: messages,
+                            liveChatScrollController: liveChatScrollController,
+                            userId: userId,
+                            screenSize: constraints),
+                            MessageExpress(
+                        screenSize: constraints,
+                        messageController: messageController,
+                        messages: messages,
+                        userId: userId,
+                        user: user,
+                        liveChatScrollController: liveChatScrollController,
+                        notifier: _notifier)
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              
+            ],
           ),
-          ChatDisplay(
-              user: user,
-              notifier: _notifier,
-              messages: messages,
-              liveChatScrollController: liveChatScrollController,
-              userId: userId,
-              screenSize: screenSize),
-          MessageExpress(
-              screenSize: screenSize,
-              messageController: messageController,
-              messages: messages,
-              userId: userId,
-              user: user,
-              liveChatScrollController: liveChatScrollController,
-              notifier: _notifier)
-        ],
-      ),
+        );
+      }
     );
   }
 }

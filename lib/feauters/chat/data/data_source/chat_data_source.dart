@@ -17,7 +17,7 @@ abstract class ChatDataSources{
 
 
 class ChatDataSourcesImpl implements ChatDataSources{
-  final baseUri = "http://localhost:3000/api/chat/";
+  final baseUri =  "http://192.168.1.5:3000/api/chat/";
   final http.Client client;
   
   ChatDataSourcesImpl(this.client);

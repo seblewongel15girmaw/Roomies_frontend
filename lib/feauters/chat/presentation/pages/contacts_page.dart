@@ -4,6 +4,7 @@ import 'package:begara_mobile/feauters/chat/presentation/utils/functions.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/utils/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path/path.dart' as path;
 
 import '../blocs/contacts/contacts.dart';
 
@@ -22,7 +23,7 @@ class ContactsPage extends StatelessWidget {
                 itemBuilder: (context, int index) {
                   return GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context, "/chat", arguments: {"user":state.contacts[index].user, "userId":state.userId});
+                      Navigator.pushNamed(context, "/chats", arguments: {"user":state.contacts[index].user, "userId":state.userId});
                     },
                     child: Container(
                         width: screenSize.width,
@@ -50,8 +51,11 @@ class ContactsPage extends StatelessWidget {
                                         color: Colors.white,
                                         width: 1), // Border properties
                                     image: DecorationImage(
-                                      image: FileImage(
-                                          File(state.contacts[index].user.image)),
+                                      image:
+                                      NetworkImage("http://192.168.1.5:8000/${state.contacts[index].user.image.split("\\").last}"),
+                                      // FileImage(
+                                      //     File(state.contacts[index].user.image)),
+                                      
                                       fit: BoxFit
                                           .cover, // Stretch and fit the image within the container
                                     ),

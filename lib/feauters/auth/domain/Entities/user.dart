@@ -23,6 +23,8 @@ class UserEntity extends Equatable {
   final String privacy;
   final String socialize;
   final String smoking;
+  final int profileStatus;
+  final int activateStatus;
 
   const UserEntity(
       { required this.id,
@@ -44,7 +46,9 @@ class UserEntity extends Equatable {
       required this.privacy,
       required this.religiousSimilarity,
       required this.smoking,
-      required this.socialize});
+      required this.socialize,
+      required this.profileStatus,
+      required this.activateStatus});
 
   @override
   // TODO: implement props
@@ -65,7 +69,9 @@ class UserEntity extends Equatable {
       privacy,
       religiousSimilarity,
       smoking,
-      socialize
+      socialize,
+      activateStatus,
+      profileStatus
     ];
   }
 
@@ -90,7 +96,9 @@ class UserEntity extends Equatable {
       "religious_compatibility": religiousSimilarity,
       "smoking": smoking,
       "socialize": socialize,
-      "religion":religion
+      "religion":religion,
+      "profile_status": profileStatus,
+      "activate_status":activateStatus
     };
   }
 }

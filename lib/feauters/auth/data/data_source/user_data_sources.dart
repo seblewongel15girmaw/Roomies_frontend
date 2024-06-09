@@ -21,7 +21,7 @@ abstract class UserDataSources {
 }
 
 class userDataSourcesImpl implements UserDataSources {
-  final baseUri = "http://localhost:3000/api/users/";
+  final baseUri =  "http://192.168.1.5:3000/api/users/";
   final http.Client client;
 
   userDataSourcesImpl(this.client);

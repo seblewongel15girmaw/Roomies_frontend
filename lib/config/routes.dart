@@ -219,7 +219,7 @@ class Routes{
         BlocProvider<DeactivateBloc>(create: (context)=>sl<DeactivateBloc>()),
           BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
        ],
-        child: DeactivateAccountPage(userEntity: args),
+        child: DeactivateAccountPage(user: args),
         ),
       );
 

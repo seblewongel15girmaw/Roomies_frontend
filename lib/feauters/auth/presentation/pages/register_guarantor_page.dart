@@ -17,15 +17,17 @@ import '../widgets/drop_down_option.dart';
 import '../widgets/submit_button.dart';
 
 class RegisterGuarantorPage extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController fullName = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
+  String gender = "";
+  XFile? image2;
+  Location? address;
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    
     Size screenSize = MediaQuery.of(context).size;
-    TextEditingController fullName = TextEditingController();
-    TextEditingController phoneNumber = TextEditingController();
-    String gender = "";
-    XFile? image2;
-    Location? address;
+    
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
