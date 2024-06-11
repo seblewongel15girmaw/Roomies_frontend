@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/util/env.dart';
 import '../utils/functions.dart';
 
 
@@ -39,7 +40,7 @@ class MatchList extends StatelessWidget {
                               color: Colors.black, width: 1), // Border properties
                           image: DecorationImage(
                             image:
-                            NetworkImage("http://192.168.1.5:8000/${roommates[index].user.image.split("\\").last}"), 
+                            NetworkImage("http://${ipAdress}:8000/${roommates[index].user.image.split("\\").last}"), 
                             // FileImage(File(roommates[index].user.image)),
                             fit: BoxFit
                                 .cover, // Stretch and fit the image within the container

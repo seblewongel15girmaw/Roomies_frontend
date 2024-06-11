@@ -1,4 +1,5 @@
 import 'package:begara_mobile/core/error/exceptions.dart';
+import 'package:begara_mobile/core/util/env.dart';
 import 'package:begara_mobile/core/util/sharedPreference.dart';
 import 'package:begara_mobile/feauters/auth/domain/Entities/location.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +12,7 @@ abstract class GuarantorDataSource{
 }
 
 class GuarantorDataSourceImpl implements GuarantorDataSource{
-  final baseUri =  "http://192.168.1.5:3000/api/guarantors/register/";
+  final baseUri =  "http://${ipAdress}:3000/api/guarantors/register/";
   final http.Client client;
   GuarantorDataSourceImpl(this.client);
   @override

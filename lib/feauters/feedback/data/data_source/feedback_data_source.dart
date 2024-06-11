@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:begara_mobile/core/error/exceptions.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../core/util/env.dart';
 import '../../../../core/util/sharedPreference.dart';
 import '../../../auth/data/utils/functions.dart';
 
@@ -12,7 +13,7 @@ abstract class FeedbackDataSource {
 }
 
 class FeedbackDataSourceImpl implements FeedbackDataSource {
-  final baseUri =  "http://192.168.1.5:3000/api/feedback/";
+  final baseUri =  "http://${ipAdress}:3000/api/feedback/";
   final http.Client client;
   FeedbackDataSourceImpl(this.client);
   @override

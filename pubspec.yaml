@@ -59,6 +59,7 @@ dependencies:
   flutter_rating_bar:
   mockito: ^5.4.4
   path:
+  cached_network_image:
 
 
 dev_dependencies:

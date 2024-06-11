@@ -7,6 +7,7 @@ import 'package:begara_mobile/feauters/chat/domain/entity/chat.dart';
 import 'package:begara_mobile/feauters/chat/domain/entity/contacts.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../../core/util/env.dart';
 import '../../../../core/util/sharedPreference.dart';
 import '../../../auth/data/utils/functions.dart';
 abstract class ChatDataSources{
@@ -17,7 +18,7 @@ abstract class ChatDataSources{
 
 
 class ChatDataSourcesImpl implements ChatDataSources{
-  final baseUri =  "http://192.168.1.5:3000/api/chat/";
+  final baseUri =  "http://${ipAdress}:3000/api/chat/";
   final http.Client client;
   
   ChatDataSourcesImpl(this.client);

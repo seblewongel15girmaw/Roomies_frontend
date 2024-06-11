@@ -4,13 +4,15 @@ import "package:http/http.dart" as http;
 import 'dart:convert';
 import 'dart:developer';
 
+import '../../../../../core/util/env.dart';
+
 abstract class HouseRemoteDatasource{
   Future<List<HouseModel>> getHouseList();
 }
 
 class HouseRemoteDatasourceImpl extends HouseRemoteDatasource{
   var client= http.Client();
-  static const BASEURL ="http://192.168.1.5:3000/api/";
+  static const BASEURL ="http://${ipAdress}:3000/api/";
   HouseRemoteDatasourceImpl({required this.client});
 
   @override

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:begara_mobile/core/util/locations.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/util/env.dart';
 import '../utils/functions.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -38,7 +39,7 @@ class UserProfilePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       opacity: 0.6,
-                      image: NetworkImage("http://192.168.1.5:8000/${user.image.split("\\").last}"),
+                      image: NetworkImage("http://${ipAdress}:8000/${user.image.split("\\").last}"),
                       fit: BoxFit
                           .cover, // Stretch and fit the image within the container
                     ),

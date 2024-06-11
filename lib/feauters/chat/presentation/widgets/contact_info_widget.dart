@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/util/env.dart';
 import '../../../recommendation/presentation/utils/functions.dart';
 
 class ContactInformation extends StatelessWidget{
@@ -28,7 +29,7 @@ class ContactInformation extends StatelessWidget{
                       borderRadius: BorderRadius.circular(40),
                       border: Border.all(color: Colors.white, width: 1),
                       image: DecorationImage(
-                        image: NetworkImage("http://192.168.1.5:8000/${user.image.split("\\").last}"),
+                        image: NetworkImage("http://${ipAdress}:8000/${user.image.split("\\").last}"),
                         // FileImage(File(user.image)),
                         fit: BoxFit.cover,
                       ),

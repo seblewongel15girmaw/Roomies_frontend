@@ -7,13 +7,15 @@ import 'package:begara_mobile/feauters/auth/data/utils/functions.dart';
 import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 import 'package:begara_mobile/feauters/recommendation/data/models/roommate.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../../core/util/env.dart';
 abstract class RoommateDataSource{
   Future<List<RoommateModel>> getAllRoommates(int id);
   Future<UserModel> getRoomate(int id);
 }
 
 class RoommateDataSourceImpl implements RoommateDataSource{
-  final baseUri= "http://192.168.1.5:3000/api/roommate/";
+  final baseUri= "http://${ipAdress}:3000/api/roommate/";
   final http.Client client;
   RoommateDataSourceImpl(this.client);
   @override
@@ -44,7 +46,7 @@ class RoommateDataSourceImpl implements RoommateDataSource{
     final token = await SharedPreferencesService.getString("tokens");
     final userId = decodeJwt(token!)["userId"];
     final response= await client.get(
-      Uri.parse( "http://192.168.1.5:3000/api/users/$userId")
+      Uri.parse( "http://${ipAdress}:3000/api/users/$userId")
     );
     if(response.statusCode==200){
       final userData=json.decode(response.body)["user"];

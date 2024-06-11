@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/util/env.dart';
 import '../../../../auth/presentation/bloc/logout/logout.dart';
 import '../../../../auth/presentation/bloc/users_profile/user_profile.dart';
 
@@ -20,7 +21,7 @@ class CustomDrawer extends StatelessWidget{
                     return CircleAvatar(
                       radius: 50,
                       backgroundImage: NetworkImage(
-                          "http://192.168.1.5:8000/${user.image.split("\\").last}"),
+                          "http://${ipAdress}:8000/${user.image.split("\\").last}"),
                     );
                   } else {
                     return CircleAvatar(

@@ -43,6 +43,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
+import 'core/util/env.dart';
 import 'feauters/auth/domain/usecases/change_password.dart';
 import 'feauters/auth/domain/usecases/get_locations.dart';
 import 'feauters/auth/domain/usecases/logout_user.dart';
@@ -66,7 +67,7 @@ import 'feauters/house/presentation/bloc/user/house/house_bloc.dart';
 final sl=GetIt.instance;
 Future <void> init() async{
   final sharedPreferences= await SharedPreferences.getInstance();
-  final socket = IO.io('http://192.168.1.5:3000', <String, dynamic>{
+  final socket = IO.io('http://${ipAdress}:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

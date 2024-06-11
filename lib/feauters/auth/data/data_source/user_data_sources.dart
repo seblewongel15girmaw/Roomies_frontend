@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../core/error/exceptions.dart';
+import '../../../../core/util/env.dart';
 import '../model/location.dart';
 
 abstract class UserDataSources {
@@ -21,7 +22,7 @@ abstract class UserDataSources {
 }
 
 class userDataSourcesImpl implements UserDataSources {
-  final baseUri =  "http://192.168.1.5:3000/api/users/";
+  final baseUri =  "http://${ipAdress}:3000/api/users/";
   final http.Client client;
 
   userDataSourcesImpl(this.client);

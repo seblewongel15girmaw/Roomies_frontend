@@ -10,6 +10,8 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:begara_mobile/feauters/recommendation/presentation/utils/functions.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/util/env.dart';
+
 class ChatPage extends StatelessWidget {
   final ScrollController liveChatScrollController = ScrollController();
   final ScrollController chatHistoryController = ScrollController();
@@ -52,7 +54,7 @@ class ChatPage extends StatelessWidget {
     print("I am being built");
 
     // Initialize the socket and listen for messages
-    final socket = IO.io(' http://192.168.1.5:3000', <String, dynamic>{
+    final socket = IO.io(' http://${ipAdress}:3000', <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
