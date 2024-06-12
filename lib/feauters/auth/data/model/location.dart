@@ -7,7 +7,6 @@ class LocationModel extends Location {
     required double long,
   }) : super(displayName: displayName, lat: lat, long: long);
   factory LocationModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     return LocationModel(
       displayName: json['display_name'],
       lat:json['lat'] is String? double.parse(json['lat']):json['lat'],

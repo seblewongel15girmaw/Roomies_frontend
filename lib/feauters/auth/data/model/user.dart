@@ -33,7 +33,7 @@ class UserModel extends UserEntity {
             userName: userName,
             email: email,
             password: password,
-            age: 0,
+            age: age,
             religion: religion,
             bio: bio,
             phoneNumber: phoneNumber,
@@ -51,8 +51,6 @@ class UserModel extends UserEntity {
             activateStatus: activateStatus,
             profileStatus: profileStatus);
   factory UserModel.fromJson(Map<String, dynamic> map) {
-    
-    
     return UserModel(
         id:map["id"]??0,
         fullName: map["full_name"] ?? "",

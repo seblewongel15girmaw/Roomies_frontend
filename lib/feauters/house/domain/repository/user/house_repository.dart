@@ -5,5 +5,5 @@ abstract class HouseRepository {
   Future<List<HouseModel>> getHouseList();
   Future<HouseModel> searchHouse(String id);
   Future<List<HouseModel>> savedHouses();
-  Future<List<HouseModel>> filterHouse();
+  Future<List<HouseModel>> filterHouse(String numOfRoom);
 }

@@ -1,8 +1,8 @@
 import 'package:begara_mobile/feauters/auth/domain/Entities/userStatus.dart';
 
 class UserStatusModel extends UserStatusEntity{
-  String profile_status;
-  String payment_status;
+  int profile_status;
+  int payment_status;
 
   UserStatusModel({required this.profile_status, required this.payment_status})
       : super(profile_status: profile_status, payment_status: payment_status);

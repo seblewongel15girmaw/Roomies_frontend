@@ -5,9 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class BrokerDetail extends StatelessWidget{
+class BrokerProfile extends StatelessWidget{
 
-  BrokerDetail();
+  BrokerProfile();
 
   @override
   Widget build(BuildContext context) {

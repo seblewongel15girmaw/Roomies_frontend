@@ -31,10 +31,29 @@ class ForgotPasswordPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
-                Icons.help,
-                size: 120,
-                color: Color.fromRGBO(244, 196, 48, 0.9),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(150),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: Offset(2,2),
+                      blurRadius: 7,
+                      spreadRadius:1
+                    ),
+                    BoxShadow(
+                        color: Colors.white,
+                        offset: Offset(-2,-2),
+                        blurRadius: 7,
+                        spreadRadius:1
+                    )
+                  ]
+                ),
+                child: Icon(
+                  Icons.help,
+                  size: 120,
+                  color: Color.fromRGBO(244, 196, 48, 0.9),
+                ),
               ),
               SizedBox(
                 height: 5,
