@@ -1,1 +1,1 @@
-const ipAdress="10.5.197.188";
+const ipAdress="192.168.48.247";
