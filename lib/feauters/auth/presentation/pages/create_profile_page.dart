@@ -17,14 +17,19 @@ import '../widgets/location_bar.dart';
 class ProfilePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   XFile? image;
+  TextEditingController phoneNumber = TextEditingController();
+  TextEditingController age = TextEditingController();
+  TextEditingController jobStatus = TextEditingController();
+  TextEditingController bio = TextEditingController();
+  TextEditingController budget = TextEditingController();
+
+  @override
+  Widget build(context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    XFile? image;
     XFile? image2;
     bool profileSelected = false;
     bool idSelected = false;
-    TextEditingController phoneNumber = TextEditingController();
-    TextEditingController age = TextEditingController();
-    TextEditingController jobStatus = TextEditingController();
-    TextEditingController bio = TextEditingController();
-    TextEditingController budget = TextEditingController();
     String? religion;
     Location? address;
     String gender = "";
@@ -33,9 +38,6 @@ class ProfilePage extends StatelessWidget {
     String privacy = "";
     String socialize = "";
     String smoking = "";
-  @override
-  Widget build(context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     
     return Scaffold(
       body: SingleChildScrollView(
@@ -111,7 +113,6 @@ class ProfilePage extends StatelessWidget {
                       //   leadIcon: Icons.location_on,
                       // ),
                       LocationBar(getLocation: (location) {
-                            print(location);
                             address=location;
                           },width: screenWidth,
                           choosenLocation: null,),

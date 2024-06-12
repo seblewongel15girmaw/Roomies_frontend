@@ -21,7 +21,6 @@ import 'package:begara_mobile/feauters/chat/presentation/pages/chat_page.dart';
 import 'package:begara_mobile/feauters/chat/presentation/pages/contacts_page.dart';
 import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_bloc.dart';
-import 'package:begara_mobile/feauters/house/presentation/page/broker/broker_profile.dart';
 import 'package:begara_mobile/feauters/house/presentation/page/user/home_page.dart';
 import 'package:begara_mobile/feauters/house/presentation/page/user/house_detail.dart';
 import 'package:begara_mobile/feauters/recommendation/presentation/bloc/roommate/roommate_bloc.dart';
@@ -44,6 +43,8 @@ import '../feauters/auth/presentation/pages/forgot_passowrd_page.dart';
 import '../feauters/feedback/presentation/blocs/chip/chip.dart';
 import '../feauters/feedback/presentation/blocs/feedback/feedback_bloc.dart';
 import '../feauters/feedback/presentation/pages/feedback_page.dart';
+import '../feauters/house/presentation/bloc/user/payment/payment_bloc.dart';
+import '../feauters/house/presentation/page/user/broker_profile.dart';
 
 class Routes{
 
@@ -156,6 +157,8 @@ class Routes{
         BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
         BlocProvider<LogoutBloc>(create: (context)=>sl<LogoutBloc>()),
           BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
+          BlocProvider<PaymentBloc>(create: (context)=>sl<PaymentBloc>()),
+
        ],
         child: HomePage(),
         )
@@ -166,15 +169,18 @@ class Routes{
       return MaterialPageRoute(
         builder: (_)=>MultiBlocProvider(providers: [
           BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
+          BlocProvider<PaymentBloc>(create: (context)=>sl<PaymentBloc>()),
        ],
         child: HouseDetail(houseModel: args,),
         ),
       );
 
-      case '/brokerDetail':
+      case '/brokerProfile':
       return MaterialPageRoute(
         builder: (_)=>
             MultiBlocProvider(providers: [
+              BlocProvider<PaymentBloc>(create: (context)=>sl<PaymentBloc>()),
+
         // BlocProvider<ContactsBloc>(create: (context)=>sl<ContactsBloc>()),
        ],
         child: BrokerProfile(),
@@ -222,6 +228,14 @@ class Routes{
         child: DeactivateAccountPage(user: args),
         ),
       );
+
+      case "/brokerProfile":
+        return MaterialPageRoute(builder: (_)=>MultiBlocProvider(
+            providers: [
+              BlocProvider<UserProfileBloc>(create: (context) =>sl<UserProfileBloc>()),
+            ],
+            child:BrokerProfile()
+        )) ;
 
       case "/myProfile":
         return MaterialPageRoute(builder: (_)=>MultiBlocProvider(

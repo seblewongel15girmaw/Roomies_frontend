@@ -6,14 +6,20 @@ import 'package:begara_mobile/feauters/house/domain/usecase/user/get_house_list.
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_event.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_state.dart';
 
+import '../../../../domain/usecase/user/filterHouse.dart';
+
+
 class HouseBloc extends Bloc<HouseEvent, HouseState> {
   GetHouseList getHouseList;
-  HouseBloc(this.getHouseList) : super(InitialState()) {
+  FilterHouse filterHouse;
+  HouseBloc(this.getHouseList, this.filterHouse) : super(InitialState()) {
     on<InitialEvent>(initialEvent);
     on<HouseDetailEvent>(houseDetailEvent);
     on<AddToFavoriteHouseEvent>(addToFavoriteHouseEvent);
     on<RemoveFromFavoriteHouseEvent>(removeFromFavoriteHouseEvent);
+    on<FilterClickedEvent>(filterClicked);
   }
+
 
   FutureOr<void> initialEvent(InitialEvent event,
       Emitter<HouseState> emit) async{
@@ -39,6 +45,18 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
 
   FutureOr<void> removeFromFavoriteHouseEvent(RemoveFromFavoriteHouseEvent event,
       Emitter<HouseState> emit) {
+  }
+
+  FutureOr<void> filterClicked(FilterClickedEvent event, Emitter emit) async{
+    try {
+      emit(LoadingState());
+      List<HouseModel> filteredHouses = await filterHouse(event.numOfRoom);
+      emit(HouseSuccessState(houseList: filteredHouses));
+    }
+    catch(e){
+      emit(HouseErrorState(error: e.toString()));
+      log(e.toString());
+    }
   }
 
 }

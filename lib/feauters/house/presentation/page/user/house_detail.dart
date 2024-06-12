@@ -1,11 +1,19 @@
 import 'dart:io';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:begara_mobile/feauters/house/presentation/bloc/user/payment/payment_bloc.dart';
+import 'package:begara_mobile/feauters/house/presentation/bloc/user/payment/payment_event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
-import 'package:begara_mobile/feauters/house/presentation/widget/user/payment_modal.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../../core/util/env.dart';
+import '../../bloc/user/payment/payment_state.dart';
+
 
 class HouseDetail extends StatelessWidget{
   late  HouseModel houseModel;
@@ -13,8 +21,10 @@ class HouseDetail extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    var location= houseModel.location.displayName.split("/")[0];
     var width=MediaQuery.of(context).size.width;
     var height=MediaQuery.of(context).size.height;
+    BuildContext newContext= context;
    return Scaffold(
      body: SafeArea(
        child: Container(
@@ -22,52 +32,74 @@ class HouseDetail extends StatelessWidget{
          child: Stack(
            children: [
              Container(
-               height: height/1.63,
-               child: AnotherCarousel(
-               boxFit: BoxFit.cover,
-               autoplay: false,
-               animationCurve: Curves.fastOutSlowIn,
-               animationDuration: Duration(milliseconds: 800),
-               dotSize: 4.0,
-               dotIncreasedColor: Color(0xFF7E7E7E),
-               dotBgColor: Colors.transparent,
-               dotPosition: DotPosition.bottomCenter,
-               dotVerticalPadding: 10.0,
-               showIndicator: true,
-               indicatorBgPadding: 7.0,
-               images: houseModel.Images.map((image){
-                 return Image(
-                   image:FileImage(File(image.imageUrl)),
-                   fit: BoxFit.cover,);},
-               ).toList()
-                        ),
+               decoration: BoxDecoration(
+                   borderRadius: BorderRadius.vertical(bottom:Radius.circular(70)),
+                   boxShadow: [
+                     BoxShadow(
+                       color: Colors.grey.shade500,
+                       spreadRadius: 1,
+                       blurRadius: 3,
+                       offset: Offset(0, 3),
+                     )
+                   ]
+               ),
+               child: ClipRRect(
+                 borderRadius: BorderRadius.vertical(bottom:Radius.circular(70)),
+                 child: Container(
+
+                   height: height/1.6,
+                   child: AnotherCarousel(
+                   boxFit: BoxFit.cover,
+                   autoplay: false,
+                   animationCurve: Curves.fastOutSlowIn,
+                   animationDuration: Duration(milliseconds: 800),
+                   dotSize: 4.0,
+                   dotIncreasedColor: Color(0xFF7E7E7E),
+                   dotBgColor: Colors.transparent,
+                   dotPosition: DotPosition.bottomCenter,
+                   dotVerticalPadding: 10.0,
+                   showIndicator: true,
+                   indicatorBgPadding: 7.0,
+                   images: houseModel.Images.map((image){
+                     return Image(
+                       image:NetworkImage("http://${ipAdress}:8000/${image.imageUrl.split("\\").last}"),
+                       fit: BoxFit.cover,);},
+                   ).toList()
+                            ),
+                 ),
+               ),
              ),
             Positioned(
-              top: 10,
-                left: 10,
-                child: IconButton(icon:Icon(Icons.arrow_left), color: Colors.white,
-                  onPressed: () { Navigator.of(context).pushNamed("/homePage"); },)) ,
+              top: 0,
+                left: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
+                    color: Colors.black
+                  ),
+                  child: IconButton(icon:Icon(Icons.arrow_circle_left_outlined), color: Colors.white,
+                    onPressed: () { Navigator.of(context).pushNamed("/homePage"); },),
+                )) ,
              Positioned(
                bottom: 0,
                left: 0,
                child: Container(
                  width:width,
-                 height: height/2.6,
+                 height: height/2.9,
                  decoration: BoxDecoration(
-                   border: Border.all(color: Colors.yellow),
 
                  ),
                  child: Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     SizedBox(height: 20,),
+                     SizedBox(height: 35,),
                      Padding(
                        padding: const EdgeInsets.symmetric(horizontal: 40),
                        child: Row(
                          children: [
                           Image.asset("asset/map.png", width: 25,),
                            SizedBox(width: 17,),
-                           Text(houseModel.location, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, )),
+                           Expanded(child: Text(location, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, ))),
                          ],
                        ),
                      ),
@@ -105,7 +137,6 @@ class HouseDetail extends StatelessWidget{
                          ],
                        ),
                      ),
-
                      Expanded(
                        child: Align(
                          alignment: Alignment.bottomCenter,
@@ -113,7 +144,82 @@ class HouseDetail extends StatelessWidget{
                            padding: const EdgeInsets.only(bottom: 30),
                            child: ElevatedButton(
                              onPressed: (){
-                               PaymentModal(context);
+                               // BlocProvider.of<PaymentBloc>(context).add(PaymentStatusEvent(""));
+                               showModalBottomSheet(
+                                   context: newContext,
+                                   builder: (_){
+                                     return BlocProvider.value(
+                                       value: BlocProvider.of<PaymentBloc>(context),
+                                       child: BlocListener<PaymentBloc, PaymentState>(
+                                           listener: (context, state) async{
+                                             print("hey");
+                                             print(state);
+
+                                             if(state is PaymentSuccess){
+                                               String? successUrl = state.successUrl;
+                                               if(successUrl != null){
+                                                 var url=Uri.parse(successUrl);
+                                                 if(await canLaunchUrl(url)){
+                                                   launchUrl(url);
+                                                 }
+                                               }
+                                             }
+                                             print("hi");
+                                             if(state is SuccessPaymentStatus){
+                                               Navigator.pushNamed(context, "/brokerProfile");
+                                             }
+                                           },
+                                           child:    Container(
+                                             decoration: BoxDecoration(
+                                                 border: Border.all(
+                                                     color: Colors.yellow,
+                                                     width: 2,
+                                                     style: BorderStyle.solid
+                                                 ),
+                                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(31), topRight:Radius.circular(32) )
+                                             ),
+                                             height: 300,
+                                             width: MediaQuery.of(context).size.width,
+                                             child:Column(
+                                               // mainAxisAlignment: MainAxisAlignment.center,
+                                               crossAxisAlignment: CrossAxisAlignment.center,
+                                               children: [
+                                                 SizedBox(height: 60,),
+                                                 Text("To view Renter detail ",style:GoogleFonts.pressStart2p(
+                                                   fontSize: 9,),),
+                                                 SizedBox(height: 20,),
+                                                 Text(" please Pay 50 birr fee",style:GoogleFonts.pressStart2p(
+                                                   fontSize: 9,)),
+                                                 SizedBox(height: 50,),
+                                                 ElevatedButton(onPressed: ()async {
+                                                   var now = DateTime.now();
+                                                   var tx_ref = "chewataatiesit-6669-${now.year}-${now.month}-${now
+                                                       .day} ${now.hour}${now.minute}${now.second}";
+                                                   BlocProvider.of<PaymentBloc>(context).add(MakePaymentEvent(tx_ref));
+
+                                                   Future.delayed(Duration.zero, () {
+                                                     BlocProvider.of<PaymentBloc>(context).add(PaymentStatusEvent(tx_ref));
+                                                   });
+                                                   BlocListener<PaymentBloc, PaymentState>(
+                                                     listener: (context, state) {
+                                                       // Check if the payment status event was successful
+                                                       if (state is SuccessPaymentStatus) {
+                                                         // Navigate to the other page
+                                                         Navigator.pushNamed(context, "/brokerProfile");
+                                                       }
+                                                     },
+                                                   );
+
+                                                 },
+                                                     child: Text("Make Payment")
+                                                 )],
+                                             ) ,
+                                           )),
+                                     );
+                                   });
+
+                               // context.read<PaymentBloc>().add(PaymentStatusEvent(""));
+                               // _showPaymentModal(context);
                              },
                              child: Text("Contact Broker"), style: ButtonStyle(
                              backgroundColor: MaterialStateProperty.all(Color.fromRGBO(244, 196, 48,0.9)),
@@ -133,5 +239,7 @@ class HouseDetail extends StatelessWidget{
      ),
    );
   }
+
+
 
 }

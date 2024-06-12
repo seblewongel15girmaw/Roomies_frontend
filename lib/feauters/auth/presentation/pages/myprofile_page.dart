@@ -8,20 +8,11 @@ import 'dart:io';
 
 
 class MyProfile extends StatelessWidget{
-  // XFile? image;
-  //   XFile? image2;
-  //   String fullName;
-  //   String phoneNumber;
-  //   String age ;
-  //   String budget ;
-  //   String? religion;
-  //   Location? address;
-  //   String gender ;
+
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
 
-    
 var width=MediaQuery.of(context).size.width;
   return Scaffold(
       body: BlocBuilder<UserProfileBloc,UserProfileState>(

@@ -32,7 +32,6 @@ class userDataSourcesImpl implements UserDataSources {
     final token = await SharedPreferencesService.getString("tokens");
     final userId = decodeJwt(token!)["userId"];
 
-    print("user id is: $userId ");
     final request = await uploadImage(
         profileImage, id, user.toJson(), baseUri + "$userId/profile", token);
     final response = await client.send(request);
