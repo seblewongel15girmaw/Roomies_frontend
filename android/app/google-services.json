@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "789594406769",
+    "project_id": "notification-86aff",
+    "storage_bucket": "notification-86aff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789594406769:android:0551730840452f71b980d0",
+        "android_client_info": {
+          "package_name": "com.example.roomies_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBII3zN3LuQt-zDfcQkZBBLk102JEAKKrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

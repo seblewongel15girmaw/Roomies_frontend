@@ -60,6 +60,9 @@ dependencies:
   mockito: ^5.4.4
   path:
   cached_network_image:
+  firebase_core:
+  firebase_messaging:
+  jwt_decode:
 
 
 dev_dependencies:

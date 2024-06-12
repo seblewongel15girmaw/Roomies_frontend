@@ -1,15 +1,20 @@
 import 'package:begara_mobile/config/routes.dart';
 import 'package:begara_mobile/core/theme/theme.dart';
 import 'package:begara_mobile/core/util/sharedPreference.dart';
+import 'package:begara_mobile/feauters/auth/data/data_source/firebase_api.dart';
+import 'package:begara_mobile/firebase_options.dart';
 import 'package:begara_mobile/injectionContainer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:jwt_decode/jwt_decode.dart';
 import 'feauters/house/presentation/bloc/user/theme/theme_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FireBaseApi().initNotification();
   runApp(const MyApp());
 }
 
@@ -56,7 +61,9 @@ Future<bool> _getInitialRoute() async {
   if (stored == null) {
     return false;
   }
-  else {
+  if (Jwt.isExpired(stored)) {
+    return false;
+  } else {
     return true;
   }
 }
