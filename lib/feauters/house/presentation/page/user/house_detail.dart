@@ -159,9 +159,9 @@ class HouseDetail extends StatelessWidget{
                                                String? successUrl = state.successUrl;
                                                if(successUrl != null){
                                                  var url=Uri.parse(successUrl);
-                                                 if(await canLaunchUrl(url)){
-                                                   launchUrl(url);
-                                                 }
+                                                 // if(await canLaunchUrl(url)){
+                                                   await launchUrl(url, mode: LaunchMode.inAppWebView);
+                                                 // }
                                                }
                                              }
                                              print("hi");

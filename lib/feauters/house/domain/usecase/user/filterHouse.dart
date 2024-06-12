@@ -7,7 +7,7 @@ class FilterHouse{
   HouseRepository houseRepository;
   FilterHouse(this.houseRepository);
 
-  Future<List<HouseModel>> call (String numOfRoom) async{
+  Future<List<HouseModel>> call (int numOfRoom) async{
    return await houseRepository.filterHouse(numOfRoom);
   }
 }

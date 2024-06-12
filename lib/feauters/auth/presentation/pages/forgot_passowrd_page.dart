@@ -11,7 +11,6 @@ class ForgotPasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Forgot Password"),
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -28,23 +27,24 @@ class ForgotPasswordPage extends StatelessWidget {
           builder: (context, state) {
         if (state is !SuccessfulyRecovered) {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: 50,),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(150),
+                  borderRadius: BorderRadius.circular(200),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.shade500,
-                      offset: Offset(2,2),
-                      blurRadius: 7,
+                      color: Colors.grey.shade400,
+                      offset: Offset(1,1),
+                      blurRadius: 4,
                       spreadRadius:1
                     ),
                     BoxShadow(
                         color: Colors.white,
-                        offset: Offset(-2,-2),
-                        blurRadius: 7,
+                        offset: Offset(-1,-1),
+                        blurRadius: 4,
                         spreadRadius:1
                     )
                   ]
@@ -56,17 +56,17 @@ class ForgotPasswordPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 5,
+                height: 10,
               ),
               Text(
                 "Forgot password?",
                 style: TextStyle(
                     color: Colors.amber,
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 5,
+                height: 40,
               ),
               Text(
                 "Please enter the email you registered with",
@@ -83,7 +83,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 30,
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(

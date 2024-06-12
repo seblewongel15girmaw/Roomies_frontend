@@ -10,7 +10,7 @@ import '../../../../../core/util/env.dart';
 
 abstract class HouseRemoteDatasource{
   Future<List<HouseModel>> getHouseList();
-  Future<List<HouseModel>> filterHouse(String numOfRoom);
+  Future<List<HouseModel>> filterHouse(int numOfRoom);
 }
 
 class HouseRemoteDatasourceImpl extends HouseRemoteDatasource{
@@ -50,17 +50,21 @@ class HouseRemoteDatasourceImpl extends HouseRemoteDatasource{
   }
   //
   @override
-  Future<List<HouseModel>> filterHouse(String numOfRoom) async{
+  Future<List<HouseModel>> filterHouse(int numOfRoom) async{
     final token= await SharedPreferencesService.getString("tokens");
     final userId= decodeJwt(token!)["userId"];
 
     try{
      var response= await client.post(Uri.parse("${BASEURL}houses/get_all_house_room_based/${userId}"),
-     body: jsonEncode({'numberOfRoom': numOfRoom}),);
+     body: jsonEncode({'numberOfRoom': numOfRoom }),);
+     print("this is the filtered ");
+     print(response.body);
      List houses =jsonDecode(response.body);
+
      List<HouseModel> houseList= houses.map((house){
       return HouseModel.fromJson(house);
      }).toList();
+     print(houseList);
 return houseList;
    }
    catch(err){
