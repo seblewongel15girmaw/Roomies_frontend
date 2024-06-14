@@ -13,8 +13,8 @@ import 'feauters/house/presentation/bloc/user/theme/theme_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FireBaseApi().initNotification();
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await FireBaseApi().initNotification();
   runApp(const MyApp());
 }
 

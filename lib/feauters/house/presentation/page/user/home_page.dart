@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             if(state is StatusSuccess){
                               final user=state.user;
                               if(user.profile_status == 0){
+                                print("running here");
                                 return Container(
                                 decoration: BoxDecoration(
                                     color: Color.fromRGBO(255, 253,208,1),

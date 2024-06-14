@@ -22,11 +22,6 @@ class ProfilePage extends StatelessWidget {
   TextEditingController jobStatus = TextEditingController();
   TextEditingController bio = TextEditingController();
   TextEditingController budget = TextEditingController();
-
-  @override
-  Widget build(context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    XFile? image;
     XFile? image2;
     bool profileSelected = false;
     bool idSelected = false;
@@ -38,6 +33,9 @@ class ProfilePage extends StatelessWidget {
     String privacy = "";
     String socialize = "";
     String smoking = "";
+  @override
+  Widget build(context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     
     return Scaffold(
       body: SingleChildScrollView(
