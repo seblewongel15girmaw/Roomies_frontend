@@ -21,8 +21,6 @@ class AlternateChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    
-    
     // Load chat history
     BlocProvider.of<ChatHistoryBloc>(context).add(ChatHistoryEvent(
       currentUserId: userId,

@@ -36,6 +36,8 @@ class RoommateDataSourceImpl implements RoommateDataSource{
     print('the potential roommates are $potentialRoommates');
     return potentialRoommates;}
     else{
+      print("daily reminder that we are here");
+      print("error has occured ${response.body}");
       throw ServerExceptions();
     }
     

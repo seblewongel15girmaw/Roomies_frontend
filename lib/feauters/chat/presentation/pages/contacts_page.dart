@@ -13,12 +13,13 @@ import '../blocs/contacts/contacts.dart';
 class ContactsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
+    BlocProvider.of<ContactsBloc>(context).add(ContactsEvent());
+  
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: BlocBuilder<ContactsBloc, ContactsState>(builder: (context, state) {
-        if (state is Idle) {
-          BlocProvider.of<ContactsBloc>(context).add(ContactsEvent());
-        }
+        
         return state is LoadingContactsSuceess
             ? ListView.builder(
                 itemCount: state.contacts.length,
