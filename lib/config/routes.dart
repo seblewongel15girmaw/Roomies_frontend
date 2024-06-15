@@ -35,6 +35,7 @@ import '../feauters/auth/presentation/bloc/deactivate/deactivate.dart';
 import '../feauters/auth/presentation/bloc/location/locations.dart';
 import '../feauters/auth/presentation/bloc/logout/logout.dart';
 import '../feauters/auth/presentation/bloc/recover_password/recover_password.dart';
+import '../feauters/auth/presentation/bloc/user_status/user_status_bloc.dart';
 import '../feauters/auth/presentation/bloc/users_profile/users_profile_bloc.dart';
 import '../feauters/auth/presentation/pages/change_password_page.dart';
 import '../feauters/auth/presentation/pages/deactivate_account_page.dart';
@@ -170,6 +171,7 @@ class Routes{
         builder: (_)=>MultiBlocProvider(providers: [
           BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
           BlocProvider<PaymentBloc>(create: (context)=>sl<PaymentBloc>()),
+          BlocProvider<UserStatusBloc>(create:(context)=>sl<UserStatusBloc>())
        ],
         child: HouseDetail(houseModel: args,),
         ),

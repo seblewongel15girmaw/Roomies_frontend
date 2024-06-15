@@ -2,15 +2,18 @@ import 'package:begara_mobile/core/util/sharedPreference.dart';
 import 'package:begara_mobile/feauters/auth/data/utils/functions.dart';
 import 'package:begara_mobile/feauters/house/core/error/exception.dart';
 import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
+import 'package:begara_mobile/feauters/house/domain/entity/broker_entity.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 import 'dart:developer';
 
 import '../../../../../core/util/env.dart';
+import '../../model/broker_model.dart';
 
 abstract class HouseRemoteDatasource{
   Future<List<HouseModel>> getHouseList();
   Future<List<HouseModel>> filterHouse(String numOfRoom);
+  Future<BrokerModel?> getBrokerProfile(String id);
 }
 
 class HouseRemoteDatasourceImpl extends HouseRemoteDatasource{
@@ -44,11 +47,9 @@ class HouseRemoteDatasourceImpl extends HouseRemoteDatasource{
       log(e.toString());
       return [];
     }
-  //   finally{
-  //       client.close();
-  // }
   }
-  //
+
+
   @override
   Future<List<HouseModel>> filterHouse(String numOfRoom) async{
     final token= await SharedPreferencesService.getString("tokens");
@@ -67,5 +68,18 @@ return houseList;
 print(err);
 return [];
    }
+  }
+
+  @override
+  Future<BrokerModel?> getBrokerProfile(String id) async{
+    try{
+      var response = await client.get(Uri.parse(BASEURL+"brokers/getProfile/${id}"));
+      print(response.body);
+      BrokerModel broker= BrokerModel.fromJson(jsonDecode(response.body));
+      return broker;
+    }
+        catch(err){
+      return null;
+        }
   }
   }

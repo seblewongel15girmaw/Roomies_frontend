@@ -30,6 +30,8 @@ class UserStatusDataSourceImpl implements UserStatusDataSource{
     );
 
     if(response.statusCode==200) {
+      print("this is the status");
+      print(jsonDecode(response.body));
       return UserStatusModel.fromJson(jsonDecode(response.body));
     }
     else{
