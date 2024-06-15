@@ -30,10 +30,11 @@ class userDataSourcesImpl implements UserDataSources {
   Future<int> createProfile(
       UserEntity user, XFile? profileImage, XFile? id) async {
     final token = await SharedPreferencesService.getString("tokens");
+    final fcmToken= await SharedPreferencesService.getString("fcmToken");
     final userId = decodeJwt(token!)["userId"];
 
     final request = await uploadImage(
-        profileImage, id, user.toJson(), baseUri + "$userId/profile", token);
+        profileImage, id, user.toJson(), baseUri + "$userId/profile", token,fcmToken);
     final response = await client.send(request);
     if (response.statusCode == 200) {
       return response.statusCode;

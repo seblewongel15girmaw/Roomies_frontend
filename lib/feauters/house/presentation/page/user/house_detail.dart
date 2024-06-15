@@ -174,6 +174,47 @@ class HouseDetail extends StatelessWidget{
                                                    listener: (context, state) async{
                                                      print("hey");
                                                      print(state);
+                                             if(state is PaymentSuccess){
+                                               String? successUrl = state.successUrl;
+                                               if(successUrl != null){
+                                                 var url=Uri.parse(successUrl);
+                                                 // if(await canLaunchUrl(url)){
+                                                   await launchUrl(url, mode: LaunchMode.inAppWebView);
+                                                 // }
+                                               }
+                                             }
+                                             print("hi");
+                                             if(state is SuccessPaymentStatus){
+                                               Navigator.pushNamed(context, "/brokerProfile");
+                                             }
+                                           },
+                                           child:    Container(
+                                             decoration: BoxDecoration(
+                                                 border: Border.all(
+                                                     color: Colors.yellow,
+                                                     width: 2,
+                                                     style: BorderStyle.solid
+                                                 ),
+                                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(31), topRight:Radius.circular(32) )
+                                             ),
+                                             height: 300,
+                                             width: MediaQuery.of(context).size.width,
+                                             child:Column(
+                                               // mainAxisAlignment: MainAxisAlignment.center,
+                                               crossAxisAlignment: CrossAxisAlignment.center,
+                                               children: [
+                                                 SizedBox(height: 60,),
+                                                 Text("To view Renter detail ",style:GoogleFonts.pressStart2p(
+                                                   fontSize: 9,),),
+                                                 SizedBox(height: 20,),
+                                                 Text(" please Pay 50 birr fee",style:GoogleFonts.pressStart2p(
+                                                   fontSize: 9,)),
+                                                 SizedBox(height: 50,),
+                                                 ElevatedButton(onPressed: ()async {
+                                                   var now = DateTime.now();
+                                                   var tx_ref = "chewataatiesit-6669-${now.year}-${now.month}-${now
+                                                       .day} ${now.hour}${now.minute}${now.second}";
+                                                   BlocProvider.of<PaymentBloc>(context).add(MakePaymentEvent(tx_ref));
 
                                                      if(state is PaymentSuccess){
                                                        String? successUrl = state.successUrl;

@@ -25,6 +25,7 @@ class UserEntity extends Equatable {
   final String smoking;
   final int profileStatus;
   final int activateStatus;
+  final String fcmToken;
 
   const UserEntity(
       { required this.id,
@@ -48,7 +49,8 @@ class UserEntity extends Equatable {
       required this.smoking,
       required this.socialize,
       required this.profileStatus,
-      required this.activateStatus});
+      required this.activateStatus,
+      required this.fcmToken});
 
   @override
   // TODO: implement props
@@ -71,7 +73,8 @@ class UserEntity extends Equatable {
       smoking,
       socialize,
       activateStatus,
-      profileStatus
+      profileStatus,
+      fcmToken
     ];
   }
 
@@ -98,7 +101,8 @@ class UserEntity extends Equatable {
       "socialize": socialize,
       "religion":religion,
       "profile_status": profileStatus,
-      "activate_status":activateStatus
+      "activate_status":activateStatus,
+      "fcm_token":fcmToken
     };
   }
 }

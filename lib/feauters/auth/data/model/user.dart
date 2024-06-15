@@ -26,7 +26,8 @@ class UserModel extends UserEntity {
     required String smoking,
     required String socialize,
     required int profileStatus,
-    required int activateStatus
+    required int activateStatus,
+    required String fcmToken,
   }) : super(
             id:id,
             fullName: fullName,
@@ -49,7 +50,8 @@ class UserModel extends UserEntity {
             smoking: smoking,
             socialize: socialize,
             activateStatus: activateStatus,
-            profileStatus: profileStatus);
+            profileStatus: profileStatus,
+            fcmToken: fcmToken);
   factory UserModel.fromJson(Map<String, dynamic> map) {
     return UserModel(
         id:map["id"]??0,
@@ -74,6 +76,7 @@ class UserModel extends UserEntity {
         socialize: map['socialize']??'',
         profileStatus: map['profile_status']??0,
         activateStatus: map['activate_status']??0,
+        fcmToken: map['fcm_token']??''
         );
   }
 }
