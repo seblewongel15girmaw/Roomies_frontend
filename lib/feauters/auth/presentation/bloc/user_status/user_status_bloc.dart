@@ -18,7 +18,7 @@ class UserStatusBloc extends Bloc<ClickEvent, UserStatusState>{
     emit(StatusSuccess(user));
   }
   catch(e){
-
+print(e);
       emit(StatusFailed());
   }
 

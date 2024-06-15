@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
                   title: 'Flutter Demo',
                   theme: lightMode,
                   darkTheme: darkMode,
-                  initialRoute: snapshot.data == true ? "/homePage" : "/login",
+                  initialRoute: "/homePage" ,
                   onGenerateRoute: appRoutes.generateRoute,
                 );
               },));

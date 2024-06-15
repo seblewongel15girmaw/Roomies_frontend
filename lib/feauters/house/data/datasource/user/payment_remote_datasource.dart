@@ -2,6 +2,7 @@ import "dart:convert";
 
 import "package:http/http.dart" as http;
 
+import "../../../../../core/util/env.dart";
 import "../../../../../core/util/sharedPreference.dart";
 import "../../../../auth/data/utils/functions.dart";
 
@@ -65,6 +66,9 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource{
 
   @override
   Future<String?> checkPaymentStatus(String trx_ref) async{
+    final token= await SharedPreferencesService.getString("token");
+    final userId=decodeJwt(token!)["userId"];
+
     var requestTrx = http.Request('GET', Uri.parse('${BASEURL}/verify/$trx_ref'));
     requestTrx .body = '''''';
     requestTrx .headers.addAll(headers);
@@ -73,9 +77,17 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource{
 
     if (responseTrx.statusCode == 200) {
       String res = await responseTrx.stream.bytesToString();
-      var jsonResponse= jsonDecode(res);
-      print(jsonResponse["data"]["status"]);
+       var jsonResponse= jsonDecode(res);
 
+       if(jsonResponse["data"]["status"]=="success"){
+        var res = await client.post(Uri.parse("http://${ipAdress}:3000/api/users/change_payment_status/${userId}"));
+        if(res.statusCode==200){
+          return "Success";
+        }
+        else{
+          return "error";
+        }
+       }
       return jsonResponse["data"]["status"];
     }
     else {

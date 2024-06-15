@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:another_carousel_pro/another_carousel_pro.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/user_status/user_status_bloc.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/user_status/user_status_event.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/user_status/user_status_state.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/payment/payment_bloc.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/payment/payment_event.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +24,8 @@ class HouseDetail extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserStatusBloc>(context).add(ClickEvent());
+
     var location= houseModel.location.displayName.split("/")[0];
     var width=MediaQuery.of(context).size.width;
     var height=MediaQuery.of(context).size.height;
@@ -142,19 +147,33 @@ class HouseDetail extends StatelessWidget{
                          alignment: Alignment.bottomCenter,
                          child: Padding(
                            padding: const EdgeInsets.only(bottom: 30),
-                           child: ElevatedButton(
-                             onPressed: (){
-                               // BlocProvider.of<PaymentBloc>(context).add(PaymentStatusEvent(""));
-                               showModalBottomSheet(
-                                   context: newContext,
-                                   builder: (_){
-                                     return BlocProvider.value(
-                                       value: BlocProvider.of<PaymentBloc>(context),
-                                       child: BlocListener<PaymentBloc, PaymentState>(
-                                           listener: (context, state) async{
-                                             print("hey");
-                                             print(state);
+                           child: BlocConsumer<UserStatusBloc, UserStatusState>(
+                               listener: (context, state) {
+                               },
+                             builder: (context, state) {
+                                   return ElevatedButton(
+                                     onPressed: (){
+                                       BlocProvider.of<UserStatusBloc>(context).add(ClickEvent());
 
+                                       print("this is house state");
+                                       print(state);
+                                       if(state is StatusSuccess){
+                                         final user= state.user;
+                                         if(user.payment_status==1){
+                                           Navigator.pushNamed(context, "/brokerProfile");
+                                           // return Container();
+                                         }
+                                         else {
+                                       // BlocProvider.of<PaymentBloc>(context).add(PaymentStatusEvent(""));
+                                       showModalBottomSheet(
+                                           context: newContext,
+                                           builder: (_){
+                                             return BlocProvider.value(
+                                               value: BlocProvider.of<PaymentBloc>(context),
+                                               child: BlocListener<PaymentBloc, PaymentState>(
+                                                   listener: (context, state) async{
+                                                     print("hey");
+                                                     print(state);
                                              if(state is PaymentSuccess){
                                                String? successUrl = state.successUrl;
                                                if(successUrl != null){
@@ -197,35 +216,77 @@ class HouseDetail extends StatelessWidget{
                                                        .day} ${now.hour}${now.minute}${now.second}";
                                                    BlocProvider.of<PaymentBloc>(context).add(MakePaymentEvent(tx_ref));
 
-                                                   Future.delayed(Duration.zero, () {
-                                                     BlocProvider.of<PaymentBloc>(context).add(PaymentStatusEvent(tx_ref));
-                                                   });
-                                                   BlocListener<PaymentBloc, PaymentState>(
-                                                     listener: (context, state) {
-                                                       // Check if the payment status event was successful
-                                                       if (state is SuccessPaymentStatus) {
-                                                         // Navigate to the other page
-                                                         Navigator.pushNamed(context, "/brokerProfile");
+                                                     if(state is PaymentSuccess){
+                                                       String? successUrl = state.successUrl;
+                                                       if(successUrl != null){
+                                                         var url=Uri.parse(successUrl);
+                                                         // if(await canLaunchUrl(url)){
+                                                          await launchUrl(url);
+                                                         // }
                                                        }
-                                                     },
-                                                   );
+                                                     }
+                                                     print("hi");
+                                                     if(state is SuccessPaymentStatus){
+                                                       Navigator.pushNamed(context, "/brokerProfile");
+                                                     }
+                                                   },
+                                                   child:    Container(
+                                                     decoration: BoxDecoration(
+                                                         border: Border.all(
+                                                             color: Colors.yellow,
+                                                             width: 2,
+                                                             style: BorderStyle.solid
+                                                         ),
+                                                         borderRadius: BorderRadius.only(topLeft: Radius.circular(31), topRight:Radius.circular(32) )
+                                                     ),
+                                                     height: 300,
+                                                     width: MediaQuery.of(context).size.width,
+                                                     child:Column(
+                                                       // mainAxisAlignment: MainAxisAlignment.center,
+                                                       crossAxisAlignment: CrossAxisAlignment.center,
+                                                       children: [
+                                                         SizedBox(height: 60,),
+                                                         Text("To view Renter detail ",style:GoogleFonts.pressStart2p(
+                                                           fontSize: 9,),),
+                                                         SizedBox(height: 20,),
+                                                         Text(" please Pay 50 birr fee",style:GoogleFonts.pressStart2p(
+                                                           fontSize: 9,)),
+                                                         SizedBox(height: 50,),
+                                                         ElevatedButton(onPressed: ()async {
+                                                           var now = DateTime.now();
+                                                           var tx_ref = "chewataatiesit-6669-${now.year}-${now.month}-${now
+                                                               .day} ${now.hour}${now.minute}${now.second}";
+                                                           BlocProvider.of<PaymentBloc>(context).add(MakePaymentEvent(tx_ref));
 
-                                                 },
-                                                     child: Text("Make Payment")
-                                                 )],
-                                             ) ,
-                                           )),
-                                     );
-                                   });
-
-                               // context.read<PaymentBloc>().add(PaymentStatusEvent(""));
-                               // _showPaymentModal(context);
-                             },
-                             child: Text("Contact Broker"), style: ButtonStyle(
-                             backgroundColor: MaterialStateProperty.all(Color.fromRGBO(244, 196, 48,0.9)),
-                             foregroundColor: MaterialStateProperty.all(Colors.black),
-                             textStyle: MaterialStateProperty.all(TextStyle(fontWeight: FontWeight.bold))
-                           ),),
+                                                           Future.delayed(Duration.zero, () {
+                                                             BlocProvider.of<PaymentBloc>(context).add(PaymentStatusEvent(tx_ref));
+                                                           });
+                                                           BlocListener<PaymentBloc, PaymentState>(
+                                                             listener: (context, state) {
+                                                               // Check if the payment status event was successful
+                                                               if (state is SuccessPaymentStatus) {
+                                                                 // Navigate to the other page
+                                                                 Navigator.pushNamed(context, "/brokerProfile");
+                                                               }
+                                                             },
+                                                           );
+                                                         },
+                                                             child: Text("Make Payment")
+                                                         )],
+                                                     ) ,
+                                                   )),
+                                             );
+                                           });}}
+                                       else{
+                                         return ;
+                                       }},
+                                     child: Text("Contact Broker"), style: ButtonStyle(
+                                       backgroundColor: MaterialStateProperty.all(Color.fromRGBO(244, 196, 48,0.9)),
+                                       foregroundColor: MaterialStateProperty.all(Colors.black),
+                                       textStyle: MaterialStateProperty.all(TextStyle(fontWeight: FontWeight.bold))
+                                   ),);
+                                 }
+                           ),
                          ),
                        ),
                      )
