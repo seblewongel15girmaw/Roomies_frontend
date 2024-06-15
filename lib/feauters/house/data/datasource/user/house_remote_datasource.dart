@@ -10,7 +10,7 @@ import '../../../../../core/util/env.dart';
 
 abstract class HouseRemoteDatasource {
   Future<List<HouseModel>> getHouseList();
-  Future<List<HouseModel>> filterHouse(String numOfRoom);
+  Future<List<HouseModel>> filterHouse(int numOfRoom);
 }
 
 class HouseRemoteDatasourceImpl extends HouseRemoteDatasource {
@@ -52,8 +52,7 @@ class HouseRemoteDatasourceImpl extends HouseRemoteDatasource {
     // }
   }
 
-  //
-  @override
+
   Future<List<HouseModel>> filterHouse(String numOfRoom) async {
     final token = await SharedPreferencesService.getString("tokens");
     final userId = decodeJwt(token!)["userId"];

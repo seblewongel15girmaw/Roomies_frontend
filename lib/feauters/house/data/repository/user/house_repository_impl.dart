@@ -9,7 +9,7 @@ class HouseRepositoryImpl implements HouseRepository{
   HouseRepositoryImpl({required this.houseRemoteDatasource});
 
   @override
-  Future<List<HouseModel>> filterHouse(String numOfRoom) async{
+  Future<List<HouseModel>> filterHouse(int numOfRoom) async{
     return houseRemoteDatasource.filterHouse(numOfRoom);
   }
 
