@@ -22,17 +22,20 @@ class UserStatusDataSourceImpl implements UserStatusDataSource{
   Future<UserStatusModel> getUserStatus(String id) async{
     final token = await SharedPreferencesService.getString("tokens");
     final userId = decodeJwt(token!)["userId"];
-    final response= await client.post(
+    final response= await client.get(
       Uri.parse(baseUri + "getUser_status/${userId}"),
       headers: {
     'Content-Type': 'application/json; charset=UTF-8',
+    'Authorization': 'Bearer $token'
     },
     );
 
     if(response.statusCode==200) {
+      print(response.body);
       return UserStatusModel.fromJson(jsonDecode(response.body));
     }
     else{
+      print("oops there is error blud ${response.statusCode}");
       throw ServerException(errorMessage: "error while fetching status");
     }
     }

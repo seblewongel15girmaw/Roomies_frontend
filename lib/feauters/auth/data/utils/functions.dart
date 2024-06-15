@@ -43,7 +43,7 @@ Future<http.MultipartRequest> uploadSingleImage(
 }
 
 Future<http.MultipartRequest> uploadImage(XFile? imageFile, XFile? imageFile2,
-    Map<String, dynamic> postData, apiUrl, token) async {
+    Map<String, dynamic> postData, apiUrl, token,fcmToken) async {
   final url = Uri.parse(apiUrl);
   final mimeType = lookupMimeType(imageFile!.path)!.split('/');
   final mimeType2 = lookupMimeType(imageFile2!.path)!.split('/');
@@ -77,6 +77,7 @@ Future<http.MultipartRequest> uploadImage(XFile? imageFile, XFile? imageFile2,
     imageUploadRequest.fields['smoking'] = postData['smoking'];
     imageUploadRequest.fields['privacy'] = postData['privacy'];
     imageUploadRequest.fields['socialize'] = postData['socialize'];
+    imageUploadRequest.fields['fcm_token'] = fcmToken??"";
     imageUploadRequest.fields['religious_compatibility'] =
         postData['religious_compatibility'];
 

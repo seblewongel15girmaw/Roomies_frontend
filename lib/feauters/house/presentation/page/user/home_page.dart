@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             if(state is StatusSuccess){
                               final user=state.user;
                               if(user.profile_status == 0){
+                                print("running here");
                                 return Container(
                                 decoration: BoxDecoration(
                                     color: Color.fromRGBO(255, 253,208,1),
@@ -190,7 +191,9 @@ class _HomePageState extends State<HomePage> {
 //         BlocProvider<HouseBloc>(create: (context) => sl<HouseBloc>()),
 //       ],
 // =======
-  List<Widget> pagesList=[
+late List<Widget> pagesList;
+void update({bool refresh = true}){
+   pagesList=[
     MultiBlocProvider(providers: [
       BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
       BlocProvider<UserStatusBloc>(create: (context)=>sl<UserStatusBloc>())
@@ -199,6 +202,7 @@ class _HomePageState extends State<HomePage> {
       child: HomeScreen(),
     ),
     MultiBlocProvider(
+      key: refresh ? UniqueKey(): null,
       providers: [
         BlocProvider<ContactsBloc>(create: (context) => sl<ContactsBloc>()),
       ],
@@ -217,7 +221,7 @@ class _HomePageState extends State<HomePage> {
       ],
       child: MyProfile(),
     )
-  ];
+  ];}
 
   int index = 0;
 
@@ -226,7 +230,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
-
+    setState(() {
+      update(refresh: true);
+    });
     return Scaffold(
         backgroundColor: Colors.white,
         bottomNavigationBar: CurvedNavigationBar(
@@ -238,6 +244,7 @@ class _HomePageState extends State<HomePage> {
           onTap: (idx) {
             setState(() {
               index = idx;
+              update(refresh:true);
             });
           },
           items: const [

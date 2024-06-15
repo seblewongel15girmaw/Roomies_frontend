@@ -25,7 +25,7 @@ class UserRepositoryImpl implements UserRepo{
   }
 
   @override
-  Future<Either<Errors, int>> createUser(String fullName, String userName, String password, String email )async {
+  Future<Either<Errors, int>> createUser(String userName, String fullName, String password, String email )async {
     try{
     network.isConnected;
     return Right(await userDataSources.createUser(userName,fullName,password,email));}
