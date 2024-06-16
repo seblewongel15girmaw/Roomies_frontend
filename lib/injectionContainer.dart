@@ -123,6 +123,7 @@ Future <void> init() async{
   sl.registerLazySingleton(() => GiveFeedback(sl()));
   sl.registerLazySingleton(() => GetLocations(sl()));
   sl.registerLazySingleton(()=>LogOutUser(sl()));
+  sl.registerLazySingleton(()=> GetBrokerProfile(sl()));
   sl.registerLazySingleton(()=>UnsubscribeUser(sl()));
   sl.registerLazySingleton(()=> MakePayment(sl()));
   sl.registerLazySingleton(()=> CheckPaymentStatus(sl()));

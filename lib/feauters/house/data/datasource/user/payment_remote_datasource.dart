@@ -168,6 +168,7 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource{
 
     if (responseTrx.statusCode == 200) {
       String res = await responseTrx.stream.bytesToString();
+
       var jsonResponse= jsonDecode(res);
 
       if(jsonResponse["data"]["status"]=="success"){
@@ -177,6 +178,7 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource{
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': 'Bearer $token'
           },);
+
         if(res.statusCode==200){
           return "Success";
         }
@@ -184,6 +186,7 @@ class PaymentRemoteDatasourceImpl implements PaymentRemoteDatasource{
           return "error";
         }
       }
+
       return jsonResponse["data"]["status"];
     }
     else {

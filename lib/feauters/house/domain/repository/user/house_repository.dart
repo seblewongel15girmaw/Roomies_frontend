@@ -8,4 +8,5 @@ abstract class HouseRepository {
   Future<List<HouseModel>> savedHouses();
   Future<List<HouseModel>> filterHouse(int numOfRoom);
   Future<BrokerModel?> getBrokerProfile(String id);
+
 }

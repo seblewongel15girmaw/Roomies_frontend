@@ -13,8 +13,8 @@ import 'feauters/house/presentation/bloc/user/theme/theme_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // await FireBaseApi().initNotification();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FireBaseApi().initNotification();
   runApp(const MyApp());
 }
 
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
                   title: 'Flutter Demo',
                   theme: lightMode,
                   darkTheme: darkMode,
-                  initialRoute: snapshot.data == true ? "/homePage" : "/login",
+                  initialRoute: snapshot.data ==true ? "/homePage": "/login",
                   onGenerateRoute: appRoutes.generateRoute,
                 );
               },));

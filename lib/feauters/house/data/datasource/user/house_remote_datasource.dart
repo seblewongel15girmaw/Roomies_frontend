@@ -86,6 +86,7 @@ import 'package:begara_mobile/core/util/sharedPreference.dart';
 import 'package:begara_mobile/feauters/auth/data/utils/functions.dart';
 import 'package:begara_mobile/feauters/house/core/error/exception.dart';
 import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
+import 'package:begara_mobile/feauters/house/domain/entity/broker_entity.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 import 'dart:developer';
@@ -97,8 +98,6 @@ abstract class HouseRemoteDatasource {
   Future<List<HouseModel>> getHouseList();
   Future<List<HouseModel>> filterHouse(int numOfRoom);
   Future<BrokerModel?> getBrokerProfile(String id);
-  // Future<List<HouseModel>> filterHouse(int numOfRoom);
-}
 
 class HouseRemoteDatasourceImpl extends HouseRemoteDatasource {
   var client = http.Client();
@@ -112,7 +111,9 @@ class HouseRemoteDatasourceImpl extends HouseRemoteDatasource {
 
     try {
       late List<HouseModel> houseModelList;
+
       print("this is not working");
+
       var response = await client
           .get(Uri.parse('${BASEURL}houses/getallhouse/${userId}'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -136,43 +137,6 @@ class HouseRemoteDatasourceImpl extends HouseRemoteDatasource {
       return [];
     }
   }
-
-  //
-  // @override
-  // Future<BrokerModel?> getBrokerProfile(String id) async{
-  //   try{
-  //     var response = await client.get(Uri.parse(BASEURL+"brokers/getProfile/${id}"));
-  //     print(response.body);
-  //     BrokerModel broker= BrokerModel.fromJson(jsonDecode(response.body));
-  //     return broker;
-  //   }
-  //   catch(err){
-  //     return null;
-  //   }
-  // }
-//
-//
-//   Future<List<HouseModel>> filterHouse(int numOfRoom) async {
-//     final token = await SharedPreferencesService.getString("tokens");
-//     final userId = decodeJwt(token!)["userId"];
-//
-//     try {
-//       var response = await client.post(
-//         Uri.parse("${BASEURL}houses/get_all_house_room_based/${userId}"),
-//         body: jsonEncode({'numberOfRoom': numOfRoom}),
-//       );
-//       List houses = jsonDecode(response.body);
-//       List<HouseModel> houseList = houses.map((house) {
-//         return HouseModel.fromJson(house);
-//       }).toList();
-//       return houseList;
-//     } catch (err) {
-//       print(err);
-//       return [];
-//     }
-//   }
-// }
-
 
 
 @override
@@ -211,3 +175,25 @@ Future<List<HouseModel>> filterHouse(int numOfRoom) async {
 
 
 }
+
+//
+//
+// @override
+// Future<List<HouseModel>> filterHouse(int numOfRoom) async{
+//   final token= await SharedPreferencesService.getString("tokens");
+//   final userId= decodeJwt(token!)["userId"];
+//
+//   try{
+//     var response= await client.post(Uri.parse("${BASEURL}houses/get_all_house_room_based/${userId}"),
+//       body: jsonEncode({'numberOfRoom': numOfRoom}),);
+//     List houses =jsonDecode(response.body);
+//     List<HouseModel> houseList= houses.map((house){
+//       return HouseModel.fromJson(house);
+//     }).toList();
+//     return houseList;
+//   }
+//   catch(err){
+//     print(err);
+//     return [];
+//   }
+// }

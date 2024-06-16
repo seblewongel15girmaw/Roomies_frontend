@@ -166,6 +166,7 @@ class Routes{
         )
       );
 
+
        case '/houseDetail':
          var args= settings.arguments as HouseModel;
       return MaterialPageRoute(
@@ -177,6 +178,7 @@ class Routes{
         child: HouseDetail(houseModel: args,),
         ),
       );
+
 
       case '/brokerProfile':
       return MaterialPageRoute(

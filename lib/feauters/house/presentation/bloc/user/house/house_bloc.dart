@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:begara_mobile/feauters/house/domain/usecase/user/get_broker_profile.dart';
 import 'package:bloc/bloc.dart';
 import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
 import 'package:begara_mobile/feauters/house/domain/usecase/user/get_house_list.dart';
@@ -13,15 +14,16 @@ import '../../../../domain/usecase/user/get_broker_profile.dart';
 class HouseBloc extends Bloc<HouseEvent, HouseState> {
   GetHouseList getHouseList;
   FilterHouse filterHouse;
+
   GetBrokerProfile getBrokerProfile;
   HouseBloc(this.getHouseList, this.filterHouse, this.getBrokerProfile) : super(InitialState()) {
+
     on<InitialEvent>(initialEvent);
     on<HouseDetailEvent>(houseDetailEvent);
     on<AddToFavoriteHouseEvent>(addToFavoriteHouseEvent);
     on<RemoveFromFavoriteHouseEvent>(removeFromFavoriteHouseEvent);
     on<FilterClickedEvent>(filterClicked);
   }
-
 
   FutureOr<void> initialEvent(InitialEvent event,
       Emitter<HouseState> emit) async{

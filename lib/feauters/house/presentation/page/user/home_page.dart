@@ -57,13 +57,14 @@ class _HomeScreenState extends State<HomeScreen> {
             listener: (BuildContext context, Object? state) {},
             builder: (context, state) {
               switch (state.runtimeType) {
-
                   case LoadingState:
                     return Center(
                       child: CircularProgressIndicator(color: Colors.white,),
                     );
 
                   case HouseSuccessState:
+                    print(state);
+
                     final successState =state as HouseSuccessState;
                     return SafeArea(
                       child:Center(
@@ -167,6 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text("Error has occured"),
                   );
                 default:
+                  print(state);
                   return Container();
               }
             },
@@ -262,6 +264,7 @@ void update({bool refresh = true}){
           ],
         ),
         appBar: AppBar(
+
           title: Text(
             pageTitles[index],
             style: TextStyle(
