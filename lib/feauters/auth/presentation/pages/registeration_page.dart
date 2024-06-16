@@ -28,7 +28,7 @@ class RegisterPage extends StatelessWidget {
               child: SwitchScreen(
                 inputKey: Key("to_login_btn"),
                 pageRoute: "/login",
-                buttonName: "Log IN",
+                buttonName: "Login",
                 direction: "left",
               )),
           SizedBox(

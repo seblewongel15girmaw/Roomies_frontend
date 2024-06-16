@@ -10,7 +10,7 @@ class ImageBloc extends Bloc<SelectEvent,ImageState> {
     on<IdClicked>(selectIDClicked);
   }
 
-  FutureOr<void> selectImageClicked(SelectEvent event, Emitter emit) async{
+  FutureOr<void> selectImageClicked(ProfileClicked event, Emitter emit) async{
    final picker = ImagePicker(); 
    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
    if(pickedFile!=null){
@@ -20,7 +20,7 @@ class ImageBloc extends Bloc<SelectEvent,ImageState> {
    }}
   
 
-  FutureOr<void> selectIDClicked(IdClicked event, Emitter<ImageState> emit) async{
+  FutureOr<void> selectIDClicked(IdClicked event, Emitter emit) async{
     final picker = ImagePicker(); 
    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
    if(pickedFile!=null){

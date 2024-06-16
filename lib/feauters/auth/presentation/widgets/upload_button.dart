@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/image/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +22,9 @@ class UploadImageButton extends StatelessWidget {
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
             fixedSize: Size(500, 60),
-            backgroundColor: Color.fromARGB(255, 187, 148, 48),
+            backgroundColor: state is IdSelected
+                ? Color.fromARGB(255, 248, 220, 148)
+                : Color.fromARGB(255, 187, 148, 48),
             foregroundColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius:
@@ -30,7 +34,16 @@ class UploadImageButton extends StatelessWidget {
           onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Icon(Icons.upload), Text("Upload Id")],
+            children: <Widget>[
+              Icon(Icons.upload),
+              state is IdSelected
+                  ? Container(
+                      decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: FileImage(File(state.image2!.path))),
+                    ))
+                  : Text("Upload Id")
+            ],
           ),
         );
       },
