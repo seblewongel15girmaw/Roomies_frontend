@@ -4,6 +4,8 @@ import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
 import 'package:begara_mobile/feauters/house/domain/entity/house_entity.dart';
 import 'package:begara_mobile/feauters/house/domain/repository/user/house_repository.dart';
 
+import '../../model/broker_model.dart';
+
 class HouseRepositoryImpl implements HouseRepository{
   HouseRemoteDatasource houseRemoteDatasource;
 
@@ -35,7 +37,9 @@ class HouseRepositoryImpl implements HouseRepository{
 
   @override
   Future<BrokerModel?> getBrokerProfile(String id) async{
-   return await houseRemoteDatasource.getBrokerProfile(id);
+
+    return await houseRemoteDatasource.getBrokerProfile(id);
+
   }
 
 }

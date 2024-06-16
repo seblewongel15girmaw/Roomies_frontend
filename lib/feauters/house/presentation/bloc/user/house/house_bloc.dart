@@ -8,13 +8,16 @@ import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/house/house_state.dart';
 
 import '../../../../domain/usecase/user/filterHouse.dart';
+import '../../../../domain/usecase/user/get_broker_profile.dart';
 
 
 class HouseBloc extends Bloc<HouseEvent, HouseState> {
   GetHouseList getHouseList;
   FilterHouse filterHouse;
-  GetBrokerProfile brokerProfile;
-  HouseBloc(this.getHouseList, this.filterHouse, this.brokerProfile) : super(InitialState()) {
+
+  GetBrokerProfile getBrokerProfile;
+  HouseBloc(this.getHouseList, this.filterHouse, this.getBrokerProfile) : super(InitialState()) {
+
     on<InitialEvent>(initialEvent);
     on<HouseDetailEvent>(houseDetailEvent);
     on<AddToFavoriteHouseEvent>(addToFavoriteHouseEvent);

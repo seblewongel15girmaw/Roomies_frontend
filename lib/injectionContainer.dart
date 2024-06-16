@@ -100,7 +100,7 @@ Future <void> init() async{
   sl.registerFactory<InstantiateBloc>(() => InstantiateBloc(sl()));
   sl.registerFactory(() => FeedBackBloc(sl()));
   sl.registerFactory(() => LocationBloc(sl()));
-  sl.registerFactory(() => HouseBloc(sl(), sl(),sl()));
+  sl.registerFactory(() => HouseBloc(sl(), sl(), sl()));
   sl.registerFactory(() => LogoutBloc(sl()));
   sl.registerFactory(()=>DeactivateBloc(sl()));
   sl.registerFactory(()=> PaymentBloc(sl(), sl()));
@@ -127,6 +127,7 @@ Future <void> init() async{
   sl.registerLazySingleton(()=>UnsubscribeUser(sl()));
   sl.registerLazySingleton(()=> MakePayment(sl()));
   sl.registerLazySingleton(()=> CheckPaymentStatus(sl()));
+  sl.registerLazySingleton(()=> GetBrokerProfile(sl()));
   sl.registerLazySingleton<UserRepo>(() => UserRepositoryImpl(sl(), sl(), sl()) );
   sl.registerLazySingleton<UserStatusRepository>(()=> UserStatusRepoImpl(sl()));
   sl.registerLazySingleton<UserDataSources>(() => userDataSourcesImpl(sl()));

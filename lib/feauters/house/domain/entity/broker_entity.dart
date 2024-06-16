@@ -40,7 +40,6 @@ class Broker extends Equatable {
       phoneNumber,
       phoneNumber2,
       address,
-
     ];
   }
 

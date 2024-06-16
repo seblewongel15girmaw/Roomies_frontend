@@ -11,10 +11,11 @@ class HouseModel extends Equatable{
   final LocationModel location;
   final int numberOfRoom;
   final double price;
+  final int brokerId;
   final String description;
   final List<ImageModel> Images;
 
-  const HouseModel({required this.houseId, required this.description, required this.Images,required this.price, required this.location, required this.numberOfRoom});
+  const HouseModel({required this.houseId, required this.description, required this.Images,required this.price,required this.brokerId ,required this.location, required this.numberOfRoom});
 
   Map<String,dynamic> toJson(){
     return {
@@ -23,7 +24,8 @@ class HouseModel extends Equatable{
       "numberOfRoom":numberOfRoom,
       "price":price,
       "description":description,
-      "Images":Images
+      "Images":Images,
+      "brokerId":brokerId
     };
   }
 
@@ -37,17 +39,18 @@ class HouseModel extends Equatable{
       numberOfRoom: json["numberOfRoom"],
       price:json["price"].toDouble(),
       Images: images,
-      description: json["description"]
+      description: json["description"],
+      brokerId: json["brokerId"]
     );
   }
 
   HouseEntity toEntity(){
 List<ImageEntity> images= Images.map((image) => image.toEntity()).toList();
-    return HouseEntity(houseId: houseId, description: description, Images: images, price: price, location: location, numberOfRoom: numberOfRoom);
+    return HouseEntity(houseId: houseId, description: description, Images: images, price: price, location: location,brokerId: brokerId ,numberOfRoom: numberOfRoom);
   }
 
   @override
-  List<Object?> get props => [houseId, location, numberOfRoom, price, description, Images];
+  List<Object?> get props => [houseId, location, numberOfRoom, price, description, brokerId,Images];
 }
 
 

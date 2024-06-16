@@ -36,14 +36,15 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState>{
     try{
       var i=0;
       String? status= await checkPaymentStatus(event.trx_ref);
-      while (status != "success" && i<8) {
+      while (status != "Success" && i<8) {
         await Future.delayed(Duration(seconds: 10));
         status= await checkPaymentStatus(event.trx_ref);
+        print(event.trx_ref);
         i++;
         print("in the modal");
         print(status);
       }
-    if(status=="success"){
+    if(status=="Success"){
       emit(SuccessPaymentStatus());
     }
     else{
