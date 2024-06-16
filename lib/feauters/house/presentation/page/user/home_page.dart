@@ -126,19 +126,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   RoomNumberWidget(noOfRoom: 1,onTap: (){
-                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(1.toString()));
+                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(1));
                                   },),
                                   SizedBox(width: 7,),
                                   RoomNumberWidget(noOfRoom: 2,onTap: (){
-                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(2.toString()));
+                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(2));
                                   },),
                                   SizedBox(width: 7,),
                                   RoomNumberWidget(noOfRoom: 3,onTap: (){
-                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(3.toString()));
+                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(3));
                                   },),
                                   SizedBox(width: 7,),
                                   RoomNumberWidget(noOfRoom: 4,onTap: (){
-                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(4.toString()));
+                                    BlocProvider.of<HouseBloc>(context).add(FilterClickedEvent(4));
 
                                   },),
                                 ],

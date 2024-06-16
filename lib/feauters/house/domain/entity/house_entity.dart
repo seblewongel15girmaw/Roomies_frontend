@@ -8,13 +8,14 @@ class HouseEntity extends Equatable{
   final int numberOfRoom;
   final double price;
   final String description;
+  final int brokerId;
   final List<ImageEntity> Images;
 
   const HouseEntity(
-      {required this.houseId, required this.description, required this.price, required this.location, required this.numberOfRoom, required this.Images});
+      {required this.houseId, required this.description,required this.brokerId ,required this.price, required this.location, required this.numberOfRoom, required this.Images});
 
   @override
-  List<Object?> get props => [houseId, location, numberOfRoom, price, description, Images];
+  List<Object?> get props => [houseId, location, numberOfRoom, price, description,brokerId ,Images];
 }
 
 

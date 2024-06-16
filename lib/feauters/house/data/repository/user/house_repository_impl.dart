@@ -3,13 +3,15 @@ import 'package:begara_mobile/feauters/house/data/model/house_model.dart';
 import 'package:begara_mobile/feauters/house/domain/entity/house_entity.dart';
 import 'package:begara_mobile/feauters/house/domain/repository/user/house_repository.dart';
 
+import '../../model/broker_model.dart';
+
 class HouseRepositoryImpl implements HouseRepository{
   HouseRemoteDatasource houseRemoteDatasource;
 
   HouseRepositoryImpl({required this.houseRemoteDatasource});
 
   @override
-  Future<List<HouseModel>> filterHouse(String numOfRoom) async{
+  Future<List<HouseModel>> filterHouse(int numOfRoom) async{
     return houseRemoteDatasource.filterHouse(numOfRoom);
   }
 
@@ -30,6 +32,11 @@ class HouseRepositoryImpl implements HouseRepository{
   Future<HouseModel> searchHouse(String id) {
     // TODO: implement searchHouse
     throw UnimplementedError();
+  }
+
+  @override
+  Future<BrokerModel?> getBrokerProfile(String id) async{
+    return await houseRemoteDatasource.getBrokerProfile(id);
   }
 
 }

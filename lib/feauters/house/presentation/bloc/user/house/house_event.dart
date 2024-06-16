@@ -8,7 +8,7 @@ class AddToFavoriteHouseEvent extends HouseEvent{}
 class HouseDetailEvent extends HouseEvent{}
 
 class FilterClickedEvent extends HouseEvent{
-  String numOfRoom;
+  int numOfRoom;
   FilterClickedEvent(this.numOfRoom);
 }
 class RemoveFromFavoriteHouseEvent extends HouseEvent{}

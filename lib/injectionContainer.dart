@@ -39,6 +39,7 @@ import 'package:begara_mobile/feauters/house/data/datasource/user/payment_remote
 import 'package:begara_mobile/feauters/house/data/repository/user/payment_repository_impl.dart';
 import 'package:begara_mobile/feauters/house/domain/usecase/user/checkPaymentStatus.dart';
 import 'package:begara_mobile/feauters/house/domain/usecase/user/filterHouse.dart';
+import 'package:begara_mobile/feauters/house/domain/usecase/user/get_broker_profile.dart';
 import 'package:begara_mobile/feauters/house/domain/usecase/user/makePayment.dart';
 import 'package:begara_mobile/feauters/house/presentation/bloc/user/payment/payment_bloc.dart';
 import 'package:begara_mobile/feauters/recommendation/data/data_source/roommate_data_source.dart';
@@ -99,7 +100,7 @@ Future <void> init() async{
   sl.registerFactory<InstantiateBloc>(() => InstantiateBloc(sl()));
   sl.registerFactory(() => FeedBackBloc(sl()));
   sl.registerFactory(() => LocationBloc(sl()));
-  sl.registerFactory(() => HouseBloc(sl(), sl()));
+  sl.registerFactory(() => HouseBloc(sl(), sl(), sl()));
   sl.registerFactory(() => LogoutBloc(sl()));
   sl.registerFactory(()=>DeactivateBloc(sl()));
   sl.registerFactory(()=> PaymentBloc(sl(), sl()));
@@ -125,6 +126,7 @@ Future <void> init() async{
   sl.registerLazySingleton(()=>UnsubscribeUser(sl()));
   sl.registerLazySingleton(()=> MakePayment(sl()));
   sl.registerLazySingleton(()=> CheckPaymentStatus(sl()));
+  sl.registerLazySingleton(()=> GetBrokerProfile(sl()));
   sl.registerLazySingleton<UserRepo>(() => UserRepositoryImpl(sl(), sl(), sl()) );
   sl.registerLazySingleton<UserStatusRepository>(()=> UserStatusRepoImpl(sl()));
   sl.registerLazySingleton<UserDataSources>(() => userDataSourcesImpl(sl()));
