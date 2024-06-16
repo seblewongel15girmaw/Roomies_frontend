@@ -7,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 class ImageBloc extends Bloc<SelectEvent,ImageState> {
   ImageBloc():super(Idle()){
     on<ProfileClicked>(selectImageClicked);
-    on<IdClicked>(selectIDClicked);
+   
   }
 
   FutureOr<void> selectImageClicked(ProfileClicked event, Emitter emit) async{
@@ -19,15 +19,4 @@ class ImageBloc extends Bloc<SelectEvent,ImageState> {
   
    }}
   
-
-  FutureOr<void> selectIDClicked(IdClicked event, Emitter emit) async{
-    final picker = ImagePicker(); 
-   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-   if(pickedFile!=null){
-    
-   emit(IdSelected(pickedFile));
-  
-   }
-
-  }
 }

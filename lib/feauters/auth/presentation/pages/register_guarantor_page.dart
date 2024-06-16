@@ -12,6 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/util/locations.dart';
+import '../bloc/others/image/id_image.dart/id_image_bloc.dart';
+import '../bloc/others/image/id_image.dart/id_image_event.dart';
+import '../bloc/others/image/id_image.dart/id_image_state.dart';
 import '../bloc/others/image/image.dart';
 import '../widgets/drop_down_option.dart';
 import '../widgets/submit_button.dart';
@@ -122,16 +125,15 @@ class RegisterGuarantorPage extends StatelessWidget {
                         height: 30,
                       ),
                       UploadImageButton(
-                        idImage: image2,
-                        onPressed: () {
-                          BlocProvider.of<ImageBloc>(context).add(IdClicked());
+                            idImage: image2,
+                            onPressed: () {
+                          BlocProvider.of<IdImageBloc>(context).add(IdClicked());
                         },
                         listener: (context, state) {
-                          if (state is IdSelected) {
-                            image2 = state.image2;
+                          if (state is IdSuccess) {
+                            image2 = state.image;
                           }
-                        },
-                      ),
+                        },),
                       ErrorMessage(image: "image2"),
                       SizedBox(
                         height: 45,

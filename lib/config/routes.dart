@@ -34,6 +34,7 @@ import '../feauters/auth/presentation/bloc/change_password/change_password.dart'
 import '../feauters/auth/presentation/bloc/deactivate/deactivate.dart';
 import '../feauters/auth/presentation/bloc/location/locations.dart';
 import '../feauters/auth/presentation/bloc/logout/logout.dart';
+import '../feauters/auth/presentation/bloc/others/image/id_image.dart/id_image_bloc.dart';
 import '../feauters/auth/presentation/bloc/recover_password/recover_password.dart';
 import '../feauters/auth/presentation/bloc/users_profile/users_profile_bloc.dart';
 import '../feauters/auth/presentation/pages/change_password_page.dart';
@@ -85,6 +86,7 @@ class Routes{
         BlocProvider<DropDownBloc>(create: (context) => DropDownBloc()) ,
         BlocProvider<ImageBloc>(create: (context) => ImageBloc()) ,
         BlocProvider<RadioBloc>(create: (context) => RadioBloc()) ,
+        BlocProvider<IdImageBloc>(create: (context) => IdImageBloc()) ,
         BlocProvider<ProfileBloc>(create: (context) =>sl<ProfileBloc>()),
         BlocProvider<LocationBloc>(create: (context) =>sl<LocationBloc>()),
         ],

@@ -4,7 +4,6 @@ import 'package:begara_mobile/core/error/exceptions.dart';
 import 'package:begara_mobile/core/util/sharedPreference.dart';
 import 'package:begara_mobile/feauters/auth/data/model/user.dart';
 import 'package:begara_mobile/feauters/auth/data/utils/functions.dart';
-import 'package:begara_mobile/feauters/auth/domain/Entities/user.dart';
 import 'package:begara_mobile/feauters/recommendation/data/models/roommate.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,12 +30,11 @@ class RoommateDataSourceImpl implements RoommateDataSource{
     );
     if (response.statusCode==200){
     List<dynamic> roommates = json.decode(response.body)['preferenceList'];
-    
+    roommates.sort((a,b)=>b["similarityScore"].compareTo(a["similarityScore"]));
     final potentialRoommates=roommates.map((json) => RoommateModel.fromJson(json)).toList();
-    print('the potential roommates are $potentialRoommates');
     return potentialRoommates;}
     else{
-      print("daily reminder that we are here");
+      
       print("error has occured ${response.body}");
       throw ServerExceptions();
     }
@@ -48,11 +46,14 @@ class RoommateDataSourceImpl implements RoommateDataSource{
     final token = await SharedPreferencesService.getString("tokens");
     final userId = decodeJwt(token!)["userId"];
     final response= await client.get(
-      Uri.parse( "http://${ipAdress}:3000/api/users/$userId")
+      Uri.parse( "http://${ipAdress}:3000/api/users/$userId"),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token'
+      },
     );
     if(response.statusCode==200){
       final userData=json.decode(response.body)["user"];
-      
       final user= UserModel.fromJson(userData);
       return user;
     }

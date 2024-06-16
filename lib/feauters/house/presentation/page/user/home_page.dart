@@ -229,7 +229,9 @@ void update({bool refresh = true}){
 
   @override
   Widget build(BuildContext context) {
+    
     BlocProvider.of<UserProfileBloc>(context).add(UserProfileEvent(0));
+    
     setState(() {
       update(refresh: true);
     });

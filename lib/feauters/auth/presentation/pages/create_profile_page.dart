@@ -12,6 +12,9 @@ import 'package:begara_mobile/feauters/auth/presentation/widgets/upload_button.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import '../bloc/others/image/id_image.dart/id_image_bloc.dart';
+import '../bloc/others/image/id_image.dart/id_image_event.dart';
+import '../bloc/others/image/id_image.dart/id_image_state.dart';
 import '../widgets/location_bar.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -235,18 +238,18 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(
                         height: 20,
                       ),
+                      
                       UploadImageButton(
                         key: Key("profile_id_upload"),
-                        idImage: image2,
-                        onPressed: () {
-                          BlocProvider.of<ImageBloc>(context).add(IdClicked());
+                            idImage: image2,
+                            onPressed: () {
+                          BlocProvider.of<IdImageBloc>(context).add(IdClicked());
                         },
                         listener: (context, state) {
-                          if (state is IdSelected) {
-                            image2 = state.image2;
+                          if (state is IdSuccess) {
+                            image2 = state.image;
                           }
-                        },
-                      ),
+                        },),
                       ErrorMessage(image: "image2"),
                       SizedBox(
                         height: 20,

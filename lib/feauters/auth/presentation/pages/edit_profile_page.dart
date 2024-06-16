@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:begara_mobile/core/util/validators.dart';
 import 'package:begara_mobile/feauters/auth/domain/Entities/location.dart';
+import 'package:begara_mobile/feauters/auth/presentation/bloc/others/image/id_image.dart/id_image_state.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/others/image/image.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/profile/profile.dart';
 import 'package:begara_mobile/feauters/auth/presentation/bloc/users_profile/user_profile.dart';
@@ -14,6 +15,10 @@ import 'package:begara_mobile/feauters/auth/presentation/widgets/upload_button.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../core/util/env.dart';
+import '../bloc/others/image/id_image.dart/id_image_bloc.dart';
+import '../bloc/others/image/id_image.dart/id_image_event.dart';
 
 
 class EditProfilePage extends StatelessWidget {
@@ -43,6 +48,20 @@ class EditProfilePage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor:  Color.fromARGB(255, 187, 148, 48),
+            title: Text("Edit Profile"),
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            elevation: 0,
+          ),
       body: BlocBuilder<UserProfileBloc,UserProfileState>(
         builder: (context,state) {
           
@@ -102,7 +121,7 @@ class EditProfilePage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            image: FileImage(File(user.image)),
+                                            image: NetworkImage("http://${ipAdress}:8000/${user.image!.split("\\").last}"),
                                             fit: BoxFit.fill)),
                                   )
                           ),
@@ -262,14 +281,13 @@ class EditProfilePage extends StatelessWidget {
                           UploadImageButton(
                             idImage: image2,
                             onPressed: () {
-                              BlocProvider.of<ImageBloc>(context).add(IdClicked());
-                            },
-                            listener: (context, state) {
-                              if (state is IdSelected) {
-                                image2 = state.image2;
-                              }
-                            },
-                          ),
+                          BlocProvider.of<IdImageBloc>(context).add(IdClicked());
+                        },
+                        listener: (context, state) {
+                          if (state is IdSuccess) {
+                            image2 = state.image;
+                          }
+                        },),
                           ErrorMessage(image: "image2"),
                           SizedBox(
                             height: 20,
@@ -337,7 +355,7 @@ class EditProfilePage extends StatelessWidget {
                                   buttonText: "Update Profile",
                                   listener: (context, state) {
                                      if (state is CreateSuccess) {
-                              Navigator.pushNamed(context, '/guarantor',);
+                              Navigator.pop(context);
                           }
                                   },
                                   success: CreateSuccess,

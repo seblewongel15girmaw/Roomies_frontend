@@ -28,22 +28,29 @@ class SubmitButton extends StatelessWidget {
       bloc: bloc,
       listener: (context, state) => listener(context, state),
       builder: (context, state) {
-        return ElevatedButton(
-          key: buttonKey,
-          style: ElevatedButton.styleFrom(
-            fixedSize: Size(200, 20),
-            backgroundColor: _getBackgroundColor(state),
-            foregroundColor: Colors.black,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0), // Adjust the value as needed
+        return Column(
+          children: [
+            ElevatedButton(
+              key: buttonKey,
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(200, 20),
+                backgroundColor: _getBackgroundColor(state),
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0), // Adjust the value as needed
+                ),
+              ),
+              onPressed: () {
+              
+                  onPressed();
+                
+              },
+              child: _buildButtonContent(state),
             ),
-          ),
-          onPressed: () {
-          
-              onPressed();
-            
-          },
-          child: _buildButtonContent(state),
+            SizedBox(height: 10,),
+            state.runtimeType==fail?
+            Center(child: Text("Invalid Credentials",style: TextStyle(color: const Color.fromARGB(255, 248, 20, 3)),),):SizedBox(height: 0,)
+          ],
         );
       },
     );
@@ -56,10 +63,7 @@ class SubmitButton extends StatelessWidget {
     } else if (state.runtimeType == success) {
       
       return Colors.green;
-    } else if (state.runtimeType == fail) {
-      
-      return Colors.red;
-    }
+    } 
     
     return Color.fromARGB(255, 187, 148, 48); // Default color
   }
@@ -69,9 +73,7 @@ class SubmitButton extends StatelessWidget {
       return CircularProgressIndicator();
     } else if (state.runtimeType == success) {
       return Text("Success");
-    } else if (state.runtimeType == fail) {
-      return Text("Failed");
-    }
+    } 
     return Text(buttonText);
   }
 }

@@ -34,11 +34,8 @@ class RegisterPage extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
-          Icon(
-            Icons.account_circle,
-            size: 100,
-            color:  Color.fromARGB(255, 187, 148, 48)
-          ),
+          Icon(Icons.account_circle,
+              size: 100, color: Color.fromARGB(255, 187, 148, 48)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -52,23 +49,26 @@ class RegisterPage extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       CustomTextField(
-                          inputKey: const Key("reg_fullname"),
-                          controller: full_name,
-                          labelText: "Full Name",
-                          prefixIcon: Icons.person,
-                          validator: nameValidator,),
+                        inputKey: const Key("reg_fullname"),
+                        controller: full_name,
+                        labelText: "Full Name",
+                        prefixIcon: Icons.person,
+                        validator: nameValidator,
+                      ),
                       CustomTextField(
                         inputKey: const Key("reg_username"),
-                          controller: user_name,
-                          labelText: "User Name",
-                          prefixIcon: Icons.person,
-                          validator: nameValidator,),
+                        controller: user_name,
+                        labelText: "User Name",
+                        prefixIcon: Icons.person,
+                        validator: nameValidator,
+                      ),
                       CustomTextField(
                         inputKey: const Key("reg_email"),
-                          controller: email,
-                          labelText: "Email",
-                          prefixIcon: Icons.email,
-                          validator: emailValidator,),
+                        controller: email,
+                        labelText: "Email",
+                        prefixIcon: Icons.email,
+                        validator: emailValidator,
+                      ),
                       PasswordFormField(
                         inputKey: const Key("reg_password"),
                         controller: password,
@@ -79,8 +79,9 @@ class RegisterPage extends StatelessWidget {
                         inputKey: const Key("reg_password2"),
                         controller: repassword,
                         labelText: "RE-enter Password",
-                        validator: (value){
-                          dynamic result =repasswordValidator(value, password.text);
+                        validator: (value) {
+                          dynamic result =
+                              repasswordValidator(value, password.text);
                           return result;
                         },
                       ),
@@ -101,7 +102,45 @@ class RegisterPage extends StatelessWidget {
                           },
                           buttonText: "Register",
                           listener: (context, state) {
-                            Navigator.pushNamed(context, "/login");
+                            if(state is RegisterSuccess){
+                            showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Email Verification',
+            style: TextStyle(
+              color: Colors.amber,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text(
+            "Please verify your email before logging in. We've sent you an email.",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                Navigator.pushNamed(context, "/login"); // Navigate to the VerificationPage
+              },
+            ),
+          ],
+        );
+      },
+    );}
                           },
                           success: RegisterSuccess,
                           fail: RegisterFailed,
