@@ -22,7 +22,6 @@ class HouseBloc extends Bloc<HouseEvent, HouseState> {
     on<FilterClickedEvent>(filterClicked);
   }
 
-
   FutureOr<void> initialEvent(InitialEvent event,
       Emitter<HouseState> emit) async{
     emit(LoadingState());

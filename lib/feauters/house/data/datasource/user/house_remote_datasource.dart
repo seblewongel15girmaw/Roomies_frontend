@@ -12,7 +12,7 @@ import '../../model/broker_model.dart';
 
 abstract class HouseRemoteDatasource {
   Future<List<HouseModel>> getHouseList();
-  Future<List<HouseModel>> filterHouse(String numOfRoom);
+  Future<List<HouseModel>> filterHouse(int numOfRoom);
   Future<BrokerModel?> getBrokerProfile(String id);
 //   Future<List<HouseModel>> filterHouse(int numOfRoom);
 }
@@ -29,6 +29,7 @@ class HouseRemoteDatasourceImpl extends HouseRemoteDatasource {
 
     try {
       late List<HouseModel> houseModelList;
+print("this is not working");
       var response = await client
           .get(Uri.parse('${BASEURL}houses/getallhouse/${userId}'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -55,26 +56,6 @@ class HouseRemoteDatasourceImpl extends HouseRemoteDatasource {
 
 
   @override
-  Future<List<HouseModel>> filterHouse(String numOfRoom) async{
-    final token= await SharedPreferencesService.getString("tokens");
-    final userId= decodeJwt(token!)["userId"];
-
-    try{
-     var response= await client.post(Uri.parse("${BASEURL}houses/get_all_house_room_based/${userId}"),
-     body: jsonEncode({'numberOfRoom': numOfRoom}),);
-     List houses =jsonDecode(response.body);
-     List<HouseModel> houseList= houses.map((house){
-      return HouseModel.fromJson(house);
-     }).toList();
-return houseList;
-   }
-   catch(err){
-print(err);
-return [];
-   }
-  }
-
-  @override
   Future<BrokerModel?> getBrokerProfile(String id) async{
     try{
       var response = await client.get(Uri.parse(BASEURL+"brokers/getProfile/${id}"));
@@ -86,29 +67,47 @@ return [];
       return null;
         }
   }
-    //   finally{
-    //       client.close();
-    // }
-  }
 
 
-//   Future<List<HouseModel>> filterHouse(String numOfRoom) async {
-//     final token = await SharedPreferencesService.getString("tokens");
-//     final userId = decodeJwt(token!)["userId"];
+  Future<List<HouseModel>> filterHouse(int numOfRoom) async {
+    final token = await SharedPreferencesService.getString("tokens");
+    final userId = decodeJwt(token!)["userId"];
 
-//     try {
-//       var response = await client.post(
-//         Uri.parse("${BASEURL}houses/get_all_house_room_based/${userId}"),
-//         body: jsonEncode({'numberOfRoom': numOfRoom}),
-//       );
-//       List houses = jsonDecode(response.body);
-//       List<HouseModel> houseList = houses.map((house) {
-//         return HouseModel.fromJson(house);
-//       }).toList();
-//       return houseList;
-//     } catch (err) {
-//       print(err);
-//       return [];
-//     }
+    try {
+      var response = await client.post(
+        Uri.parse("${BASEURL}houses/get_all_house_room_based/${userId}"),
+        body: jsonEncode({'numberOfRoom': numOfRoom}),
+      );
+      List houses = jsonDecode(response.body);
+      List<HouseModel> houseList = houses.map((house) {
+        return HouseModel.fromJson(house);
+      }).toList();
+      return houseList;
+    } catch (err) {
+      print(err);
+      return [];
+    }
   }
 }
+
+//
+//
+// @override
+// Future<List<HouseModel>> filterHouse(int numOfRoom) async{
+//   final token= await SharedPreferencesService.getString("tokens");
+//   final userId= decodeJwt(token!)["userId"];
+//
+//   try{
+//     var response= await client.post(Uri.parse("${BASEURL}houses/get_all_house_room_based/${userId}"),
+//       body: jsonEncode({'numberOfRoom': numOfRoom}),);
+//     List houses =jsonDecode(response.body);
+//     List<HouseModel> houseList= houses.map((house){
+//       return HouseModel.fromJson(house);
+//     }).toList();
+//     return houseList;
+//   }
+//   catch(err){
+//     print(err);
+//     return [];
+//   }
+// }

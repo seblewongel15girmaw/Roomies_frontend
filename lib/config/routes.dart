@@ -165,17 +165,17 @@ class Routes{
         )
       );
 
-       case '/houseDetail':
-         var args= settings.arguments as HouseModel;
-      return MaterialPageRoute(
-        builder: (_)=>MultiBlocProvider(providers: [
-          BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
-          BlocProvider<PaymentBloc>(create: (context)=>sl<PaymentBloc>()),
-          BlocProvider<UserStatusBloc>(create:(context)=>sl<UserStatusBloc>())
-       ],
-        child: HouseDetail(houseModel: args,),
-        ),
-      );
+      //  case '/houseDetail':
+      //    var args= settings.arguments as HouseModel;
+      // return MaterialPageRoute(
+      //   builder: (_)=>MultiBlocProvider(providers: [
+      //     BlocProvider<HouseBloc>(create: (context)=>sl<HouseBloc>()),
+      //     BlocProvider<PaymentBloc>(create: (context)=>sl<PaymentBloc>()),
+      //     BlocProvider<UserStatusBloc>(create:(context)=>sl<UserStatusBloc>())
+      //  ],
+      //   child: HouseDetail(houseModel: args,),
+      //   ),
+      // );
 
       case '/brokerProfile':
       return MaterialPageRoute(
