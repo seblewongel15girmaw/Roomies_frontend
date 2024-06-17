@@ -5,7 +5,7 @@ class SuccessMessageModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      
       children: [
         Icon(
           Icons.thumb_up_sharp,
@@ -15,16 +15,21 @@ class SuccessMessageModal extends StatelessWidget {
         SizedBox(
           height: 10,
         ),
-        Text(
-          "We greatly appreciate your feedback. Thank you for sharing it with us.",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "We greatly appreciate your feedback. Thank you for sharing it with us.",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
         ),
         SizedBox(
           height: 25,
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, "/homePage");
+          },
           child: Container(
             
             width: 250,
